@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Java+OpenCV 学习笔记 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;OpenCV是一个基于Apache2.0许可（开源）发行的跨平台&lt;a href=&#34;https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2803351?fromModule=lemma_inlink&#34;&gt;计算机视觉&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink&#34;&gt;机器学习&lt;/a&gt;软件库。OpenCV用C++语言编写，它具有C ++，&lt;a href=&#34;https://baike.baidu.com/item/Python/407313?fromModule=lemma_inlink&#34;&gt;Python&lt;/a&gt;，&lt;a href=&#34;https://baike.baidu.com/item/Java/85979?fromModule=lemma_inlink&#34;&gt;Java&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/MATLAB/263035?fromModule=lemma_inlink&#34;&gt;MATLAB&lt;/a&gt;接口，实现了&lt;a href=&#34;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/294902?fromModule=lemma_inlink&#34;&gt;图像处理&lt;/a&gt;和计算机视觉方面的很多通用算法。&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Java+OpenCV 学习笔记 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;OpenCV是一个基于Apache2.0许可（开源）发行的跨平台&lt;a href=&#34;https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2803351?fromModule=lemma_inlink&#34;&gt;计算机视觉&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink&#34;&gt;机器学习&lt;/a&gt;软件库。OpenCV用C++语言编写，它具有C ++，&lt;a href=&#34;https://baike.baidu.com/item/Python/407313?fromModule=lemma_inlink&#34;&gt;Python&lt;/a&gt;，&lt;a href=&#34;https://baike.baidu.com/item/Java/85979?fromModule=lemma_inlink&#34;&gt;Java&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/MATLAB/263035?fromModule=lemma_inlink&#34;&gt;MATLAB&lt;/a&gt;接口，实现了&lt;a href=&#34;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/294902?fromModule=lemma_inlink&#34;&gt;图像处理&lt;/a&gt;和计算机视觉方面的很多通用算法。&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/04/11/OpencvNote/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;OpenCV是一个基于Apache2.0许可（开源）发行的跨平台&lt;a href=&#34;https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2803351?fromModule=lemma_inlink&#34;&gt;计算机视觉&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink&#34;&gt;机器学习&lt;/a&gt;软件库。OpenCV用C++语言编写，它具有C ++，&lt;a href=&#34;https://baike.baidu.com/item/Python/407313?fromModule=lemma_inlink&#34;&gt;Python&lt;/a&gt;，&lt;a href=&#34;https://baike.baidu.com/item/Java/85979?fromModule=lemma_inlink&#34;&gt;Java&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/MATLAB/263035?fromModule=lemma_inlink&#34;&gt;MATLAB&lt;/a&gt;接口，实现了&lt;a href=&#34;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/294902?fromModule=lemma_inlink&#34;&gt;图像处理&lt;/a&gt;和计算机视觉方面的很多通用算法。&lt;/p&gt;" />
+    <meta name="twitter:title" content="Java+OpenCV 学习笔记 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;OpenCV是一个基于Apache2.0许可（开源）发行的跨平台&lt;a href=&#34;https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2803351?fromModule=lemma_inlink&#34;&gt;计算机视觉&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink&#34;&gt;机器学习&lt;/a&gt;软件库。OpenCV用C++语言编写，它具有C ++，&lt;a href=&#34;https://baike.baidu.com/item/Python/407313?fromModule=lemma_inlink&#34;&gt;Python&lt;/a&gt;，&lt;a href=&#34;https://baike.baidu.com/item/Java/85979?fromModule=lemma_inlink&#34;&gt;Java&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/MATLAB/263035?fromModule=lemma_inlink&#34;&gt;MATLAB&lt;/a&gt;接口，实现了&lt;a href=&#34;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/294902?fromModule=lemma_inlink&#34;&gt;图像处理&lt;/a&gt;和计算机视觉方面的很多通用算法。&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;OpenCV是一个基于Apache2.0许可（开源）发行的跨平台&lt;a href=&#34;https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2803351?fromModule=lemma_inlink&#34;&gt;计算机视觉&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink&#34;&gt;机器学习&lt;/a&gt;软件库。OpenCV用C++语言编写，它具有C ++，&lt;a href=&#34;https://baike.baidu.com/item/Python/407313?fromModule=lemma_inlink&#34;&gt;Python&lt;/a&gt;，&lt;a href=&#34;https://baike.baidu.com/item/Java/85979?fromModule=lemma_inlink&#34;&gt;Java&lt;/a&gt;和&lt;a href=&#34;https://baike.baidu.com/item/MATLAB/263035?fromModule=lemma_inlink&#34;&gt;MATLAB&lt;/a&gt;接口，实现了&lt;a href=&#34;https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/294902?fromModule=lemma_inlink&#34;&gt;图像处理&lt;/a&gt;和计算机视觉方面的很多通用算法。&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/11/OpencvNote/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "Java+OpenCV 学习笔记 | Z Blog",
+            "datePublished": "2023-04-11T13:36:09.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/11/OpencvNote/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgccd496000080ujag4b3d4y" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Java+OpenCV 学习笔记
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-11T13:36:09.000Z" itemprop="datePublished">2023-04-11</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>OpenCV是一个基于Apache2.0许可（开源）发行的跨平台<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2803351?fromModule=lemma_inlink">计算机视觉</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink">机器学习</a>软件库。OpenCV用C++语言编写，它具有C ++，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Python/407313?fromModule=lemma_inlink">Python</a>，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Java/85979?fromModule=lemma_inlink">Java</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/MATLAB/263035?fromModule=lemma_inlink">MATLAB</a>接口，实现了<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/294902?fromModule=lemma_inlink">图像处理</a>和计算机视觉方面的很多通用算法。</p>
+<span id="more"></span>
+
+<h3 id="1-OpenCV-环境配置"><a href="#1-OpenCV-环境配置" class="headerlink" title="1.OpenCV 环境配置"></a>1.OpenCV 环境配置</h3><ol>
+<li>首先在OpenCV官网下载并安装到电脑上<a target="_blank" rel="noopener" href="https://opencv.org/releases/">Releases - OpenCV</a><img src="img\1.png" style="zoom: 50%;" /></li>
+<li>配置环境变量，在 开始–搜索查看高级系统设置–环境变量 打开。在系统变量中新建变量，变量名为OPENCV_DIR,变量值为OpenCV的安装路径。<img src="img\2.png" style="zoom: 67%;" /><img src="img\3.png" style="zoom:67%;" />然后编辑Path变量，新建xxx\opencv\build\java\x64和xxx\opencv\build\bin。<img src="img\4.png" style="zoom:67%;" /><img src="img\5.png" style="zoom:67%;" /></li>
+<li>在IDEA的Project Structure中导入安装的opencv-xxx.jar和opencv_javaxxx.dll.分别在opencv\build\java和opencv\build\java\x64目录下。<img src="img\6.png" style="zoom:67%;" /></li>
+</ol>
+<img src="img\7.png" style="zoom:67%;" />
+
+<h3 id="2-图像读取和输出"><a href="#2-图像读取和输出" class="headerlink" title="2.图像读取和输出"></a>2.图像读取和输出</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.opencv.core.Core;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.Mat;</span><br><span class="line"><span class="keyword">import</span> org.opencv.highgui.HighGui;</span><br><span class="line"><span class="keyword">import</span> org.opencv.imgcodecs.Imgcodecs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GetImg</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//调用OPENCV的库文件，必须写</span></span><br><span class="line">        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);</span><br><span class="line">        <span class="comment">//读取图片</span></span><br><span class="line">        <span class="type">Mat</span> <span class="variable">src1</span> <span class="operator">=</span> Imgcodecs.imread(<span class="string">&quot;E:\\lena.jpg&quot;</span>);</span><br><span class="line">        <span class="comment">//读取图片并转为灰度图像</span></span><br><span class="line">        <span class="type">Mat</span> <span class="variable">src2</span> <span class="operator">=</span> Imgcodecs.imread(<span class="string">&quot;E:\\lena.jpg&quot;</span>,Imgcodecs.IMREAD_GRAYSCALE);</span><br><span class="line">        <span class="comment">//展示图像</span></span><br><span class="line">        HighGui.imshow(<span class="string">&quot;lena&quot;</span>,src1);</span><br><span class="line">        HighGui.waitKey(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//输出图像</span></span><br><span class="line">        Imgcodecs.imwrite(<span class="string">&quot;gray.jpg&quot;</span>,src2);</span><br><span class="line">        System.out.println(<span class="string">&quot;OK!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/03/28/MobileMall/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Android练手小项目-手机商城</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Java+OpenCV 学习笔记 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F11%2FOpencvNote%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Java+OpenCV 学习笔记 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F11%2FOpencvNote%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Java+OpenCV 学习笔记 - Z Blog&url=http://example.com/2023/04/11/OpencvNote/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/11/OpencvNote/">Java+OpenCV 学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/28/MobileMall/">Android练手小项目-手机商城</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/12/CourseSelectSystem/">大二上学期-期末项目</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
