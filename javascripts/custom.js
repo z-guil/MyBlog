@@ -72,20 +72,20 @@ import { addNewClass, removeClass, throttle } from './class-module'
     })
 
     // Share
-    $('.share > .share-item').hover(
-        function () {
-            addNewClass(
-                $(this).children('.n-icon'),
-                $(this).children('.n-icon')[0].classList[1] + '-select'
-            )
-        },
-        function () {
-            removeClass(
-                $(this).children('.n-icon'),
-                $(this).children('.n-icon')[0].classList[2]
-            )
-        }
-    )
+    // $('.share > .share-item').hover(
+    //     function () {
+    //         addNewClass(
+    //             $(this).children('.n-icon'),
+    //             $(this).children('.n-icon')[0].classList[1] + '-select'
+    //         )
+    //     },
+    //     function () {
+    //         removeClass(
+    //             $(this).children('.n-icon'),
+    //             $(this).children('.n-icon')[0].classList[2]
+    //         )
+    //     }
+    // )
 
     // Social
     $('.footer-info > .social').hover(
