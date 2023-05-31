@@ -209,7 +209,7 @@
 
 <p><strong>参数在阿里云的OSS管理控制台可以看到</strong></p>
 <p>其中<strong>AccessKeyId</strong>和<strong>AccessKey Secret</strong>可以在图片中的页面中得到</p>
-<img src="img\image-20230531181023899.png" style="zoom:100%;" />
+<img src="img\1685531853494.jpg" style="zoom:100%;" />
 
 <h2 id="5-测试"><a href="#5-测试" class="headerlink" title="5.测试"></a>5.测试</h2><h3 id="Controller接口"><a href="#Controller接口" class="headerlink" title="Controller接口"></a>Controller接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestController</span> &#123;</span><br><span class="line">    <span class="meta">@PostMapping(&quot;/upload&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">upload</span><span class="params">(MultipartFile file)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> OssUpload.uploadImg(file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -218,7 +218,7 @@
 <img src="img\image-20230531181419494.png" style="zoom:100%;" />
 
 <p>看到页面返回了图片的url,再到阿里云的控制台可以看到已经上传成功了</p>
-<img src="img\image-20230531181445061.png" style="zoom:100%;" />
+<img src="img\30452f56309d35142417ec583be7578.png" style="zoom:100%;" />
 
 <img src="img\image-20230531181519158.png" style="zoom:100%;" />
         </div>
@@ -240,7 +240,7 @@
   
   
     <a href="/2023/05/17/iconfont/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">precedente</div>
+      <div class="article-nav-caption">上一篇</div>
       <div class="article-nav-title">图标的使用</div>
     </a>
   
@@ -248,7 +248,7 @@
 
 
     <section class="share">
-        <div class="share-title">share</div>
+        <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=图片上传至阿里云OSS - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F05%2F31%2FOSS%2F">
             <ion-icon name="logo-twitter"></ion-icon>
