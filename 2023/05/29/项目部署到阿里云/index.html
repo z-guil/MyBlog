@@ -197,42 +197,61 @@
 
 <h2 id="1-购买阿里云服务器"><a href="#1-购买阿里云服务器" class="headerlink" title="1.购买阿里云服务器"></a>1.购买阿里云服务器</h2><img src="img\1.png" style="zoom:100%;" />
 
-<p><img src="img%5C2.png" alt="2.png"></p>
-<h2 id="2-Xshell连接服务器"><a href="#2-Xshell连接服务器" class="headerlink" title="2.Xshell连接服务器"></a>2.Xshell连接服务器</h2><p><img src="img%5C3.png" alt="image-20230531192934285"></p>
-<p><img src="img%5C4.png" alt="image-20230531193011507"></p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<h2 id="2-Xshell连接服务器"><a href="#2-Xshell连接服务器" class="headerlink" title="2.Xshell连接服务器"></a>2.Xshell连接服务器</h2><img src="img\3.png" style="zoom:100%;" />
+
+<img src="img\4.png" style="zoom:100%;" />
+
 <h2 id="3-安装宝塔面板"><a href="#3-安装宝塔面板" class="headerlink" title="3.安装宝塔面板"></a>3.安装宝塔面板</h2><p><a target="_blank" rel="noopener" href="https://www.bt.cn/new/download.html">宝塔面板下载，免费全能的服务器运维软件 (bt.cn)</a></p>
-<p><img src="img%5C5.png" alt="image-20230531193210088"></p>
+<img src="img\5.png" style="zoom:100%;" />
+
 <p>复制后在Xshell终端中粘贴运行</p>
-<p><img src="img%5C6.png" alt="image-20230531193317160"></p>
+<img src="img\6.png" style="zoom:100%;" />
+
 <p>安装完成后得到面板地址</p>
-<p><img src="img%5C7.png" alt="image-20230531193738499"></p>
+<img src="img\7.png" style="zoom:100%;" />
+
 <p>使用</p>
-<h2 id="4-放行面板所需端口及项目端口"><a href="#4-放行面板所需端口及项目端口" class="headerlink" title="4.放行面板所需端口及项目端口"></a>4.放行面板所需端口及项目端口</h2><p><img src="img%5C8.png" alt="image-20230531193936568"></p>
-<p><img src="img%5C9.png" alt="image-20230531194012954"></p>
+<h2 id="4-放行面板所需端口及项目端口"><a href="#4-放行面板所需端口及项目端口" class="headerlink" title="4.放行面板所需端口及项目端口"></a>4.放行面板所需端口及项目端口</h2><img src="img\8.png" style="zoom:100%;" />
+
+<img src="img\9.png" style="zoom:100%;" />
+
 <p>例如下面的，放行11257端口，即上面Xshell中给出的面板端口，此外为了运行项目，还需要根据项目的运行需要的端口号来开放服务器端口</p>
-<p><img src="img%5C10.png" alt="image-20230531194210322"></p>
+<img src="img\10.png" style="zoom:100%;" />
+
 <h2 id="5-浏览器登录宝塔并安装套件"><a href="#5-浏览器登录宝塔并安装套件" class="headerlink" title="5.浏览器登录宝塔并安装套件"></a>5.浏览器登录宝塔并安装套件</h2><p>用终端中得到的用户名和密码登录宝塔面板</p>
-<p><img src="img%5C11.png" alt="image-20230531200135586"></p>
-<p><img src="img%5C12.png" alt="image-20230531200336365"></p>
+<img src="img\11.png" style="zoom:100%;" />
+
+<img src="img\12.png" style="zoom:100%;" />
+
 <p>在面板的软件商店中搜索java，安装  <strong>java项目一键部署</strong></p>
-<p><img src="img%5C18.png" alt="image-20230531201421994"></p>
+<img src="img\18.png" style="zoom:100%;" />
+
 <h2 id="6-数据库迁移"><a href="#6-数据库迁移" class="headerlink" title="6.数据库迁移"></a>6.数据库迁移</h2><p>将项目所需的数据库导出为**.sql**文件并通过宝塔面板导入阿里云服务器。下面以DataGrip导出数据库为例</p>
-<p><img src="img%5C13.png" alt="image-20230531200648597"></p>
-<p><img src="img%5C14.png" alt="image-20230531200728153"></p>
-<p><img src="img%5C15.png" alt="image-20230531200820725"></p>
+<img src="img\13.png" style="zoom:100%;" />
+
+<img src="img\14.png" style="zoom:100%;" />
+
+<img src="img\15.png" style="zoom:100%;" />
+
 <p>导出后，来到宝塔面板-<strong>数据库-添加数据库</strong>，创建一个新的数据库</p>
-<p><img src="img%5C16.png" alt="image-20230531200922372"></p>
+<img src="img\16.png" style="zoom:100%;" />
+
 <p>将刚才导出的**.sql<strong>文件</strong>上传并点击导入**</p>
-<p><img src="img%5C17.png" alt="image-20230531201006371"></p>
+<img src="img\17.png" style="zoom:100%;" />
+
 <p>导入后，点击<strong>phpMyAdmin</strong>可以查看数据库</p>
-<h2 id="7-在服务器上安装java环境"><a href="#7-在服务器上安装java环境" class="headerlink" title="7.在服务器上安装java环境"></a>7.在服务器上安装java环境</h2><h3 id="下载jdk"><a href="#下载jdk" class="headerlink" title="下载jdk"></a>下载jdk</h3><p><img src="img%5C19.png" alt="image-20230531201741767"></p>
+<h2 id="7-在服务器上安装java环境"><a href="#7-在服务器上安装java环境" class="headerlink" title="7.在服务器上安装java环境"></a>7.在服务器上安装java环境</h2><h3 id="下载jdk"><a href="#下载jdk" class="headerlink" title="下载jdk"></a>下载jdk</h3><img src="img\19.png" style="zoom:100%;" />
+
 <h3 id="上传jdk"><a href="#上传jdk" class="headerlink" title="上传jdk"></a>上传jdk</h3><p>可以通过面板、Xftp或命令进行操作</p>
 <p>这里我使用命令和Xftp进行安装</p>
 <p>先创建java的安装目录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/local/java/</span><br></pre></td></tr></table></figure>
 
 <p>通过Xftp将jdk压缩包上传至该目录下</p>
-<p><img src="img%5C20.png" alt="image-20230531202323831"></p>
+<img src="img\20.png" style="zoom:100%;" />
+
 <h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><p>解压到该目录下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-20_linux-x64_bin.tar.gz  /usr/local/java/</span><br></pre></td></tr></table></figure>
 
@@ -248,18 +267,24 @@
 <p>检查版本,查看是否安装成功</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
 
-<p><img src="img%5C21.png" alt="image-20230531221447379"></p>
+<img src="img\21.png" style="zoom:100%;" />
+
 <h2 id="8-打包项目"><a href="#8-打包项目" class="headerlink" title="8.打包项目"></a>8.打包项目</h2><p>打包前检查要连接的数据库<strong>用户名和密码</strong>是否正确，并确认运行<strong>端口号</strong></p>
-<p><img src="img%5C23.png" alt="image-20230531222044408"></p>
+<img src="img\23.png" style="zoom:100%;" />
+
 <p>点击右侧<strong>Maven</strong>菜单，选择<strong>package</strong></p>
-<p><img src="img%5C22.png" alt="image-20230531221639810"></p>
+<img src="img\22.png" style="zoom:100%;" />
+
 <p>然后在左侧<strong>target</strong>目录下就可以看到打包完成后产生的jar包</p>
-<p><img src="img%5C25.png" alt="image-20230531221707325"></p>
+<img src="img\25.png" style="zoom:100%;" />
+
 <h2 id="9-上传项目"><a href="#9-上传项目" class="headerlink" title="9.上传项目"></a>9.上传项目</h2><p>打开宝塔面板，点击上传，上传jar包到目的文件夹，这里我放在了**/www/wwwroot/http/**下</p>
-<p><img src="img%5C26.png" alt="image-20230531222218396"></p>
+<img src="img\26.png" style="zoom:100%;" />
+
 <h2 id="10-运行项目"><a href="#10-运行项目" class="headerlink" title="10.运行项目"></a>10.运行项目</h2><p>记得在此之前一定要开放服务器上对应项目运行端口！</p>
 <p>在该目录下打开终端</p>
-<p><img src="img%5C28.png" alt="image-20230531222359373"></p>
+<img src="img\28.png" style="zoom:100%;" />
+
 <p>输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar springboot-0.0.1-SNAPSHOT.jar &gt;&gt; mylog.log &amp;</span><br></pre></td></tr></table></figure>
 
@@ -270,15 +295,15 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep java</span><br></pre></td></tr></table></figure>
 
 <p>可以查看当前运行中的java程序</p>
-<p><img src="img%5C24.png" alt="image-20230531223156597"></p>
+<img src="img\24.png" style="zoom:100%;" />
+
 <p>其中用户名后的数字是运行的<strong>进程号(PID)</strong></p>
 <p>如果需要关闭如上项目的进程，可以通过输入以下命令来杀死进程</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill 676453</span><br></pre></td></tr></table></figure>
 
 <p>项目运行起来后</p>
 <p>通过接口访问，发现已经可以正常使用了</p>
-<p><img src="img%5C29.png" alt="image-20230531223706702"></p>
-
+<img src="img\29.png" style="zoom:100%;" />
         </div>
 
     </div>
@@ -297,7 +322,7 @@
 <nav class="article-nav">
   
     <a href="/2023/05/31/OSS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">prossimo</div>
+      <div class="article-nav-caption">下一篇</div>
       <div class="article-nav-title">
         
           图片上传至阿里云OSS
@@ -307,7 +332,7 @@
   
   
     <a href="/2023/05/17/iconfont/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">precedente</div>
+      <div class="article-nav-caption">上一篇</div>
       <div class="article-nav-title">图标的使用</div>
     </a>
   
@@ -315,7 +340,7 @@
 
 
     <section class="share">
-        <div class="share-title">share</div>
+        <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=后端项目部署到阿里云 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F05%2F29%2F%25E9%25A1%25B9%25E7%259B%25AE%25E9%2583%25A8%25E7%25BD%25B2%25E5%2588%25B0%25E9%2598%25BF%25E9%2587%258C%25E4%25BA%2591%2F">
             <ion-icon name="logo-twitter"></ion-icon>
