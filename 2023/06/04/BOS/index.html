@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>图片上传至百度智能云BOS | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;由于使用阿里云OSS时，如果Bucket不绑定自己的域名，则&lt;strong&gt;无法通过URL直接预览图片&lt;/strong&gt;，而是通过附件的形式&lt;strong&gt;下载&lt;/strong&gt;。而且我自己购买的域名并&lt;strong&gt;不满足备案条件&lt;/strong&gt;，于是改用百度智能云提供的BOS对象存储。&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "图片上传至百度智能云BOS | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;由于使用阿里云OSS时，如果Bucket不绑定自己的域名，则&lt;strong&gt;无法通过URL直接预览图片&lt;/strong&gt;，而是通过附件的形式&lt;strong&gt;下载&lt;/strong&gt;。而且我自己购买的域名并&lt;strong&gt;不满足备案条件&lt;/strong&gt;，于是改用百度智能云提供的BOS对象存储。&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/06/04/BOS/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;由于使用阿里云OSS时，如果Bucket不绑定自己的域名，则&lt;strong&gt;无法通过URL直接预览图片&lt;/strong&gt;，而是通过附件的形式&lt;strong&gt;下载&lt;/strong&gt;。而且我自己购买的域名并&lt;strong&gt;不满足备案条件&lt;/strong&gt;，于是改用百度智能云提供的BOS对象存储。&lt;/p&gt;" />
+    <meta name="twitter:title" content="图片上传至百度智能云BOS | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;由于使用阿里云OSS时，如果Bucket不绑定自己的域名，则&lt;strong&gt;无法通过URL直接预览图片&lt;/strong&gt;，而是通过附件的形式&lt;strong&gt;下载&lt;/strong&gt;。而且我自己购买的域名并&lt;strong&gt;不满足备案条件&lt;/strong&gt;，于是改用百度智能云提供的BOS对象存储。&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;由于使用阿里云OSS时，如果Bucket不绑定自己的域名，则&lt;strong&gt;无法通过URL直接预览图片&lt;/strong&gt;，而是通过附件的形式&lt;strong&gt;下载&lt;/strong&gt;。而且我自己购买的域名并&lt;strong&gt;不满足备案条件&lt;/strong&gt;，于是改用百度智能云提供的BOS对象存储。&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/06/04/BOS/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "图片上传至百度智能云BOS | Z Blog",
+            "datePublished": "2023-06-04T02:43:20.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/06/04/BOS/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cligv6c7k000030ujgw782al7" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      图片上传至百度智能云BOS
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-06-04T02:43:20.000Z" itemprop="datePublished">2023-06-04</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>由于使用阿里云OSS时，如果Bucket不绑定自己的域名，则<strong>无法通过URL直接预览图片</strong>，而是通过附件的形式<strong>下载</strong>。而且我自己购买的域名并<strong>不满足备案条件</strong>，于是改用百度智能云提供的BOS对象存储。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>阿里云官方说明:</p>
+<p>访问您的图片文件，无法预览，直接下载，是由于从从2019年9月23日起，针对之后新建的Bucket，直接使用OSS提供的默认域名，从互联网访问OSS上该Bucket的图片类型文件时，mimetype为以下值，</p>
+<p>Response Header中会自动加上Content-Disposition:’attachment=filename;’。</p>
+<p>即从浏览器访问图片类型文件时，会以附件形式进行下载，如果您要直接在浏览器中预览文件而非下载文件，请设置文件HTTP头中的Content-Disposition为inline并使用Bucket绑定的自定义域名进行访问</p>
+</blockquote>
+<hr>
+<p>以下是我的图片上传至百度智能云BOS具体步骤：</p>
+<h2 id="1-开通百度智能云对象存储BOS"><a href="#1-开通百度智能云对象存储BOS" class="headerlink" title="1.开通百度智能云对象存储BOS"></a>1.开通百度智能云对象存储BOS</h2><p>首页搜索对象存储，开通后跳转到<strong>管理控制台</strong></p>
+<h2 id="2-创建Bucket"><a href="#2-创建Bucket" class="headerlink" title="2.创建Bucket"></a>2.创建Bucket</h2><p>点击Bucket列表</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<h2 id="3-导入依赖"><a href="#3-导入依赖" class="headerlink" title="3.导入依赖"></a>3.导入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baidubce<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bce-java-sdk<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.10.261<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-编写工具类"><a href="#4-编写工具类" class="headerlink" title="4.编写工具类"></a>4.编写工具类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.baidubce.auth.DefaultBceCredentials;</span><br><span class="line"><span class="keyword">import</span> com.baidubce.services.bos.BosClient;</span><br><span class="line"><span class="keyword">import</span> com.baidubce.services.bos.BosClientConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.FilenameUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BosUpload</span> &#123;</span><br><span class="line">    <span class="comment">// 访问域名</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">BAIDUYUN_DOMAIN</span> <span class="operator">=</span> <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line">    <span class="comment">// 用户的Access Key ID</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ACCESS_KEY_ID</span> <span class="operator">=</span> <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line">    <span class="comment">// 用户的Secret Access Key</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SECRET_ACCESS_KEY</span> <span class="operator">=</span> <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line">    <span class="comment">// Bucket的名字</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">BUCKET_NAME</span> <span class="operator">=</span> <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">uploadImg</span><span class="params">(MultipartFile file)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 初始化一个BosClient</span></span><br><span class="line">        <span class="type">BosClientConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BosClientConfiguration</span>();</span><br><span class="line">        config.setCredentials(<span class="keyword">new</span> <span class="title class_">DefaultBceCredentials</span>(ACCESS_KEY_ID, SECRET_ACCESS_KEY));</span><br><span class="line">        <span class="type">BosClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BosClient</span>(config);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//生成文件名</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">originalFilename</span> <span class="operator">=</span> file.getOriginalFilename();</span><br><span class="line">        <span class="type">String</span> <span class="variable">extension</span> <span class="operator">=</span> <span class="string">&quot;.&quot;</span>+ FilenameUtils.getExtension(originalFilename);</span><br><span class="line">        <span class="type">String</span> <span class="variable">uuid</span> <span class="operator">=</span> UUID.randomUUID().toString().replaceAll(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> uuid+extension;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行上传</span></span><br><span class="line">        client.putObject(BUCKET_NAME,fileName, file.getBytes());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//返回url</span></span><br><span class="line">        <span class="keyword">return</span> BAIDUYUN_DOMAIN + fileName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<strong>ACCESS_KEY_ID</strong>和<strong>SECRET_ACCESS_KEY</strong>可以在图片中的页面中得到</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<p>默认域名可以在随便上传一张图片后打开看到</p>
+<p>比如这里是  <strong><code>https://bucket-demo01.bj.bcebos.com/</code></strong></p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<h2 id="5-测试"><a href="#5-测试" class="headerlink" title="5.测试"></a>5.测试</h2><h3 id="Controller接口"><a href="#Controller接口" class="headerlink" title="Controller接口"></a>Controller接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestController</span> &#123;</span><br><span class="line">    <span class="meta">@PostMapping(&quot;/upload&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">upload</span><span class="params">(MultipartFile file)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BosUpload.uploadImg(file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="前端页面"><a href="#前端页面" class="headerlink" title="前端页面"></a>前端页面</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/upload&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;file&quot;</span> <span class="attr">value</span>=<span class="string">&quot;上传图片&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;上传&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="img\4.png" style="zoom:100%;" />
+
+<p>选择图片上传后</p>
+<p>看到页面返回了图片的URL,再到百度智能云的控制台可以看到已经上传成功了</p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<img src="img\5.png" style="zoom:100%;" />
+
+<p>最后要注意，通过URL访问需要开启<strong>公共读</strong>权限</p>
+<hr>
+<p>更多操作内容可以参考官方文档</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.baidu.com/doc/BOS/s/Fjwvyrqw2">概述 - 对象存储BOS | 百度智能云文档 (baidu.com)</a></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/05/31/OSS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">图片上传至阿里云OSS</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=图片上传至百度智能云BOS - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F06%2F04%2FBOS%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=图片上传至百度智能云BOS - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F06%2F04%2FBOS%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=图片上传至百度智能云BOS - Z Blog&url=http://example.com/2023/06/04/BOS/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/04/BOS/">图片上传至百度智能云BOS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/31/OSS/">图片上传至阿里云OSS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/29/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/">后端项目部署到阿里云</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/17/iconfont/">图标的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/10/%E5%9F%BA%E6%9C%ACSpringboot%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">SpringBoot项目基本框架构建</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
