@@ -208,12 +208,12 @@
 <ul>
 <li>changeOrigin : 是否跨域</li>
 <li>ws : 如果要代理 websockets，配置这个参数</li>
-<li><img src="img\image-20230425200944312.png" style="zoom:100%;" /></li>
+<li><img src="img\1.png" style="zoom:100%;" /></li>
 </ul>
 <p>详情参考：<a target="_blank" rel="noopener" href="http://t.csdn.cn/YwDEA">http://t.csdn.cn/YwDEA</a></p>
 <h2 id="2-upload组件发送请求"><a href="#2-upload组件发送请求" class="headerlink" title="2.upload组件发送请求"></a>2.upload组件发送请求</h2><p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/upload">upload 组件 | Element</a></p>
 <p>复制粘贴组件后，设置组件的  <strong>action</strong>  属性，值设置为请求地址</p>
-<img src="img\image-20230425194329337.png" style="zoom:100%;" />
+<img src="img\2.png" style="zoom:100%;" />
 
 <p>启动前端，部署在localhost:8081，点击组件上传图片</p>
 <h2 id="3-后端接收图片并保存"><a href="#3-后端接收图片并保存" class="headerlink" title="3.后端接收图片并保存"></a>3.后端接收图片并保存</h2><p>编写后端接口“localhsot:8080/book/imgTest”</p>
@@ -240,7 +240,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-fileupload<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-fileupload<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 <p>导入后前端上传的图片就能保存在服务器上了</p>
-<img src="img\image-20230425200845330.png" style="zoom:100%;" />
+<img src="img\3.png" style="zoom:100%;" />
 
 <h2 id="5-补充"><a href="#5-补充" class="headerlink" title="5.补充"></a>5.补充</h2><h3 id="后端接收图片并保存-改进"><a href="#后端接收图片并保存-改进" class="headerlink" title="后端接收图片并保存(改进)"></a>后端接收图片并保存(改进)</h3><p>编写一个工具类<strong>ImgProcessor</strong>,其中有静态方法<strong>saveImg(MultipartFile file)</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ImgProcessor</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">saveImg</span><span class="params">(MultipartFile file)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">originalFilename</span> <span class="operator">=</span> file.getOriginalFilename(); <span class="comment">// 获取上传的文件名</span></span><br><span class="line">        <span class="type">File</span> <span class="variable">destFolder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;这里写路径&quot;</span>); <span class="comment">// 指定保存的文件夹路径</span></span><br><span class="line">        <span class="type">File</span> <span class="variable">destFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(destFolder, originalFilename);<span class="comment">//指定要保存文件的目标路径</span></span><br><span class="line">        file.transferTo(destFile); <span class="comment">// 将上传的文件保存到指定文件夹中</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Image uploaded successfully!&quot;</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -268,7 +268,7 @@
 <nav class="article-nav">
   
     <a href="/2023/05/10/%E5%9F%BA%E6%9C%ACSpringboot%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-caption">次の記事</div>
       <div class="article-nav-title">
         
           SpringBoot项目基本框架构建
@@ -278,7 +278,7 @@
   
   
     <a href="/2023/04/24/Vue3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-caption">前の記事</div>
       <div class="article-nav-title">Vue3基础 笔记</div>
     </a>
   
@@ -286,7 +286,7 @@
 
 
     <section class="share">
-        <div class="share-title">分享</div>
+        <div class="share-title">シェア</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=图片上传至本地服务器 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F25%2F%25E5%259B%25BE%25E7%2589%2587%25E4%25B8%258A%25E4%25BC%25A0%25E8%2587%25B3%25E6%259C%25AC%25E5%259C%25B0%25E6%259C%258D%25E5%258A%25A1%25E5%2599%25A8%2F">
             <ion-icon name="logo-twitter"></ion-icon>
