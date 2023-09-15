@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>MyBatis-Plus使用 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;MyBatis-plus 学习笔记&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "MyBatis-Plus使用 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;MyBatis-plus 学习笔记&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/09/10/mybatis-plus/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;MyBatis-plus 学习笔记&lt;/p&gt;" />
+    <meta name="twitter:title" content="MyBatis-Plus使用 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;MyBatis-plus 学习笔记&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;MyBatis-plus 学习笔记&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/09/10/mybatis-plus/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "MyBatis-Plus使用 | Z Blog",
+            "datePublished": "2023-09-10T08:14:22.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/09/10/mybatis-plus/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clmk950o80000agujd22lgggv" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      MyBatis-Plus使用
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-09-10T08:14:22.000Z" itemprop="datePublished">2023-09-10</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>MyBatis-plus 学习笔记</p>
+<span id="more"></span>
+
+<h2 id="1-创建工程"><a href="#1-创建工程" class="headerlink" title="1.创建工程"></a>1.创建工程</h2><p>创建一个SpringBoot的工程，此前的<a target="_blank" rel="noopener" href="https://z_glong.oschina.io/2023/05/10/%E5%9F%BA%E6%9C%ACSpringboot%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/">笔记</a>作为参考</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<h2 id="2-基本配置"><a href="#2-基本配置" class="headerlink" title="2.基本配置"></a>2.基本配置</h2><h3 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--MyBatis-plus--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="application-yaml配置"><a href="#application-yaml配置" class="headerlink" title="application.yaml配置"></a>application.yaml配置</h3><p><strong>log-impl:</strong> 的配置可以控制是否输出sql及结果到日志中</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-BaseMapper"><a href="#3-BaseMapper" class="headerlink" title="3.BaseMapper"></a>3.BaseMapper</h2><h3 id="继承BaseMapper-lt-T-gt"><a href="#继承BaseMapper-lt-T-gt" class="headerlink" title="继承BaseMapper&lt;T&gt;"></a>继承<code>BaseMapper&lt;T&gt;</code></h3><p>当我们使用<code>userMapper</code>接口时，可以让其继承<code>BaseMapper&lt;User&gt;</code>.</p>
+<p><code>BaseMapper</code>提供了许多方法供我们操作数据库，大多数操作无需再在UserMapper.xml中写SQL语句</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<h3 id="注入对象"><a href="#注入对象" class="headerlink" title="注入对象"></a>注入对象</h3><p>在测试类中，注入<code>UserMapper</code>对象，然后就可以调用<code>BaseMapper</code>中的方法进行操作</p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<h3 id="测试添加"><a href="#测试添加" class="headerlink" title="测试添加"></a>测试添加</h3><img src="img\5.png" style="zoom:100%;" />
+
+<p>注意这里User的构造器没有传入id,MyBatis-plus会通过雪花算法自动生成id</p>
+<p><strong>如果需要自动生成id , id的数据类型数据库对应的类型至少是bigint , 实体类中主键ID必须是Long类型，long、int、Integer无法实现id自动生成。</strong></p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<h3 id="测试删除"><a href="#测试删除" class="headerlink" title="测试删除"></a>测试删除</h3><p>主要是4个方法：delete()、deleteById()、deleteByMap()、deleteBatchIds()</p>
+<img src="img\7.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDelete</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//删除所有</span></span><br><span class="line">        userMapper.delete(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据id删除，在id后加上L表示long类型,不然会报错</span></span><br><span class="line"><span class="comment">//        userMapper.deleteById(1700427938523058178L);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据其他值删除</span></span><br><span class="line"><span class="comment">//        Map&lt;String,Object&gt; map = new HashMap&lt;String,Object&gt;();</span></span><br><span class="line"><span class="comment">//        map.put(&quot;name&quot;,&quot;jack&quot;);</span></span><br><span class="line"><span class="comment">//        map.put(&quot;age&quot;,&quot;18&quot;);</span></span><br><span class="line"><span class="comment">//        userMapper.deleteByMap(map);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据多个id删除</span></span><br><span class="line"><span class="comment">//        List&lt;Long&gt; list = Arrays.asList(1L, 2L, 3L);</span></span><br><span class="line"><span class="comment">//        userMapper.deleteBatchIds(list);</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试修改"><a href="#测试修改" class="headerlink" title="测试修改"></a>测试修改</h3><img src="img\8.png" style="zoom:100%;" />
+
+<h3 id="测试查询"><a href="#测试查询" class="headerlink" title="测试查询"></a>测试查询</h3><p>主要是4个方法：selectList()、selectById()、selectBatchIds()、selectByMap()</p>
+<img src="img\9.png" style="zoom:100%;" />
+
+<p>当业务需要<strong>自定义</strong>查询逻辑时，可以像mybatis中一样，通过UserMapper.xml中的sql语句来完成操作.</p>
+<p>在<code>MyBatisPlus</code>中映射文件的路径默认如以下，也就是如果直接在<code>resources\mapper\..</code>下创建映射文件，可以不在<code>application.yaml</code>中配置<code>mapper-locations</code></p>
+<img src="img\13.png" style="zoom:100%;" />
+
+<img src="img\10.png" style="zoom:100%;" />
+
+<img src="img\12.png" style="zoom:100%;" />
+
+<img src="img\11.png" style="zoom:100%;" />
+
+<h2 id="4-通用Service接口"><a href="#4-通用Service接口" class="headerlink" title="4.通用Service接口"></a>4.通用Service接口</h2><h3 id="创建接口和实现类"><a href="#创建接口和实现类" class="headerlink" title="创建接口和实现类"></a>创建接口和实现类</h3><p>创建UserService接口，并创建UserServiceImpl实现类</p>
+<img src="img\15.png" style="zoom:100%;" />
+
+<p>两者关系如下图</p>
+<img src="img\14.png" style="zoom:100%;" />
+
+<p><code>UserService</code>继承了<code>IService</code> ，并指定泛型为<code>&lt;User&gt;</code>实体 (如下)</p>
+<img src="img\16.png" style="zoom:100%;" />
+
+<p><code>UserServiceImpl</code>实现<code>UserService</code>接口，继承<code>ServiceImpl</code>并指定泛型为mapper接口和实体<code>&lt;UserMapper,User&gt;</code> (如下)</p>
+<img src="img\17.png" style="zoom:100%;" />
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>测试以查询总条数和批量插入的方法为例</p>
+<img src="img\18.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.mybatis_plus;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.mybatis_plus.pojo.User;</span><br><span class="line"><span class="keyword">import</span> com.example.mybatis_plus.service.UserService;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisPlusServiceTest</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testCount</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> userService.count();</span><br><span class="line">        System.out.println(<span class="string">&quot;总记录数&quot;</span>+count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testInsertMore</span><span class="params">()</span>&#123;</span><br><span class="line">        List&lt;User&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;User&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;insertMore&quot;</span>+i,<span class="number">19</span>,<span class="string">&quot;testInsertMore@test.com&quot;</span>);</span><br><span class="line">            list.add(user);</span><br><span class="line">        &#125;</span><br><span class="line">        userService.saveBatch(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-常用注解"><a href="#5-常用注解" class="headerlink" title="5.常用注解"></a>5.常用注解</h2><h3 id="TableName"><a href="#TableName" class="headerlink" title="@TableName"></a>@TableName</h3><p>一般情况下MybatisPlus默认会将表名设置为实体的小写，如实体User对应表名user.</p>
+<p>当数据库中的表名和实体类的名字对不上时，比如数据库中的表叫<strong>t_user</strong>而实体类为User时，就需要使用注解或者全局配置来指定表名</p>
+<h4 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h4><p>在User类上加@TableName(“t_user”)即可</p>
+<img src="img\19.png" style="zoom:100%;" />
+
+<h4 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h4><p>在application.yaml中按下图配置，可以对所有表名加上指定前缀（这里是 t_ ）</p>
+<img src="img\20.png" style="zoom:100%;" />
+
+<h3 id="TableId"><a href="#TableId" class="headerlink" title="@TableId"></a>@TableId</h3><p>当主键名为 <strong>uid</strong> 而不是 <strong>id</strong> 时，若数据库没有给主键设置自增长，MybatisPlus无法将<strong>uid</strong>识别为主键并进行生成，所以此时需要使用**@TableId<strong>注解，将</strong>uid**指定为主键</p>
+<img src="img\21.png" style="zoom:100%;" />
+
+<h4 id="value属性"><a href="#value属性" class="headerlink" title="value属性"></a>value属性</h4><p>当数据库中的字段名和实体类的属性名不一样时，可以使用value进行指定</p>
+<img src="img\22.png" style="zoom:100%;" />
+
+<h4 id="type属性"><a href="#type属性" class="headerlink" title="type属性"></a>type属性</h4><p>type属性可以设置主键id的生成方式，<strong>默认使用雪花算法生成</strong>，如果需要使用自增长，则需要**在数据库中将主键设置为自增长并同时将type设置为 IdType.AUTO **</p>
+<img src="img\23.png" style="zoom:100%;" />
+
+<h3 id="TableField"><a href="#TableField" class="headerlink" title="@TableField"></a>@TableField</h3><p>假如数据库中字段名为<strong>user_name</strong>,而实体类属性名为<strong>userName</strong>,这种情况可以正常运行，因为MybatisPlus会将下划线改为驼峰命名。</p>
+<p>但如果数据库中字段名为<strong>user_name</strong>,而实体类属性名为<strong>name</strong>,则需要使用**@TableField(“user_name”)**来指定属性所对应的字段名</p>
+<img src="img\24.png" style="zoom:100%;" />
+
+<h3 id="TableLogic"><a href="#TableLogic" class="headerlink" title="@TableLogic"></a>@TableLogic</h3><p>@TableLogic可以实现数据的<strong>逻辑删除而不是物理删除</strong></p>
+<p>使用方法：</p>
+<p>在数据库中增加一个<strong>is_deleted</strong>字段，默认为0。在实体类中添加一个<strong>isDeleted</strong>属性，并带上**@TableLogic**注解</p>
+<p>这样就可以在执行删除操作时，自动将<strong>is_deleted的值从0修改为1</strong>，而不是直接的物理删除</p>
+<img src="img\25.png" style="zoom:100%;" />
+
+<img src="img\26.png" style="zoom:100%;" />
+
+<h2 id="6-条件构造器"><a href="#6-条件构造器" class="headerlink" title="6.条件构造器"></a>6.条件构造器</h2><h3 id="QueryWrapper"><a href="#QueryWrapper" class="headerlink" title="QueryWrapper"></a>QueryWrapper</h3><h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>声明一个QueryWrapper对象，wapper.xxx()，看方法名就能清楚所代表的条件</p>
+<img src="img\27.png" style="zoom:100%;" />
+
+<img src="img\28.png" style="zoom:100%;" />
+
+<img src="img\29.png" style="zoom:100%;" />
+
+<h4 id="考虑优先级"><a href="#考虑优先级" class="headerlink" title="考虑优先级"></a>考虑优先级</h4><p>当需要某些操作优先执行的时候可以用**.and(i-&gt;i.xxx())**的形式</p>
+<img src="img\30.png" style="zoom:100%;" />
+
+<h4 id="仅查询部分字段"><a href="#仅查询部分字段" class="headerlink" title="仅查询部分字段"></a>仅查询部分字段</h4><img src="img\31.png" style="zoom:100%;" />
+
+<h4 id="嵌套查询"><a href="#嵌套查询" class="headerlink" title="嵌套查询"></a>嵌套查询</h4><p>将嵌套的子查询写在inSql中</p>
+<img src="img\32.png" style="zoom:100%;" />
+
+<h3 id="UpdateWrapper"><a href="#UpdateWrapper" class="headerlink" title="UpdateWrapper"></a>UpdateWrapper</h3><p>UpdateWrapper的使用方法和QueryWrapper很类似，仅仅是updateWrapper在完成查询后使用.set()对值进行修改</p>
+<img src="img\33.png" style="zoom:100%;" />
+
+<h3 id="Condition组装条件"><a href="#Condition组装条件" class="headerlink" title="Condition组装条件"></a>Condition组装条件</h3><p>日常开发中可能会遇到传入参数为空的情况</p>
+<p>这个时候就需要使用condition来决定是否使用该条件</p>
+<img src="img\34.png" style="zoom:100%;" />
+
+<p>如下图，当name不为空的时候，才会进行对name的模糊查询</p>
+<p>beginAge和endAge也如此类推</p>
+<img src="img\35.png" style="zoom:100%;" />
+
+<h3 id="LambdaQueryWrapper"><a href="#LambdaQueryWrapper" class="headerlink" title="LambdaQueryWrapper"></a>LambdaQueryWrapper</h3><p><strong>LambdaQueryWrapper</strong>与<strong>QueryWrapper</strong>的区别在于字段名的写法</p>
+<p><strong>LambdaQueryWrapper</strong>中字段名用 <strong>User::getName</strong> 的方式与实体类直接挂钩</p>
+<p>而<strong>QueryWrapper</strong>中字段名直接用<strong>字符串</strong></p>
+<p>使用<strong>LambdaQueryWrapper</strong>可以防止字段名输入错误，也能在修改字段名时减少需要修改的参数</p>
+<img src="img\36.png" style="zoom:100%;" />
+
+<h3 id="LambdaUpdateWrapper"><a href="#LambdaUpdateWrapper" class="headerlink" title="LambdaUpdateWrapper"></a>LambdaUpdateWrapper</h3><p>与<strong>LambdaQueryWrapper</strong>类似，所有原先使用字符串作为字段名参数的地方全都改成Lambda的方式</p>
+<img src="img\37.png" style="zoom:100%;" />
+
+<h2 id="7-分页查询"><a href="#7-分页查询" class="headerlink" title="7.分页查询"></a>7.分页查询</h2><h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisPlusConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * 配置分页拦截器</span></span><br><span class="line"><span class="comment">    * 指定数据库方言为MySQL</span></span><br><span class="line"><span class="comment">    * */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">mybatisPlusInterceptor</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();</span><br><span class="line"></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.MYSQL));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>首先声明一个<code>Page&lt;实体类&gt;</code>对象，构造器参数分别为<strong>当前页码</strong>和<strong>每页条数</strong></p>
+<p>使用<strong>selectPage()</strong>,传入Page对象和条件构造器即可</p>
+<img src="img\38.png" style="zoom:100%;" />
+
+<h2 id="8-乐观锁"><a href="#8-乐观锁" class="headerlink" title="8.乐观锁"></a>8.乐观锁</h2><h3 id="配置类-1"><a href="#配置类-1" class="headerlink" title="配置类"></a>配置类</h3><img src="img\39.png" style="zoom:100%;" />
+
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>在数据库中添加一个version的字段，默认为0</p>
+<img src="img\40.png" style="zoom:100%;" />
+
+<p>然后在对应的实体类中加入version属性，并附上@Version注解</p>
+<img src="img\41.png" style="zoom:100%;" />
+
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>像上面这样配置完成后，像下面这种情况就不会再出现</p>
+<img src="img\42.png" style="zoom:100%;" />
+
+<p>加上了乐观锁之后，每一次改动，version都会+1，如果改动提交后，发现在提交前已有其他用户提交了其他改动，则version会对应不上，那么此次提交就会失败。</p>
+<p>比如上面这种情况，小李小王同时进行修改，但小李先提交了，所以小王的这一次修改会失败。</p>
+<h2 id="9-通用枚举"><a href="#9-通用枚举" class="headerlink" title="9.通用枚举"></a>9.通用枚举</h2><p>在数据库中设置一个测试枚举的属性sex</p>
+<img src="img\43.png" style="zoom:100%;" />
+
+<p>创建枚举类，将需要存入数据库的属性用**@EnumValue**标识</p>
+<img src="img\44.png" style="zoom:100%;" />
+
+<p>设置好后，我们新增user时，使用枚举的属性时，就会自动向数据库插入我们之前所标识的属性</p>
+<img src="img\45.png" style="zoom:100%;" />
+
+<h2 id="10-快速生成"><a href="#10-快速生成" class="headerlink" title="10.快速生成"></a>10.快速生成</h2><p>创建一个新项目</p>
+<p>连接数据库</p>
+<p>选择一个表，右键点击<strong>MybatisX-Generator</strong>. （此前需要先安装MybatisX插件）</p>
+<img src="img\46.png" style="zoom:100%;" />
+
+<p>填入相关信息</p>
+<img src="img\47.png" style="zoom:100%;" />
+
+<img src="img\48.png" style="zoom:100%;" />
+
+<p>完成后将会自动生成所需文件</p>
+<img src="img\49.png" style="zoom:100%;" />
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/06/04/BOS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">图片上传至百度智能云BOS</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=MyBatis-Plus使用 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F09%2F10%2Fmybatis-plus%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=MyBatis-Plus使用 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F09%2F10%2Fmybatis-plus%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=MyBatis-Plus使用 - Z Blog&url=http://example.com/2023/09/10/mybatis-plus/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/10/mybatis-plus/">MyBatis-Plus使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/04/BOS/">图片上传至百度智能云BOS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/31/OSS/">图片上传至阿里云OSS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/29/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/">后端项目部署到阿里云</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/17/iconfont/">图标的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
