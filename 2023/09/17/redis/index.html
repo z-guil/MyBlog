@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Redis | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;Redis学习笔记&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Redis | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;Redis学习笔记&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/09/17/redis/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;Redis学习笔记&lt;/p&gt;" />
+    <meta name="twitter:title" content="Redis | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;Redis学习笔记&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;Redis学习笔记&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/09/17/redis/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "Redis | Z Blog",
+            "datePublished": "2023-09-17T08:18:56.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/09/17/redis/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clmn6s9jx000034uj1mfh5z60" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Redis
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-09-17T08:18:56.000Z" itemprop="datePublished">2023-09-17</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>Redis学习笔记</p>
+<span id="more"></span>
+
+<h2 id="1-redis安装及配置"><a href="#1-redis安装及配置" class="headerlink" title="1.redis安装及配置"></a>1.redis安装及配置</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>访问<a target="_blank" rel="noopener" href="https://redis.io/download/">Reids官网</a>进行下载，下载完成后将压缩包传入linux虚拟机中的 <code>/opt/</code> 文件夹下</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><p>进入<code>/opt/</code>中，解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-7.2.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<img src="img\1.png" style="zoom:100%;" />
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>进入<strong>redis-7.2.1</strong>的文件夹中，执行make命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/redis-7.2.1/</span><br></pre></td></tr></table></figure>
+
+<p>进入后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>等待安装完成即可</p>
+<p>默认安装位置在 <strong>/usr/local/bin</strong> 下</p>
+<p>/usr/local/ 相对于 Windows的C:/Program Files</p>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>进入<strong>redis-7.2.1</strong>的文件夹，可以看到名为 <strong>redis.conf</strong> 的配置文件。保险起见，不在这个文件上进行修改，将这个文件复制到一个自定义的地方，在复制文件中进行修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /myredis</span><br><span class="line">cp redis.conf /myredis/redis7.conf</span><br></pre></td></tr></table></figure>
+
+<p>执行完以上命令后，进入<strong>redis7.conf</strong>进行修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /myredis/</span><br><span class="line">vim redis7.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改以下4处地方</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<p>输入 <strong>/ + 关键字</strong> 可以在全文范围内搜索，**:set nu<strong>显示行号， 按 <strong>n</strong> 跳转到下一个关键词，按 <strong>i</strong> 进行插入，</strong>Esc<strong>退出编辑，输入</strong>:wq** 保存并退出文件</p>
+<h3 id="启动redis"><a href="#启动redis" class="headerlink" title="启动redis"></a>启动redis</h3><p>输入命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /myredis/redis7.conf</span><br></pre></td></tr></table></figure>
+
+<p>查看redis的进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep redis|grep -v grep</span><br></pre></td></tr></table></figure>
+
+<img src="img\3.png" style="zoom:100%;" />
+
+<h3 id="连接redis"><a href="#连接redis" class="headerlink" title="连接redis"></a>连接redis</h3><p>连接redis用以下命令，其中 <strong>-a</strong> 指Authentication required(身份验证),后面接着配置文件中设置的密码。**-p**指指定端口号，不写的话默认为6379</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a 123456 -p 6379</span><br></pre></td></tr></table></figure>
+
+<p>注意当客户端需要使用中文时，会出现中文乱码，所以可以在后面加上 <strong>–raw</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -a 123456 -p 6379 --raw</span><br></pre></td></tr></table></figure>
+
+<p>重开一个终端窗口，再次查看进程可以看到已经存在一个连接了</p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<p>连接上redis后，输入ping，正常的话会显示PONG</p>
+<h3 id="退出、关闭和卸载redis"><a href="#退出、关闭和卸载redis" class="headerlink" title="退出、关闭和卸载redis"></a>退出、关闭和卸载redis</h3><p>如果需要退出客户端，输入<strong>quit</strong></p>
+<p>如果需要关闭客户端，输入<strong>shutdown</strong>，也可以在redis外输入<strong>redis-cli -a 123456 shutdown</strong></p>
+<p>如果需要卸载redis，首先需要停止redis-server服务，然后删除 /usr/local/lib下有关redis的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /usr/local/bin/redis-*</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-关于Key的常用命令"><a href="#2-关于Key的常用命令" class="headerlink" title="2.关于Key的常用命令"></a>2.关于Key的常用命令</h2><ul>
+<li><p><strong>set k1 va1</strong>     </p>
+<ul>
+<li>插入一个key为k1,value为v1的数据</li>
+</ul>
+</li>
+<li><p>**keys ***    </p>
+<ul>
+<li>查看当前库的所有key</li>
+</ul>
+</li>
+<li><p><strong>exists key</strong></p>
+<ul>
+<li>判断是否存在某个key</li>
+</ul>
+</li>
+<li><p><strong>tpye key</strong></p>
+<ul>
+<li>查看该key是什么类型</li>
+</ul>
+</li>
+<li><p><strong>del key</strong></p>
+<ul>
+<li>删除指定的key数据</li>
+</ul>
+</li>
+<li><p><strong>unlink</strong> <strong>key</strong></p>
+<ul>
+<li>非阻塞删除，仅仅将keys从keyspace元数据中删除，真正的删除会在后续异步中操作</li>
+</ul>
+</li>
+<li><p><strong>ttl key</strong></p>
+<ul>
+<li>查看还有多少秒过期，-1代表永不过期，-2代表已过期</li>
+</ul>
+</li>
+<li><p><strong>expire key 秒钟</strong></p>
+<ul>
+<li>给key设定过期时间</li>
+</ul>
+</li>
+<li><p><strong>move key 0~15</strong></p>
+<ul>
+<li>将当前数据库的key移动到给定的数据库中</li>
+</ul>
+</li>
+<li><p><strong>select 0~15</strong></p>
+<ul>
+<li>切换数据库(0~15)，默认为0</li>
+</ul>
+</li>
+<li><p><strong>dbsize</strong></p>
+<ul>
+<li>查看当前数据库key的数量</li>
+</ul>
+</li>
+<li><p><strong>flushdb</strong></p>
+<ul>
+<li>清空单腔库</li>
+</ul>
+</li>
+<li><p><strong>flushall</strong></p>
+<ul>
+<li>清空所有库</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-十大类型之-String"><a href="#3-十大类型之-String" class="headerlink" title="3.十大类型之 String"></a>3.十大类型之 String</h2><h3 id="set-key-value"><a href="#set-key-value" class="headerlink" title="set  key value"></a><strong>set  key value</strong></h3><p><strong>设置键值</strong></p>
+<p>以下是可选参数</p>
+<h4 id="NX-XX"><a href="#NX-XX" class="headerlink" title="[ NX | XX ]"></a><strong>[ NX | XX ]</strong></h4><p>带上NX代表：若键存在则命令无效，不存在则设置键值</p>
+<p>带上XX代表：若键存在则进行覆盖，不存在则设置键值</p>
+<img src="img\5.png" style="zoom:100%;" />
+
+<h4 id="GET"><a href="#GET" class="headerlink" title="[ GET ]"></a><strong>[ GET ]</strong></h4><p>带上GET代表将原本的值返回，若不存在则返回nil，最后用新值覆盖旧值</p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<h4 id="EX-PX-EXAT-PXAT-KEEPTTL"><a href="#EX-PX-EXAT-PXAT-KEEPTTL" class="headerlink" title="[ EX | PX | EXAT | PXAT | KEEPTTL ]"></a><strong>[ EX | PX | EXAT | PXAT | KEEPTTL ]</strong></h4><p>EX: 以秒为单位设置过期时间</p>
+<p>PX: 以毫秒为单位设置过期时间</p>
+<p>EXAT: 设置以秒为单位的UNIX时间戳所对应的时间为过期时间</p>
+<p>PXAT: 设置以毫秒为单位的UNIX时间戳所对应的时间为过期时间</p>
+<img src="img\7.png" style="zoom:100%;" />
+
+<p>KEEPTTL: 保留键在更改前所带的生存时间（因为默认情况下，<strong>当键的值发生更改时，其生存时间也会默认变为-2</strong>，即永不过期，所以在对键进行修改时带上<strong>keepttl</strong>就可以<strong>保留其原来的生存时间</strong>）</p>
+<h3 id="mset-mget-msetnx"><a href="#mset-mget-msetnx" class="headerlink" title="mset | mget | msetnx"></a><strong>mset | mget | msetnx</strong></h3><p><strong>mset k1 v1 k2 v2 k3 v3</strong>：同时设置多个键</p>
+<p><strong>mget k1 k2 k3</strong>：同时获取多个键</p>
+<p>**msetnx k1 k4 k5 k6 **:</p>
+<p>​    键不存在的情况下设置多个键，需要注意的是msetnx中只要有一个是已存在的，那么所有对键的设置都不会执行,比如<strong>这里k1已经存在，则k4 k5 k6都不会被设置</strong></p>
+<img src="img\8.png" style="zoom:100%;" />
+
+<h3 id="getrange-setrange"><a href="#getrange-setrange" class="headerlink" title="getrange  |  setrange"></a><strong>getrange  |  setrange</strong></h3><p><strong>getrange k1 start end</strong> : 取k1中索引为start和end范围内的值</p>
+<p><strong>setrange k1 start end</strong>：设置k1中索引为start和end范围内的值</p>
+<img src="img\9.png" style="zoom:100%;" />
+
+<h3 id="incr-incrby-decr-decrby"><a href="#incr-incrby-decr-decrby" class="headerlink" title="incr | incrby | decr | decrby"></a><strong>incr | incrby | decr | decrby</strong></h3><p><strong>incr</strong> 数值递增、<strong>incrby</strong> 增加指定数值、<strong>decr <strong>数值递减、</strong>decrby</strong> 减少指定数值</p>
+<img src="img\10.png" style="zoom:100%;" />
+
+<h3 id="strlen-append"><a href="#strlen-append" class="headerlink" title="strlen |  append"></a><strong>strlen |  append</strong></h3><p><strong>strlen k1</strong> ：获取k1长度</p>
+<p><strong>append k1 v1</strong>：在k1后追加v1</p>
+<img src="img\11.png" style="zoom:100%;" />
+
+<h3 id="getset"><a href="#getset" class="headerlink" title="getset"></a><strong>getset</strong></h3><p><strong>getset k1 v1</strong>   等同于 <strong>set k1 v1 get</strong></p>
+<img src="img\12.png" style="zoom:100%;" />
+
+<h2 id="4-十大类型之-List"><a href="#4-十大类型之-List" class="headerlink" title="4.十大类型之 List"></a>4.十大类型之 List</h2><p>Redis 中的 list 底层由双向链表实现，所以可以从两侧进行插入的操作，主要功能有 <strong>push / pop</strong> </p>
+<h3 id="lpush-rpush-lrange"><a href="#lpush-rpush-lrange" class="headerlink" title="lpush | rpush | lrange"></a><strong>lpush | rpush | lrange</strong></h3><p><strong>lpush list1 1 2 3 4 5</strong> ：从list1的<strong>头部</strong>插入1 2 3 4 5</p>
+<p><strong>rpush list2 11 22 33 44 55</strong> ：从list2的<strong>尾部</strong>插入11 22 33 44 55</p>
+<p><strong>lrange list1 0 -1</strong>：从<strong>头部</strong>遍历list1，只有 lrange 没有 rrange</p>
+<img src="img\13.png" style="zoom:100%;" />
+
+<h3 id="lpop-rpop"><a href="#lpop-rpop" class="headerlink" title="lpop | rpop"></a><strong>lpop | rpop</strong></h3><p>类似于队列，<strong>lpop</strong>是删除队头元素并返回，<strong>rpop</strong>删除队尾元素并返回</p>
+<img src="img\14.png" style="zoom:100%;" />
+
+<h3 id="lindex"><a href="#lindex" class="headerlink" title="**lindex **"></a>**lindex **</h3><p><strong>lindex list index</strong> ：获取list中索引为index的元素</p>
+<img src="img\15.png" style="zoom:100%;" />
+
+<h3 id="llen"><a href="#llen" class="headerlink" title="llen"></a><strong>llen</strong></h3><p><strong>llen list</strong> : 获取list的长度</p>
+<img src="img\16.png" style="zoom:100%;" />
+
+<h3 id="lrem"><a href="#lrem" class="headerlink" title="lrem"></a><strong>lrem</strong></h3><p>lrem 中rem可以指remove，list是列表名 ，n是指要删除多少个，v1是指一个有重复的值</p>
+<p>这条命令可以理解为 <strong>删除list中n个值为v1的元素</strong></p>
+<p><strong>lrem list1 4 1</strong> ：删除list1中的4个1</p>
+<img src="img\17.png" style="zoom:100%;" />
+
+<h3 id="ltrim"><a href="#ltrim" class="headerlink" title="ltrim"></a><strong>ltrim</strong></h3><p><strong>ltrim list1 1 6</strong> ：截取list1中索引为1和6之间的内容</p>
+<img src="img\18.png" style="zoom:100%;" />
+
+<h3 id="rpoplpush"><a href="#rpoplpush" class="headerlink" title="rpoplpush"></a><strong>rpoplpush</strong></h3><p><strong>rpoplpush list1 list2</strong> ：从<strong>list1的尾部</strong>删除一个元素，并将该元素插入到<strong>list2的头部</strong></p>
+<img src="img\19.png" style="zoom:100%;" />
+
+<h3 id="lset"><a href="#lset" class="headerlink" title="lset"></a><strong>lset</strong></h3><p><strong>lset list1 1 abcd</strong> ：将list1中索引为1的元素设为abcd</p>
+<img src="img\20.png" style="zoom:100%;" />
+
+<p><strong>linsert</strong></p>
+<p><strong>linsert list1 before 3 java</strong> :在 list1 中找到 3 这个元素，并在其前面插入一个java</p>
+<p>before 也可以是 after , 即在指定位置的后面插入</p>
+<p>如果list中有重复的值，那么只会在查找到的第一个值前后插入</p>
+<img src="img\21.png" style="zoom:100%;" />
+
+<h2 id="5-十大类型之-Hash"><a href="#5-十大类型之-Hash" class="headerlink" title="5.十大类型之 Hash"></a>5.十大类型之 Hash</h2><h3 id="hset-hget"><a href="#hset-hget" class="headerlink" title="hset |  hget"></a><strong>hset |  hget</strong></h3><p>与String类似</p>
+<p><strong>hset user:001 id 01 name z3 age 18</strong>：为user:001的id赋值为01，name为z3，age为18</p>
+<p>hset可以批量赋值，所以后来hmset已经被视为弃用了</p>
+<p><strong>hget user:001 id</strong>：获取user:001的id</p>
+<img src="img\22.png" style="zoom:100%;" />
+
+<h3 id="hmget"><a href="#hmget" class="headerlink" title="hmget"></a><strong>hmget</strong></h3><p><strong>hmget user:001 id name age</strong> : 同时获取user:001的id,name和age</p>
+<img src="img\23.png" style="zoom:100%;" />
+
+<h3 id="hgetall"><a href="#hgetall" class="headerlink" title="hgetall"></a><strong>hgetall</strong></h3><p><strong>hgetall user:001</strong> : 遍历user:001</p>
+<h3 id="hdel"><a href="#hdel" class="headerlink" title="hdel"></a><strong>hdel</strong></h3><p><strong>hdel user:001 age</strong> : 删除user:001的age</p>
+<img src="img\24.png" style="zoom:100%;" />
+
+<h3 id="hlen"><a href="#hlen" class="headerlink" title="hlen"></a><strong>hlen</strong></h3><p><strong>hlen user:001</strong> : 获取user:001内的key的数量</p>
+<h3 id="hexists"><a href="#hexists" class="headerlink" title="hexists"></a><strong>hexists</strong></h3><p><strong>hexists user:001 id</strong> : 判断user:001是否存在id. 是则返回1，否则返回0</p>
+<img src="img\25.png" style="zoom:100%;" />
+
+<h3 id="hkeys-hvals"><a href="#hkeys-hvals" class="headerlink" title="hkeys  |  hvals"></a><strong>hkeys  |  hvals</strong></h3><p><strong>hkeys user:001</strong> : 获取user:001内所有的key</p>
+<p><strong>hvals user:001</strong> : 获取user:001内所有的value</p>
+<img src="img\26.png" style="zoom:100%;" />
+
+<h3 id="hincrby-hincrbyfloat"><a href="#hincrby-hincrbyfloat" class="headerlink" title="hincrby  |  hincrbyfloat"></a><strong>hincrby  |  hincrbyfloat</strong></h3><p><strong>hincrby user:001 age 2</strong>  : 给user:001的age增加2</p>
+<p><strong>hincrbyfloat user:001 score 0.5</strong>  : 给user:001的score增加0.5</p>
+<img src="img\27.png" style="zoom:100%;" />
+
+<p>注意当一个值为浮点型时，只能用hincrbyfloat进行增加</p>
+<p>但反之如果是整型，仍然可以使用hincrbyfloat</p>
+<img src="img\28.png" style="zoom:100%;" />
+
+<h3 id="hsetnx"><a href="#hsetnx" class="headerlink" title="hsetnx"></a><strong>hsetnx</strong></h3><p><strong>hsetnx user02 id 02</strong> : 当id不存在时，设定user02的id为02，若存在则命令无效</p>
+<img src="img\29.png" style="zoom:100%;" />
+
+<h2 id="6-十大类型之-Set"><a href="#6-十大类型之-Set" class="headerlink" title="6.十大类型之 Set"></a>6.十大类型之 Set</h2><h3 id="sadd"><a href="#sadd" class="headerlink" title="sadd"></a><strong>sadd</strong></h3><p><strong>sadd set1 1 1 1 1 2 3 4 5</strong> : 给set1插入1，2，3，4，5  , 其中重复的元素只会插入一次</p>
+<h3 id="smembers"><a href="#smembers" class="headerlink" title="smembers"></a><strong>smembers</strong></h3><p><strong>smembers set1</strong> : 遍历set1的所有元素</p>
+<img src="img\30.png" style="zoom:100%;" />
+
+<h3 id="sismember"><a href="#sismember" class="headerlink" title="sismember"></a><strong>sismember</strong></h3><p><strong>sismember set1 1</strong> :判断1是否为set1中的元素，是则返回1，否则为0</p>
+<h3 id="srem"><a href="#srem" class="headerlink" title="srem"></a><strong>srem</strong></h3><p><strong>srem set1 1 2 3</strong> : 删除set1中的1，2，3. 返回成功删除的个数</p>
+<h3 id="scard"><a href="#scard" class="headerlink" title="scard"></a><strong>scard</strong></h3><p><strong>scard set1</strong> : 获取set1中的元素个数</p>
+<h3 id="srandmember"><a href="#srandmember" class="headerlink" title="srandmember"></a><strong>srandmember</strong></h3><p><strong>srandmember set2 3</strong> : 随机<strong>展示</strong>set2中的3个元素，<strong>不会删除元素</strong></p>
+<img src="img\31.png" style="zoom:100%;" />
+
+<h3 id="spop"><a href="#spop" class="headerlink" title="spop"></a><strong>spop</strong></h3><p><strong>spop set2 2</strong> :  随机<strong>弹出</strong>set2中的2个元素，<strong>出一个删一个</strong></p>
+<img src="img\32.png" style="zoom:100%;" />
+
+<h3 id="smove"><a href="#smove" class="headerlink" title="smove"></a><strong>smove</strong></h3><p><strong>smove set1 set2 6</strong> : 将set1中的6移动到set2</p>
+<img src="img\33.png" style="zoom:100%;" />
+
+<h3 id="sdiff-sunion-sinter"><a href="#sdiff-sunion-sinter" class="headerlink" title="sdiff  |  sunion  |  sinter"></a><strong>sdiff  |  sunion  |  sinter</strong></h3><p><strong>sdiff set1 set2 <strong>:  返回 set1 - set2 的</strong>差集</strong></p>
+<p><strong>sunion set1 set2</strong> : 返回 set1 和 set2 的<strong>并集</strong></p>
+<p><strong>sinter set1 set2</strong> : 返回 set1 和 set2 的<strong>交集</strong></p>
+<img src="img\34.png" style="zoom:100%;" />
+
+<h3 id="sintercard"><a href="#sintercard" class="headerlink" title="sintercard"></a><strong>sintercard</strong></h3><p><strong>sintercard 2 set1 set2 limit 10</strong> : 返回 set1 和 set2 这 2 个集合交集的元素个数，最大值为10</p>
+<img src="img\35.png" style="zoom:100%;" />
+
+<h2 id="7-十大类型之-Zset"><a href="#7-十大类型之-Zset" class="headerlink" title="7.十大类型之 Zset"></a>7.十大类型之 Zset</h2><h3 id="zadd"><a href="#zadd" class="headerlink" title="zadd"></a><strong>zadd</strong></h3><p><strong>zadd zset1 60 n1 70 n2 65 n3</strong> : 给zset1中添加元素及其分数，n1分数60，n2分数70，n3分数65</p>
+<h3 id="zrange-zrevrange"><a href="#zrange-zrevrange" class="headerlink" title="zrange  |  zrevrange"></a><strong>zrange  |  zrevrange</strong></h3><p><strong>zrange zset1 0 -1</strong>: 遍历zset1</p>
+<p>**zrevrange zset1 0 -1 **:倒序遍历zset1</p>
+<img src="img\36.png" style="zoom:100%;" />
+
+<h3 id="zrangebyscore"><a href="#zrangebyscore" class="headerlink" title="zrangebyscore"></a><strong>zrangebyscore</strong></h3><p><strong>zrangebyscore zset1 60 65</strong>: 根据60-65的区间，返回zset1在此区间范围内的元素</p>
+<p><strong>zrangebyscore zset1 60 65 withscores</strong>: withscore连同分数是多少一起返回</p>
+<p><strong>zrangebyscore zset1 (60 (65 withscores</strong>: (60 (65指不包含60和65</p>
+<p><strong>zrangebyscore zset1 (60 (65 withscores limit 0 2</strong> : limit 0 2 指从0开始，只取2个元素</p>
+<img src="img\38.png" style="zoom:100%;" />
+
+<h3 id="zscore"><a href="#zscore" class="headerlink" title="zscore"></a><strong>zscore</strong></h3><p><strong>zscore zset1 n1</strong>: 获取zset1中n1的分数</p>
+<h3 id="zcard"><a href="#zcard" class="headerlink" title="zcard"></a><strong>zcard</strong></h3><p><strong>zcard zset1</strong>: 获取zset1中的元素个数</p>
+<h3 id="zrem"><a href="#zrem" class="headerlink" title="zrem"></a><strong>zrem</strong></h3><p><strong>zrem zset1 n1</strong>: 删除zset1中的n1</p>
+<h3 id="zincrby"><a href="#zincrby" class="headerlink" title="zincrby"></a><strong>zincrby</strong></h3><p><strong>zincrby zset1 10 n2</strong>: 给zset1中的n2分数增加10</p>
+<h3 id="zcount"><a href="#zcount" class="headerlink" title="zcount"></a><strong>zcount</strong></h3><p><strong>zcount zset1 60 70</strong> : 获取zset1中分数在60到70间的元素个数</p>
+<h3 id="zmpop"><a href="#zmpop" class="headerlink" title="zmpop"></a><strong>zmpop</strong></h3><p>从键名列表中的第一个非空排序集中弹出一个或多个元素，它们是成员分数对。</p>
+<p><strong>zmpop 2 set set1 min count 4</strong> : 弹出 set (第一个非空排序集) 中最小的4个值</p>
+<img src="img\39.png" style="zoom:100%;" />
+
+<img src="img\40.png" style="zoom:100%;" />
+
+<p>参考：<a target="_blank" rel="noopener" href="http://t.csdn.cn/xA0L3">http://t.csdn.cn/xA0L3</a></p>
+<h3 id="zrank-zrevrank"><a href="#zrank-zrevrank" class="headerlink" title="zrank  |  zrevrank"></a><strong>zrank  |  zrevrank</strong></h3><p><strong>zrank zset1 n2</strong>: 返回zset1中n1的索引</p>
+<p><strong>zrevrank zset1 n2</strong>: 返回zset1中n1的倒序索引</p>
+<img src="img\41.png" style="zoom:100%;" />
+
+<h2 id="8-十大类型之-Bitmap"><a href="#8-十大类型之-Bitmap" class="headerlink" title="8.十大类型之 Bitmap"></a>8.十大类型之 Bitmap</h2><h3 id="setbit-getbit"><a href="#setbit-getbit" class="headerlink" title="setbit  |  getbit"></a><strong>setbit  |  getbit</strong></h3><p>**setbit k1 0 1 **: 给位图k1中下标为0处的值设为1</p>
+<p><strong>getbit k1 0</strong> : 获取位图k1中下标为0处的值</p>
+<img src="img\42.png" style="zoom:100%;" />
+
+<h3 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a><strong>strlen</strong></h3><p><strong>strlen k1</strong> : 获取k1的长度，这里的长度以byte为单位，k1中如果只有8个bit，则返回1.</p>
+<p>每超过一个byte就扩容一个byte，比如9个bit就返回2</p>
+<img src="img\43.png" style="zoom:100%;" />
+
+<h3 id="bitcount"><a href="#bitcount" class="headerlink" title="bitcount"></a><strong>bitcount</strong></h3><p>**bitcount k1 **:统计k1中 1 的数量</p>
+<h3 id="bitop"><a href="#bitop" class="headerlink" title="bitop"></a>bitop</h3><p>参考：<a target="_blank" rel="noopener" href="http://doc.redisfans.com/string/bitop.html">BITOP — Redis 命令参考 (redisfans.com)</a></p>
+<img src="img\44.png" style="zoom:100%;" />
+
+<h2 id="9-十大类型之-HyperLogLog"><a href="#9-十大类型之-HyperLogLog" class="headerlink" title="9.十大类型之 HyperLogLog"></a>9.十大类型之 HyperLogLog</h2><h3 id="pfadd"><a href="#pfadd" class="headerlink" title="pfadd"></a><strong>pfadd</strong></h3><p><strong>pfadd hpll1 1 2 3 4 5 6</strong> : 向hpll1输入元素1 2 3 4 5 5 5，但元素不会进行存储，只会去重统计基数</p>
+<h3 id="pfcount"><a href="#pfcount" class="headerlink" title="pfcount"></a><strong>pfcount</strong></h3><p><strong>pfcount hpll1</strong> ：返回hpll1统计得到的基数</p>
+<h3 id="pfmerge"><a href="#pfmerge" class="headerlink" title="pfmerge"></a><strong>pfmerge</strong></h3><p><strong>pfmerge hpll3 hpll1 hpll2</strong> : 合并hpll1和hpll2，得到hpll3</p>
+<img src="img\45.png" style="zoom:100%;" />
+
+<h2 id="10-十大类型之-GEO"><a href="#10-十大类型之-GEO" class="headerlink" title="10.十大类型之 GEO"></a>10.十大类型之 GEO</h2><p><strong>由于GEO是属于zset的一种，所以zset的方法也适用于GEO</strong></p>
+<p>GEO用于存储某个地址的经纬度，关于经纬度坐标可以在网上获取到：<a target="_blank" rel="noopener" href="https://api.map.baidu.com/lbsapi/getpoint/index.html">拾取坐标系统 (baidu.com)</a></p>
+<h3 id="geoadd"><a href="#geoadd" class="headerlink" title="geoadd"></a><strong>geoadd</strong></h3><p><strong>geoadd myaddress 116.363909 23.267944 小刀电动车 116.363675 23.268031 天能电池</strong>：向myaddress中插入两个地址，类似于zset，不过原来的score换成了坐标</p>
+<h3 id="geopos"><a href="#geopos" class="headerlink" title="geopos"></a><strong>geopos</strong></h3><p><strong>geopos myaddress 小刀电动车</strong> ：获取“小刀电动车”的坐标</p>
+<h3 id="geohash"><a href="#geohash" class="headerlink" title="geohash"></a><strong>geohash</strong></h3><p><strong>geohash myaddress 小刀电动车</strong>：获取“小刀电动车”的坐标映射 </p>
+<img src="img\46.png" style="zoom:100%;" />
+
+<h3 id="geodist"><a href="#geodist" class="headerlink" title="geodist"></a><strong>geodist</strong></h3><p><strong>geodist myaddress 小刀电动车 天能电池 m</strong> : 获取这两地之间的距离，以米为单位，可选[ m | km | ft | mi ]，分别代表米、千米、英尺、英里，不选则默认为m</p>
+<h3 id="georadius"><a href="#georadius" class="headerlink" title="georadius"></a><strong>georadius</strong></h3><p><strong>georadius myaddress 116.xxx 23.xxx 100 m withdist withhash withcoord count 10 desc</strong> : 查询myaddress中，在以116.xxx 23.xxx为中心，距离100米内的地址，返回地址名、距离、地址哈希码、地址坐标，按降序排列，上限为10</p>
+<h3 id="georadiusbymember"><a href="#georadiusbymember" class="headerlink" title="georadiusbymember"></a><strong>georadiusbymember</strong></h3><p><strong>georadiusbymember myaddresss location1 100 m withdist withhash withcoord count 10 desc</strong>：与上一条命令相同，但是中心坐标是使用myaddress中的location1</p>
+<img src="img\47.png" style="zoom:100%;" />
+
+<h2 id="11-十大类型之-Stream"><a href="#11-十大类型之-Stream" class="headerlink" title="11.十大类型之 Stream"></a><strong>11.十大类型之 Stream</strong></h2><p><strong>在Stream中+和-分别代表最大和最小可能出现的id</strong></p>
+<h3 id="xadd"><a href="#xadd" class="headerlink" title="xadd"></a><strong>xadd</strong></h3><p><strong>xadd mystream * k1 v1 k2 v2 :</strong> 向mystream中插入两条消息k1和k2，值为v1和v2。id的位置上的 * 代表自动生成id。插入后返回id，id由2部分组成，“毫秒时间戳-当前消息在同毫秒内的消息序号”</p>
+<h3 id="xrange-xrevrange"><a href="#xrange-xrevrange" class="headerlink" title="xrange | xrevrange"></a><strong>xrange | xrevrange</strong></h3><p><strong>xrange mystream - + count 10</strong>：按照时间戳由小到大的顺序，返回mystream中10条消息，count是可选参数</p>
+<p><strong>xrevrange mystream - + count 10</strong> : 与上面的命令相似，但是倒序</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><img src="img\48.png" style="zoom:100%;" />
+
+<h3 id="xlen"><a href="#xlen" class="headerlink" title="xlen"></a><strong>xlen</strong></h3><p><strong>xlen mystream</strong> : 返回mystream中的消息数量</p>
+<h3 id="xdel"><a href="#xdel" class="headerlink" title="xdel"></a><strong>xdel</strong></h3><p><strong>xdle mystream 1695540348043-0</strong> ：删除id为1695540348043-0的消息</p>
+<img src="img\49.png" style="zoom:100%;" />
+
+<h3 id="xtrim"><a href="#xtrim" class="headerlink" title="xtrim"></a><strong>xtrim</strong></h3><p><strong>xtrim mystream maxlen 2</strong> : 截取mystream，只保留最近2条消息</p>
+<p><strong>xtrim mystream minid 1695540348043-0</strong> : 截取mystream，只保留id大于等于1695540348043-0的消息</p>
+<h3 id="xread"><a href="#xread" class="headerlink" title="xread"></a><strong>xread</strong></h3><p>**xread count 2 streams mystream 0-0 **: 从最小id开始，获取mystream中的2条消息，0-0也可以是0 | 00 | 000</p>
+<p><strong>xread count1 block 0 streams mystream $</strong> : 永远阻塞，直到在mystream中读取到比目前最大id还大的1条消息为止</p>
+<img src="img\50.png" style="zoom:100%;" />
+
+<h3 id="xgroup-creat"><a href="#xgroup-creat" class="headerlink" title="xgroup creat"></a>xgroup creat</h3><h3 id="xreadgroup-group"><a href="#xreadgroup-group" class="headerlink" title="xreadgroup group"></a>xreadgroup group</h3><h3 id="xpending"><a href="#xpending" class="headerlink" title="xpending"></a>xpending</h3><h3 id="xack"><a href="#xack" class="headerlink" title="xack"></a>xack</h3><h3 id="xinfo"><a href="#xinfo" class="headerlink" title="xinfo"></a>xinfo</h3>
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/09/10/mybatis-plus/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-title">MyBatis-Plus使用</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">シェア</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Redis - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F09%2F17%2Fredis%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Redis - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F09%2F17%2Fredis%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Redis - Z Blog&url=http://example.com/2023/09/17/redis/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/17/redis/">Redis</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/10/mybatis-plus/">MyBatis-Plus使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/04/BOS/">图片上传至百度智能云BOS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/31/OSS/">图片上传至阿里云OSS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/29/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/">后端项目部署到阿里云</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
