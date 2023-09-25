@@ -6,27 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     
-    <title>Redis | Z Blog</title>
+    <title>Redis-笔记1 | Z Blog</title>
 
-    <meta name="description" content="&lt;p&gt;Redis学习笔记&lt;/p&gt;">
+    <meta name="description" content="&lt;p&gt;Redis学习笔记第一部分，关于redis的安装配置、常用命令和数据类型及其应用场景&lt;/p&gt;">
     <meta name="keywords" content="">
 
     
 
     <meta property="og:locale" content="zh-CN" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content= "Redis | Z Blog"  />
-    <meta property="og:description" content= "&lt;p&gt;Redis学习笔记&lt;/p&gt;" />
+    <meta property="og:title" content= "Redis-笔记1 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;Redis学习笔记第一部分，关于redis的安装配置、常用命令和数据类型及其应用场景&lt;/p&gt;" />
     <meta property="og:url" content="http://example.com/2023/09/17/redis/index.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="John Doe" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="&lt;p&gt;Redis学习笔记&lt;/p&gt;" />
-    <meta name="twitter:title" content="Redis | Z Blog"/>
-    <meta name="twitter:description" content="&lt;p&gt;Redis学习笔记&lt;/p&gt;"/>
+    <meta property="og:description" content="&lt;p&gt;Redis学习笔记第一部分，关于redis的安装配置、常用命令和数据类型及其应用场景&lt;/p&gt;" />
+    <meta name="twitter:title" content="Redis-笔记1 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;Redis学习笔记第一部分，关于redis的安装配置、常用命令和数据类型及其应用场景&lt;/p&gt;"/>
     <script type="application/ld+json">
         {
-            "description": "&lt;p&gt;Redis学习笔记&lt;/p&gt;",
+            "description": "&lt;p&gt;Redis学习笔记第一部分，关于redis的安装配置、常用命令和数据类型及其应用场景&lt;/p&gt;",
             "author": { "@type": "Person", "name": "John Doe" },
             "@type": "BlogPosting",
             "url": "http://example.com/2023/09/17/redis/index.html",
@@ -38,7 +38,7 @@
             },
             "name": "John Doe"
             },
-            "headline": "Redis | Z Blog",
+            "headline": "Redis-笔记1 | Z Blog",
             "datePublished": "2023-09-17T08:18:56.000Z",
             "mainEntityOfPage": {
                 "@type": "WebPage",
@@ -170,7 +170,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Redis
+      Redis-笔记1
     </h1>
   
 
@@ -192,7 +192,7 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>Redis学习笔记</p>
+            <p>Redis学习笔记第一部分，关于redis的安装配置、常用命令和数据类型及其应用场景</p>
 <span id="more"></span>
 
 <h2 id="1-redis安装及配置"><a href="#1-redis安装及配置" class="headerlink" title="1.redis安装及配置"></a>1.redis安装及配置</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>访问<a target="_blank" rel="noopener" href="https://redis.io/download/">Reids官网</a>进行下载，下载完成后将压缩包传入linux虚拟机中的 <code>/opt/</code> 文件夹下</p>
@@ -346,6 +346,8 @@
 <h3 id="getset"><a href="#getset" class="headerlink" title="getset"></a><strong>getset</strong></h3><p><strong>getset k1 v1</strong>   等同于 <strong>set k1 v1 get</strong></p>
 <img src="img\12.png" style="zoom:100%;" />
 
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>缓存数据：将经常使用的数据存储在 Redis 中，可以提高访问速度。</p>
+<p>计数器：可以使用 Redis 的incr命令实现计数器功能，如统计点赞量、浏览量</p>
 <h2 id="4-十大类型之-List"><a href="#4-十大类型之-List" class="headerlink" title="4.十大类型之 List"></a>4.十大类型之 List</h2><p>Redis 中的 list 底层由双向链表实现，所以可以从两侧进行插入的操作，主要功能有 <strong>push / pop</strong> </p>
 <h3 id="lpush-rpush-lrange"><a href="#lpush-rpush-lrange" class="headerlink" title="lpush | rpush | lrange"></a><strong>lpush | rpush | lrange</strong></h3><p><strong>lpush list1 1 2 3 4 5</strong> ：从list1的<strong>头部</strong>插入1 2 3 4 5</p>
 <p><strong>rpush list2 11 22 33 44 55</strong> ：从list2的<strong>尾部</strong>插入11 22 33 44 55</p>
@@ -381,6 +383,7 @@
 <p>如果list中有重复的值，那么只会在查找到的第一个值前后插入</p>
 <img src="img\21.png" style="zoom:100%;" />
 
+<h3 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h3><p>消息列表：微博、微信朋友圈、公众号等</p>
 <h2 id="5-十大类型之-Hash"><a href="#5-十大类型之-Hash" class="headerlink" title="5.十大类型之 Hash"></a>5.十大类型之 Hash</h2><h3 id="hset-hget"><a href="#hset-hget" class="headerlink" title="hset |  hget"></a><strong>hset |  hget</strong></h3><p>与String类似</p>
 <p><strong>hset user:001 id 01 name z3 age 18</strong>：为user:001的id赋值为01，name为z3，age为18</p>
 <p>hset可以批量赋值，所以后来hmset已经被视为弃用了</p>
@@ -413,6 +416,7 @@
 <h3 id="hsetnx"><a href="#hsetnx" class="headerlink" title="hsetnx"></a><strong>hsetnx</strong></h3><p><strong>hsetnx user02 id 02</strong> : 当id不存在时，设定user02的id为02，若存在则命令无效</p>
 <img src="img\29.png" style="zoom:100%;" />
 
+<h3 id="应用场景-2"><a href="#应用场景-2" class="headerlink" title="应用场景"></a>应用场景</h3><p>系统中对象数据的存储如：电商系统购物车、用户信息等</p>
 <h2 id="6-十大类型之-Set"><a href="#6-十大类型之-Set" class="headerlink" title="6.十大类型之 Set"></a>6.十大类型之 Set</h2><h3 id="sadd"><a href="#sadd" class="headerlink" title="sadd"></a><strong>sadd</strong></h3><p><strong>sadd set1 1 1 1 1 2 3 4 5</strong> : 给set1插入1，2，3，4，5  , 其中重复的元素只会插入一次</p>
 <h3 id="smembers"><a href="#smembers" class="headerlink" title="smembers"></a><strong>smembers</strong></h3><p><strong>smembers set1</strong> : 遍历set1的所有元素</p>
 <img src="img\30.png" style="zoom:100%;" />
@@ -423,7 +427,7 @@
 <h3 id="srandmember"><a href="#srandmember" class="headerlink" title="srandmember"></a><strong>srandmember</strong></h3><p><strong>srandmember set2 3</strong> : 随机<strong>展示</strong>set2中的3个元素，<strong>不会删除元素</strong></p>
 <img src="img\31.png" style="zoom:100%;" />
 
-<h3 id="spop"><a href="#spop" class="headerlink" title="spop"></a><strong>spop</strong></h3><p><strong>spop set2 2</strong> :  随机<strong>弹出</strong>set2中的2个元素，<strong>出一个删一个</strong></p>
+<h3 id="spop"><a href="#spop" class="headerlink" title="spop"></a><strong>spop</strong></h3><p><strong>spop set2 2</strong> :  <strong>随机弹出</strong>set2中的2个元素，<strong>出一个删一个</strong></p>
 <img src="img\32.png" style="zoom:100%;" />
 
 <h3 id="smove"><a href="#smove" class="headerlink" title="smove"></a><strong>smove</strong></h3><p><strong>smove set1 set2 6</strong> : 将set1中的6移动到set2</p>
@@ -437,6 +441,8 @@
 <h3 id="sintercard"><a href="#sintercard" class="headerlink" title="sintercard"></a><strong>sintercard</strong></h3><p><strong>sintercard 2 set1 set2 limit 10</strong> : 返回 set1 和 set2 这 2 个集合交集的元素个数，最大值为10</p>
 <img src="img\35.png" style="zoom:100%;" />
 
+<h3 id="应用场景-3"><a href="#应用场景-3" class="headerlink" title="应用场景"></a>应用场景</h3><p>抽奖：spop、srandmember都可以随机获取元素</p>
+<p>可能认识的人、同赞好友：通过集合运算得到交集、并集等</p>
 <h2 id="7-十大类型之-Zset"><a href="#7-十大类型之-Zset" class="headerlink" title="7.十大类型之 Zset"></a>7.十大类型之 Zset</h2><h3 id="zadd"><a href="#zadd" class="headerlink" title="zadd"></a><strong>zadd</strong></h3><p><strong>zadd zset1 60 n1 70 n2 65 n3</strong> : 给zset1中添加元素及其分数，n1分数60，n2分数70，n3分数65</p>
 <h3 id="zrange-zrevrange"><a href="#zrange-zrevrange" class="headerlink" title="zrange  |  zrevrange"></a><strong>zrange  |  zrevrange</strong></h3><p><strong>zrange zset1 0 -1</strong>: 遍历zset1</p>
 <p>**zrevrange zset1 0 -1 **:倒序遍历zset1</p>
@@ -464,6 +470,7 @@
 <p><strong>zrevrank zset1 n2</strong>: 返回zset1中n1的倒序索引</p>
 <img src="img\41.png" style="zoom:100%;" />
 
+<h3 id="应用场景-4"><a href="#应用场景-4" class="headerlink" title="应用场景"></a>应用场景</h3><p>排行榜：由于zset带有score属性，所以很适合用于排行榜</p>
 <h2 id="8-十大类型之-Bitmap"><a href="#8-十大类型之-Bitmap" class="headerlink" title="8.十大类型之 Bitmap"></a>8.十大类型之 Bitmap</h2><h3 id="setbit-getbit"><a href="#setbit-getbit" class="headerlink" title="setbit  |  getbit"></a><strong>setbit  |  getbit</strong></h3><p>**setbit k1 0 1 **: 给位图k1中下标为0处的值设为1</p>
 <p><strong>getbit k1 0</strong> : 获取位图k1中下标为0处的值</p>
 <img src="img\42.png" style="zoom:100%;" />
@@ -476,11 +483,13 @@
 <h3 id="bitop"><a href="#bitop" class="headerlink" title="bitop"></a>bitop</h3><p>参考：<a target="_blank" rel="noopener" href="http://doc.redisfans.com/string/bitop.html">BITOP — Redis 命令参考 (redisfans.com)</a></p>
 <img src="img\44.png" style="zoom:100%;" />
 
+<h3 id="应用场景-5"><a href="#应用场景-5" class="headerlink" title="应用场景"></a>应用场景</h3><p>保存状态信息：如每天的签到情况、登录情况、活跃度等</p>
 <h2 id="9-十大类型之-HyperLogLog"><a href="#9-十大类型之-HyperLogLog" class="headerlink" title="9.十大类型之 HyperLogLog"></a>9.十大类型之 HyperLogLog</h2><h3 id="pfadd"><a href="#pfadd" class="headerlink" title="pfadd"></a><strong>pfadd</strong></h3><p><strong>pfadd hpll1 1 2 3 4 5 6</strong> : 向hpll1输入元素1 2 3 4 5 5 5，但元素不会进行存储，只会去重统计基数</p>
 <h3 id="pfcount"><a href="#pfcount" class="headerlink" title="pfcount"></a><strong>pfcount</strong></h3><p><strong>pfcount hpll1</strong> ：返回hpll1统计得到的基数</p>
 <h3 id="pfmerge"><a href="#pfmerge" class="headerlink" title="pfmerge"></a><strong>pfmerge</strong></h3><p><strong>pfmerge hpll3 hpll1 hpll2</strong> : 合并hpll1和hpll2，得到hpll3</p>
 <img src="img\45.png" style="zoom:100%;" />
 
+<h3 id="应用场景-6"><a href="#应用场景-6" class="headerlink" title="应用场景"></a>应用场景</h3><p>统计访问量、浏览量</p>
 <h2 id="10-十大类型之-GEO"><a href="#10-十大类型之-GEO" class="headerlink" title="10.十大类型之 GEO"></a>10.十大类型之 GEO</h2><p><strong>由于GEO是属于zset的一种，所以zset的方法也适用于GEO</strong></p>
 <p>GEO用于存储某个地址的经纬度，关于经纬度坐标可以在网上获取到：<a target="_blank" rel="noopener" href="https://api.map.baidu.com/lbsapi/getpoint/index.html">拾取坐标系统 (baidu.com)</a></p>
 <h3 id="geoadd"><a href="#geoadd" class="headerlink" title="geoadd"></a><strong>geoadd</strong></h3><p><strong>geoadd myaddress 116.363909 23.267944 小刀电动车 116.363675 23.268031 天能电池</strong>：向myaddress中插入两个地址，类似于zset，不过原来的score换成了坐标</p>
@@ -493,6 +502,7 @@
 <h3 id="georadiusbymember"><a href="#georadiusbymember" class="headerlink" title="georadiusbymember"></a><strong>georadiusbymember</strong></h3><p><strong>georadiusbymember myaddresss location1 100 m withdist withhash withcoord count 10 desc</strong>：与上一条命令相同，但是中心坐标是使用myaddress中的location1</p>
 <img src="img\47.png" style="zoom:100%;" />
 
+<h3 id="应用场景-7"><a href="#应用场景-7" class="headerlink" title="应用场景"></a>应用场景</h3><p>存储地址</p>
 <h2 id="11-十大类型之-Stream"><a href="#11-十大类型之-Stream" class="headerlink" title="11.十大类型之 Stream"></a><strong>11.十大类型之 Stream</strong></h2><p><strong>在Stream中+和-分别代表最大和最小可能出现的id</strong></p>
 <h3 id="xadd"><a href="#xadd" class="headerlink" title="xadd"></a><strong>xadd</strong></h3><p><strong>xadd mystream * k1 v1 k2 v2 :</strong> 向mystream中插入两条消息k1和k2，值为v1和v2。id的位置上的 * 代表自动生成id。插入后返回id，id由2部分组成，“毫秒时间戳-当前消息在同毫秒内的消息序号”</p>
 <h3 id="xrange-xrevrange"><a href="#xrange-xrevrange" class="headerlink" title="xrange | xrevrange"></a><strong>xrange | xrevrange</strong></h3><p><strong>xrange mystream - + count 10</strong>：按照时间戳由小到大的顺序，返回mystream中10条消息，count是可选参数</p>
@@ -529,7 +539,7 @@
   
   
     <a href="/2023/09/10/mybatis-plus/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-caption">precedente</div>
       <div class="article-nav-title">MyBatis-Plus使用</div>
     </a>
   
@@ -537,17 +547,17 @@
 
 
     <section class="share">
-        <div class="share-title">シェア</div>
+        <div class="share-title">share</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Redis - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F09%2F17%2Fredis%2F">
+            href="https://twitter.com/share?text=Redis-笔记1 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F09%2F17%2Fredis%2F">
             <ion-icon name="logo-twitter"></ion-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Redis - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F09%2F17%2Fredis%2F">
+            href="https://www.facebook.com/sharer.php?title=Redis-笔记1 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F09%2F17%2Fredis%2F">
             <ion-icon name="logo-facebook"></ion-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Redis - Z Blog&url=http://example.com/2023/09/17/redis/&pic=">
+            href="https://service.weibo.com/share/share.php?title=Redis-笔记1 - Z Blog&url=http://example.com/2023/09/17/redis/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
@@ -601,7 +611,7 @@
       <ul>
         
           <li>
-            <a href="/2023/09/17/redis/">Redis</a>
+            <a href="/2023/09/17/redis/">Redis-笔记1</a>
           </li>
         
           <li>
