@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Redis-笔记2 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;Redis学习笔记第二部分，关于事务、乐观锁、图形化界面和Java客户端( Jedis、JedisPool、SpringDataRedis )的操作&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Redis-笔记2 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;Redis学习笔记第二部分，关于事务、乐观锁、图形化界面和Java客户端( Jedis、JedisPool、SpringDataRedis )的操作&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/09/25/redis-2/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;Redis学习笔记第二部分，关于事务、乐观锁、图形化界面和Java客户端( Jedis、JedisPool、SpringDataRedis )的操作&lt;/p&gt;" />
+    <meta name="twitter:title" content="Redis-笔记2 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;Redis学习笔记第二部分，关于事务、乐观锁、图形化界面和Java客户端( Jedis、JedisPool、SpringDataRedis )的操作&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;Redis学习笔记第二部分，关于事务、乐观锁、图形化界面和Java客户端( Jedis、JedisPool、SpringDataRedis )的操作&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/09/25/redis-2/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "Redis-笔记2 | Z Blog",
+            "datePublished": "2023-09-25T08:35:33.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/09/25/redis-2/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cln2l1o1d0000zsuj8x9m3aaq" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Redis-笔记2
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-09-25T08:35:33.000Z" itemprop="datePublished">2023-09-25</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>Redis学习笔记第二部分，关于事务、乐观锁、图形化界面和Java客户端( Jedis、JedisPool、SpringDataRedis )的操作</p>
+<span id="more"></span>
+
+<h2 id="1-Redis事务"><a href="#1-Redis事务" class="headerlink" title="1.Redis事务"></a>1.Redis事务</h2><p>Redis的事务是按顺序执行一组命令集合，与MySQL不同，Redis的事务<strong>不存在隔离级别的概念，也没有原子性</strong></p>
+<p>其过程大致为：</p>
+<ul>
+<li>开启事务 ( multi )</li>
+<li>命令入队 ( 输入n条命令… )</li>
+<li>执行事务 ( exec )  或  放弃事务 ( discard )</li>
+</ul>
+<p>以下是几种事务执行的不同情况</p>
+<h3 id="正常执行"><a href="#正常执行" class="headerlink" title="正常执行"></a>正常执行</h3><img src="img\1.png" style="zoom:100%;" />
+
+<h3 id="放弃事务"><a href="#放弃事务" class="headerlink" title="放弃事务"></a>放弃事务</h3><p>若放弃事务，事务中的所有命令都不会被执行</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<h3 id="编译型异常"><a href="#编译型异常" class="headerlink" title="编译型异常"></a>编译型异常</h3><p>比如下图中，命令写错，<strong>sett k3 v3</strong> 多写了一个t，或者是其他语法上的错误，这种就属于编译型异常</p>
+<p>如果事务中出现编译型异常，那么事务中的所有命令都不会被执行</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<h3 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h3><p>比如下图中，<strong>incr k2</strong> 并没有语法上的错误，但是运行时发现 incr 需要用在数值上，但k2却是字符串</p>
+<p>像这种运行时才会报错的异常，只会影响出现错误的那条命令，错误会抛出，而<strong>其他命令可以正常执行</strong></p>
+<img src="img\4.png" style="zoom:100%;" />
+
+
+
+<h2 id="2-乐观锁"><a href="#2-乐观锁" class="headerlink" title="2.乐观锁"></a>2.乐观锁</h2><h3 id="正常执行-1"><a href="#正常执行-1" class="headerlink" title="正常执行"></a>正常执行</h3><p>使用<strong>watch</strong>命令监视money. 在事务的执行过程中，money的值没有被其他用户修改，则事务可以正常执行</p>
+<img src="img\5.png" style="zoom:100%;" />
+
+<h3 id="出现异常"><a href="#出现异常" class="headerlink" title="出现异常"></a>出现异常</h3><p>当我们使用<strong>watch</strong>监视money时，开启事务而未执行事务期间，如果另一个用户修改了money的值，那么这个事务中的所有命令都不会被执行。</p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<p>此时出现异常后我们需要使用<strong>unwatch</strong>结束监视，然后再使用watch重新获取新值上锁，再执行事务</p>
+<h2 id="3-Redis图形化界面"><a href="#3-Redis图形化界面" class="headerlink" title="3.Redis图形化界面"></a>3.Redis图形化界面</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/lework/RedisDesktopManager-Windows/releases">Releases · lework/RedisDesktopManager-Windows — Lework/RedisDesktopManager-Windows (github.com)</a></p>
+<p>注意连接前，需要打开对应端口，默认为 6379 ，在使用云服务器时，通过管理安全组可能还是没法连接成功，可以这两条命令</p>
+<blockquote>
+<p>firewall-cmd –add-port=6379/tcp –permanent </p>
+<p>firewall-cmd –reload</p>
+</blockquote>
+<img src="img\7.png" style="zoom:100%;" />
+
+<h2 id="4-Jedis及JedisPool"><a href="#4-Jedis及JedisPool" class="headerlink" title="4.Jedis及JedisPool"></a>4.Jedis及JedisPool</h2><h3 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h3><h4 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/redis.clients/jedis --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="创建对象并测试"><a href="#创建对象并测试" class="headerlink" title="创建对象并测试"></a>创建对象并测试</h4><p>这里在springboot的测试类中进行，创建Jedis对象后，建立连接、设置密码、选择库后即可使用</p>
+<p>通过Jedis对象，可以进行对Redis数据库的操作，<strong>操作的方法名基本与linux命令行中的命令一致</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">JedisDemoApplicationTests</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Jedis jedis;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//1.建立连接</span></span><br><span class="line">        jedis = <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;xx.xxx.xxx.xx&quot;</span>,<span class="number">6379</span>);</span><br><span class="line">        <span class="comment">//2.设置密码</span></span><br><span class="line">        jedis.auth(<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        <span class="comment">//3.选择库</span></span><br><span class="line">        jedis.select(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//4.测试连接</span></span><br><span class="line">        System.out.println(jedis.ping());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">k1</span> <span class="operator">=</span> jedis.get(<span class="string">&quot;k1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;k1的值为&quot;</span>+k1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@AfterEach</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">tearDown</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(jedis!=<span class="literal">null</span>)&#123;</span><br><span class="line">            jedis.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JedisPool"><a href="#JedisPool" class="headerlink" title="JedisPool"></a>JedisPool</h3><p>Jedis本身是线程不安全的，并且频繁的创建和销毁连接会有性能损耗，因此推荐使用JedisPool连接池代替Jedis的<br>直连方式。</p>
+<h4 id="编写工具类"><a href="#编写工具类" class="headerlink" title="编写工具类"></a>编写工具类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.jedis_demo.util;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPool;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JedisConnectionFactory</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//连接池配置</span></span><br><span class="line">        <span class="type">JedisPoolConfig</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisPoolConfig</span>();</span><br><span class="line">        config.setMaxTotal(<span class="number">100</span>);<span class="comment">//最大连接数</span></span><br><span class="line">        config.setMaxIdle(<span class="number">10</span>);<span class="comment">//最大空闲连接</span></span><br><span class="line">        config.setMinIdle(<span class="number">0</span>);<span class="comment">//最小空闲连接</span></span><br><span class="line">        config.setMaxWaitMillis(<span class="number">1000</span>);<span class="comment">//最大等待时间</span></span><br><span class="line">        <span class="comment">//创建连接池</span></span><br><span class="line">        jedisPool = <span class="keyword">new</span> <span class="title class_">JedisPool</span>(config,<span class="string">&quot;xx.xxx.xxx.xx&quot;</span>,<span class="number">6379</span>,<span class="number">1000</span>,<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取Jedis对象</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Jedis <span class="title function_">getJedis</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过工具类获取对象"><a href="#通过工具类获取对象" class="headerlink" title="通过工具类获取对象"></a>通过工具类获取对象</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">JedisPooltest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Jedis jedis;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span> &#123;</span><br><span class="line">    	<span class="comment">//获取Jedis对象</span></span><br><span class="line">        jedis = JedisConnectionFactory.getJedis();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">k1</span> <span class="operator">=</span> jedis.get(<span class="string">&quot;k1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;k1的值为&quot;</span>+k1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterEach</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">tearDown</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(jedis!=<span class="literal">null</span>)&#123;</span><br><span class="line">            jedis.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-SpringDataRedis"><a href="#5-SpringDataRedis" class="headerlink" title="5.SpringDataRedis"></a>5.SpringDataRedis</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>SpringData是Spring中数据操作的模块，包含对各种数据库的集成，其中对Redis的集成模块就叫做SpringDataRedis</p>
+<ul>
+<li>提供了对不同Redis客户端的整合（Lettuce和Jedis）</li>
+<li>提供了RedisTemplate统一API来操作Redis</li>
+<li>支持Redis的发布订阅模型</li>
+<li>支持Redis哨兵和Redis集群</li>
+<li>支持基于Lettuce的响应式编程</li>
+<li>支持基于JDK、JSON、字符串、Spring对象的数据序列化及反序列化</li>
+<li>支持基于Redis的JDKCollection实现</li>
+</ul>
+<p>SpringDataRedis中提供了RedisTemplate工具类，其中封装了各种对Redis的操作。并且将不同数据类型的操作API封装到了不同的类型中：</p>
+<img src="img\8.png" style="zoom:100%;" />
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><h4 id="导入依赖-1"><a href="#导入依赖-1" class="headerlink" title="导入依赖"></a>导入依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.11.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--Jackson依赖  spring-boot-starter-web中已包含，若已存在无需重复导入--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="在application-yaml中配置redis"><a href="#在application-yaml中配置redis" class="headerlink" title="在application.yaml中配置redis"></a>在application.yaml中配置redis</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">47.113</span><span class="number">.202</span><span class="number">.66</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#默认值可不写</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#默认值可不写</span></span><br><span class="line">    <span class="attr">lettuce:</span></span><br><span class="line">      <span class="attr">pool:</span></span><br><span class="line">        <span class="attr">max-active:</span> <span class="number">8</span> <span class="comment">#默认值可不写</span></span><br><span class="line">        <span class="attr">max-idle:</span> <span class="number">8</span> <span class="comment">#默认值可不写</span></span><br><span class="line">        <span class="attr">min-idle:</span> <span class="number">0</span> <span class="comment">#默认值可不写</span></span><br><span class="line">        <span class="attr">max-wait:</span> <span class="string">1000ms</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="注入RedisTemplate并测试"><a href="#注入RedisTemplate并测试" class="headerlink" title="注入RedisTemplate并测试"></a>注入RedisTemplate并测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RedisTemplateApplicationTests</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">testString</span><span class="params">()</span> &#123;</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">name</span> <span class="operator">=</span> redisTemplate.opsForValue().get(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;name = &quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后虽然能够成功插入或查询，但在redis中查看时，却会看到乱码，这是由于RedisTemplate默认采用 JDK 序列化</p>
+<img src="img\9.png" style="zoom:100%;" />
+
+<p>因此需要在配置类中自定义序列化</p>
+<h4 id="自定义序列化"><a href="#自定义序列化" class="headerlink" title="自定义序列化"></a>自定义序列化</h4><p>创建RedisConfig类进行配置</p>
+<img src="img\10.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.redisdemo.config;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.RedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.RedisSerializer;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt;</span><br><span class="line">        <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory connectionFactory)</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建 RedisTemplate 对象</span></span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// 设置连接工厂</span></span><br><span class="line">        template.setConnectionFactory(connectionFactory);</span><br><span class="line">        <span class="comment">// 创建 JSON 序列化工具</span></span><br><span class="line">        <span class="type">GenericJackson2JsonRedisSerializer</span> <span class="variable">jsonRedisSerializer</span> </span><br><span class="line">            <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GenericJackson2JsonRedisSerializer</span>();</span><br><span class="line">        <span class="comment">// 设置 key 的序列化</span></span><br><span class="line">        template.setKeySerializer(RedisSerializer.string());</span><br><span class="line">        template.setHashKeySerializer(RedisSerializer.string());</span><br><span class="line">        <span class="comment">// 设置 value 的序列化</span></span><br><span class="line">        template.setValueSerializer(jsonRedisSerializer);</span><br><span class="line">        template.setHashValueSerializer(jsonRedisSerializer);</span><br><span class="line">        <span class="comment">// 返回</span></span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成自定义序列化后，在注入RedisTemplate时应加上泛型，即</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String,Object&gt; redisTemplate;</span><br></pre></td></tr></table></figure>
+
+<h4 id="再次测试"><a href="#再次测试" class="headerlink" title="再次测试"></a>再次测试</h4><img src="img\11.png" style="zoom:100%;" />
+
+<img src="img\12.png" style="zoom:100%;" />
+
+<p>现在就不会乱码了</p>
+<p>下面测试插入一个对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSaveUser</span><span class="params">()</span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;user:001&quot;</span>,<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;王五&quot;</span>,<span class="number">18</span>));</span><br><span class="line">    <span class="type">User</span> <span class="variable">o</span> <span class="operator">=</span> (User) redisTemplate.opsForValue().get(<span class="string">&quot;user:001&quot;</span>);</span><br><span class="line">    System.out.println(o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="img\13.png" style="zoom:100%;" />
+
+<img src="img\14.png" style="zoom:100%;" />
+
+<p>“@class”:”com.example.redisdemo.pojo.User”使得可以自动实现反序列化</p>
+<h3 id="最终方案-StringRedisTemplate"><a href="#最终方案-StringRedisTemplate" class="headerlink" title="最终方案-StringRedisTemplate"></a>最终方案-StringRedisTemplate</h3><p>由于使用RedisTemplate在进行对象的序列化时，会自动在JSON中存入一个@class，这是一个很浪费资源的方式，而且RedisTemplate需要额外的自定义序列化，比较麻烦</p>
+<p>所以改用<strong>StringRedisTemplate</strong>，结合<strong>ObjectMapper</strong>，我们手动完成序列化和反序列化</p>
+<p>依赖和application配置还是和原来一样，只是RedisTemplate改为StringRedisTemplate</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSaveUser2</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException &#123;</span><br><span class="line">    <span class="comment">//准备对象</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;赵六&quot;</span>,<span class="number">19</span>);</span><br><span class="line">    <span class="comment">//序列化</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">json</span> <span class="operator">=</span> mapper.writeValueAsString(user);</span><br><span class="line">    <span class="comment">//写入到redis</span></span><br><span class="line">    stringRedisTemplate.opsForValue().set(<span class="string">&quot;user:002&quot;</span>,json);</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">val</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(<span class="string">&quot;user:002&quot;</span>);</span><br><span class="line">    <span class="comment">//反序列化</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user1</span> <span class="operator">=</span> mapper.readValue(val, User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;user1:&quot;</span>+user1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="img\15.png" style="zoom:100%;" />
+
+<p>可以看到现在已经没有@class了</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/09/17/redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Redis-笔记1</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Redis-笔记2 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F09%2F25%2Fredis-2%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Redis-笔记2 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F09%2F25%2Fredis-2%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Redis-笔记2 - Z Blog&url=http://example.com/2023/09/25/redis-2/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/25/redis-2/">Redis-笔记2</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/17/redis/">Redis-笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/10/mybatis-plus/">MyBatis-Plus使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/04/BOS/">图片上传至百度智能云BOS</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/31/OSS/">图片上传至阿里云OSS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
