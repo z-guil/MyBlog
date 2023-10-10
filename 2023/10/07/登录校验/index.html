@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>实现登录校验功能 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;登录校验功能的实现有许多种方案，包括传统的&lt;strong&gt;Cookie&lt;/strong&gt;和&lt;strong&gt;Session&lt;/strong&gt;，以及目前被广泛采用的令牌技术之一&lt;strong&gt;JWT&lt;/strong&gt;( Json Web Token ).目前主要学习JWT的来完成登录校验，Cookie和Session仅作为了解。&lt;/p&gt;
+&lt;p&gt;通过Spring提供的拦截器 Interceptor 拦截请求，配合JWT校验来决定是否放行&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "实现登录校验功能 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;登录校验功能的实现有许多种方案，包括传统的&lt;strong&gt;Cookie&lt;/strong&gt;和&lt;strong&gt;Session&lt;/strong&gt;，以及目前被广泛采用的令牌技术之一&lt;strong&gt;JWT&lt;/strong&gt;( Json Web Token ).目前主要学习JWT的来完成登录校验，Cookie和Session仅作为了解。&lt;/p&gt;
+&lt;p&gt;通过Spring提供的拦截器 Interceptor 拦截请求，配合JWT校验来决定是否放行&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;登录校验功能的实现有许多种方案，包括传统的&lt;strong&gt;Cookie&lt;/strong&gt;和&lt;strong&gt;Session&lt;/strong&gt;，以及目前被广泛采用的令牌技术之一&lt;strong&gt;JWT&lt;/strong&gt;( Json Web Token ).目前主要学习JWT的来完成登录校验，Cookie和Session仅作为了解。&lt;/p&gt;
+&lt;p&gt;通过Spring提供的拦截器 Interceptor 拦截请求，配合JWT校验来决定是否放行&lt;/p&gt;" />
+    <meta name="twitter:title" content="实现登录校验功能 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;登录校验功能的实现有许多种方案，包括传统的&lt;strong&gt;Cookie&lt;/strong&gt;和&lt;strong&gt;Session&lt;/strong&gt;，以及目前被广泛采用的令牌技术之一&lt;strong&gt;JWT&lt;/strong&gt;( Json Web Token ).目前主要学习JWT的来完成登录校验，Cookie和Session仅作为了解。&lt;/p&gt;
+&lt;p&gt;通过Spring提供的拦截器 Interceptor 拦截请求，配合JWT校验来决定是否放行&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;登录校验功能的实现有许多种方案，包括传统的&lt;strong&gt;Cookie&lt;/strong&gt;和&lt;strong&gt;Session&lt;/strong&gt;，以及目前被广泛采用的令牌技术之一&lt;strong&gt;JWT&lt;/strong&gt;( Json Web Token ).目前主要学习JWT的来完成登录校验，Cookie和Session仅作为了解。&lt;/p&gt;
+&lt;p&gt;通过Spring提供的拦截器 Interceptor 拦截请求，配合JWT校验来决定是否放行&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "实现登录校验功能 | Z Blog",
+            "datePublished": "2023-10-07T02:52:18.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clnjs56590000bsuj2xed3xoh" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      实现登录校验功能
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-10-07T02:52:18.000Z" itemprop="datePublished">2023-10-07</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>登录校验功能的实现有许多种方案，包括传统的<strong>Cookie</strong>和<strong>Session</strong>，以及目前被广泛采用的令牌技术之一<strong>JWT</strong>( Json Web Token ).目前主要学习JWT的来完成登录校验，Cookie和Session仅作为了解。</p>
+<p>通过Spring提供的拦截器 Interceptor 拦截请求，配合JWT校验来决定是否放行</p>
+<span id="more"></span>
+
+<h2 id="1-会话追踪方案"><a href="#1-会话追踪方案" class="headerlink" title="1.会话追踪方案"></a>1.会话追踪方案</h2><h3 id="1-1Cookie"><a href="#1-1Cookie" class="headerlink" title="1.1Cookie"></a>1.1Cookie</h3><p>Cookie是Web服务器发送给客户端的一小段信息，客户端请求时，可以读取该信息发送到服务器端。</p>
+<h4 id="1-1-1-使用cookie"><a href="#1-1-1-使用cookie" class="headerlink" title="1.1.1 使用cookie"></a>1.1.1 使用cookie</h4><p>存入Cookie使用<strong>HttpSercletResponse</strong>的<strong>addCookie</strong></p>
+<p>取出Cookie使用<strong>HttpServletRequest</strong>的<strong>getCookies</strong>，再进行遍历得到单个cookie</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置Cookie</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/cookie1&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">cookie1</span><span class="params">(HttpServletResponse response)</span>&#123;</span><br><span class="line">        response.addCookie(<span class="keyword">new</span> <span class="title class_">Cookie</span>(<span class="string">&quot;login_userid&quot;</span>,<span class="string">&quot;123456&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> Result.success();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取Cookie</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/cookie2&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">cookie2</span><span class="params">(HttpServletRequest request)</span>&#123;</span><br><span class="line">        Cookie[] cookies = request.getCookies();</span><br><span class="line">        <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;cookie:&quot;</span>+cookie.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Result.success();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当访问cookie1接口时可以，打开控制台可以看到存储在本地浏览器的cookie</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<p>而当前端请求获取cookie，服务器端也可以通过<strong>HttpServletRequest</strong>来<strong>获取</strong>存储在浏览器中的cookie</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<h4 id="1-1-2-优缺点"><a href="#1-1-2-优缺点" class="headerlink" title="1.1.2 优缺点"></a>1.1.2 优缺点</h4><p>优点：Cookie是HTTP协议中支持的技术</p>
+<p>缺点：</p>
+<ul>
+<li>移动端APP无法使用</li>
+<li>Cookie不安全，用户可以自己禁用Cookie</li>
+<li>Cookie不能跨域</li>
+</ul>
+<h3 id="1-2Session"><a href="#1-2Session" class="headerlink" title="1.2Session"></a>1.2Session</h3><p>Session是基于Cookie来工作的，同一个客户端每次访问服务器时，只要当浏览器在第一次访问服务器时，服务器设置一个id并保存一些信息(例如登陆就保存用户信息，视具体情况)，并把这个id通过Cookie存到客户端，客户端每次和服务器交互时只传这个id，就可以实现维持浏览器和服务器的状态，而这个ID通常是NAME为<strong>JSESSIONID</strong>的一个Cookie。</p>
+<p>在Java中是通过调用HttpServletRequest的getSession方法（使用true作为参数）创建的，存储在服务器的内存中，tomcat默认保存30分钟。</p>
+<h4 id="1-2-1-使用Session"><a href="#1-2-1-使用Session" class="headerlink" title="1.2.1 使用Session"></a>1.2.1 使用Session</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//往HttpSession中存储值</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/session1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">session1</span><span class="params">(HttpSession session)</span>&#123;</span><br><span class="line">    session.setAttribute(<span class="string">&quot;login_userid_2&quot;</span>,<span class="string">&quot;654321&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> Result.success();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//从HttpSession中获取值</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/session2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">session2</span><span class="params">(HttpServletRequest request)</span>&#123;</span><br><span class="line">    <span class="type">HttpSession</span> <span class="variable">session</span> <span class="operator">=</span> request.getSession();</span><br><span class="line">    <span class="type">Object</span> <span class="variable">value</span> <span class="operator">=</span> session.getAttribute(<span class="string">&quot;login_userid_2&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> Result.success(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当访问session1时可以看到存在一个名为JSESSIONID的Cookie，这个就是此次会话的id</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<p>通过这个session可以在服务器中获取其中的属性</p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<h4 id="1-2-2-优缺点"><a href="#1-2-2-优缺点" class="headerlink" title="1.2.2 优缺点"></a>1.2.2 优缺点</h4><p>优点：由于session中的数据存储在服务器中，只有传输一个id，因此数据安全性更高</p>
+<p>缺点：</p>
+<ul>
+<li>基于Cookie，所以Cookie存在的问题依然存在</li>
+<li>Session在高访问量的情况下，对于服务器的存储压力大</li>
+<li>无论是Cookie还是Session，在服务器集群环境下需要解决数据共享的问题</li>
+</ul>
+<h3 id="1-3-令牌技术"><a href="#1-3-令牌技术" class="headerlink" title="1.3 令牌技术"></a>1.3 令牌技术</h3><h4 id="1-3-1-概述"><a href="#1-3-1-概述" class="headerlink" title="1.3.1 概述"></a>1.3.1 概述</h4><p>令牌(Token)就是系统的临时密钥,相当于账户名和密码,用来决定是否允许这次请求和判断这次请求时属于哪一个用户的.它允许你不提供密码或其他凭证的前提下,访问网络和系统资源.这些令牌将持续存在于系统中,除非系统重新启动.</p>
+<p>JWT 是目前主流的令牌技术，简洁、自包含的格式，用于在通信双方以JSON数据格式安全的传输信息。由于数字签名的存在，这些信息都是可靠的。</p>
+<p><strong>组成:</strong></p>
+<ul>
+<li><p><strong>第一部分:Header(头)，记录令牌类型、签名算法等。</strong></p>
+<p>​    例如:[“alg”:“HS256”,“type”:”WT”)</p>
+</li>
+<li><p><strong>第二部分:Payload(有效载荷)，携带一些自定义信息、默认信息等。</strong></p>
+<p>​    例如:“id”.”1”“username”.”Tom”</p>
+</li>
+<li><p><strong>第三部分: Signature(签名)，防止Token被篡改、确保安全性。</strong></p>
+<p>​    将header、payload，并加入指定秘钥，通过指定签名算法计算而来。</p>
+<p>​    第三部分字符的由来不是Base64编码方式生成的，而是前面指定的签名算法</p>
+</li>
+</ul>
+<h4 id="1-3-2-优缺点"><a href="#1-3-2-优缺点" class="headerlink" title="1.3.2 优缺点"></a>1.3.2 优缺点</h4><p>优点:</p>
+<ul>
+<li>支持PC端、移动端</li>
+<li>解决集群环境下的认证问题</li>
+<li>减轻服务器端存储压力</li>
+</ul>
+<p>缺点: 需要自己手动实现</p>
+<h2 id="2-JWT实现登录校验的过程"><a href="#2-JWT实现登录校验的过程" class="headerlink" title="2.JWT实现登录校验的过程"></a>2.JWT实现登录校验的过程</h2><p>用户登录成功后，系统会下发JWT令牌，然后在后续的每次请求中，前端都需要在请求头header中携带JWT令牌到服务端，请求头的名称为 token，值为登录时下发的JWT令牌。</p>
+<p>服务端拦截所有需要登录才能访问的请求，通过</p>
+<ul>
+<li><strong>request.getParameter(“token”)</strong> </li>
+<li><strong>request.getHeader(“token”)</strong></li>
+<li>public Result xxx(<strong>@RequestHeader(“token”) String token</strong>)</li>
+</ul>
+<p>获得登录时下发的JWT令牌。</p>
+<p>如果检测到用户未登录，则会返回错误信息。</p>
+<h2 id="3-JWT的使用"><a href="#3-JWT的使用" class="headerlink" title="3.JWT的使用"></a>3.JWT的使用</h2><h3 id="3-1-导入依赖"><a href="#3-1-导入依赖" class="headerlink" title="3.1 导入依赖"></a>3.1 导入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-生成JWT"><a href="#3-2-生成JWT" class="headerlink" title="3.2 生成JWT"></a>3.2 生成JWT</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/genJwt&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">genJwt</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//自定义内容，通过Map存入</span></span><br><span class="line">    Map&lt;String, Object&gt; claims =<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    claims.put(<span class="string">&quot;login_userid_3&quot;</span>,<span class="string">&quot;123456789&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">jwt</span> <span class="operator">=</span> Jwts.builder()</span><br><span class="line">            <span class="comment">//自定义内容（载荷）</span></span><br><span class="line">            .setClaims(claims)</span><br><span class="line">            <span class="comment">//签名算法、解析密钥</span></span><br><span class="line">            .signWith(SignatureAlgorithm.HS256, <span class="string">&quot;This_is_a_key&quot;</span>)</span><br><span class="line">            <span class="comment">//设定过期时间</span></span><br><span class="line">            .setExpiration(<span class="keyword">new</span> <span class="title class_">Date</span>(System.currentTimeMillis() + <span class="number">30</span> * <span class="number">60</span> * <span class="number">1000</span>))</span><br><span class="line">            <span class="comment">//生成</span></span><br><span class="line">            .compact();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> Result.success(jwt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="img\5.png" style="zoom:100%;" />
+
+<h3 id="3-3校验JWT"><a href="#3-3校验JWT" class="headerlink" title="3.3校验JWT"></a>3.3校验JWT</h3><p>在此过程中，JWT令牌若发生改变，则校验不会通过，而过期也同样不会通过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/checkJwt&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">checkJwt</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//模拟前端传入的JWT</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">test_jwt</span> <span class="operator">=</span> <span class="string">&quot;xxx.xxx.xxx&quot;</span>;</span><br><span class="line">    <span class="comment">//解析</span></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> Jwts.parser()</span><br><span class="line">                <span class="comment">//解析需要之前设置的 解析密钥</span></span><br><span class="line">                .setSigningKey(<span class="string">&quot;This_is_a_key&quot;</span>)</span><br><span class="line">                .parseClaimsJws(test_jwt)</span><br><span class="line">                .getBody();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.success(claims);</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        <span class="keyword">return</span> Result.error(<span class="string">&quot;Jwt令牌错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="img\6.png" style="zoom:100%;" />
+
+<h3 id="3-4-封装为工具类"><a href="#3-4-封装为工具类" class="headerlink" title="3.4 封装为工具类"></a>3.4 封装为工具类</h3><p>为方便使用，封装为工具类以便多次调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Claims;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Jwts;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.SignatureAlgorithm;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JwtUtil</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义两个常量：过期时间（ms）和 解析密钥</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">EXPIRE</span> <span class="operator">=</span> <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SECRET</span> <span class="operator">=</span> <span class="string">&quot;this_is_a_secret_key&quot;</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成 JWT令牌</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> claims JWT第二部分负裁 payload 中存储的内容，即自定义内容</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateJwt</span><span class="params">(Map&lt;String,Object&gt; claims)</span>&#123;</span><br><span class="line">        claims.put(<span class="string">&quot;login_userid&quot;</span>,<span class="string">&quot;123456789&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">jwt</span> <span class="operator">=</span> Jwts.builder()</span><br><span class="line">                <span class="comment">//自定义内容（载荷）</span></span><br><span class="line">                .setClaims(claims)</span><br><span class="line">                <span class="comment">//签名算法、解析密钥</span></span><br><span class="line">                .signWith(SignatureAlgorithm.HS256, SECRET)</span><br><span class="line">                <span class="comment">//设定过期时间</span></span><br><span class="line">                .setExpiration(<span class="keyword">new</span> <span class="title class_">Date</span>(System.currentTimeMillis() + EXPIRE))</span><br><span class="line">                <span class="comment">//生成</span></span><br><span class="line">                .compact();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> jwt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析 JWT令牌</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwt 需要解析的jwt令牌</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> JWT第二部分负裁 payload 中存储的内容，即自定义内容</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Claims <span class="title function_">parseJwt</span><span class="params">(String jwt)</span>&#123;</span><br><span class="line">            <span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> Jwts.parser()</span><br><span class="line">                    <span class="comment">//解析需要之前设置的 解析密钥</span></span><br><span class="line">                    .setSigningKey(SECRET)</span><br><span class="line">                    <span class="comment">//解析为Claims</span></span><br><span class="line">                    .parseClaimsJws(jwt)</span><br><span class="line">                    <span class="comment">//返回Claims</span></span><br><span class="line">                    .getBody();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> claims;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检验jwt令牌</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwt 需要解析的jwt令牌</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true:通过  false:不通过</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title function_">checkJwt</span><span class="params">(String jwt)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(jwt))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            parseJwt(jwt);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Interceptor拦截器"><a href="#4-Interceptor拦截器" class="headerlink" title="4.Interceptor拦截器"></a>4.Interceptor拦截器</h2><h3 id="4-1-拦截器概述"><a href="#4-1-拦截器概述" class="headerlink" title="4.1 拦截器概述"></a>4.1 拦截器概述</h3><p>Spring MVC 中的拦截器 Interceptor 类似于Servlet 中的过滤器 Filter，它主要用于拦截用户请求并做相应的处理。例如通过拦截器可以进行权限验证、记录请求信息的日志、判断用户是否登录等。</p>
+<h3 id="4-2-使用"><a href="#4-2-使用" class="headerlink" title="4.2 使用"></a>4.2 使用</h3><h4 id="4-2-1-定义拦截器"><a href="#4-2-1-定义拦截器" class="headerlink" title="4.2.1 定义拦截器"></a>4.2.1 定义拦截器</h4><p>首先需要自定义一个类，放在interceptor包下</p>
+<p>实现<strong>HandlerInterceptor接口</strong>，然后ctrl+o可以调出重写方法的窗口，<strong>重写preHandle()、postHandle()、afterCompletion()<strong>，最后在这个类上</strong>加上@Component注解</strong>，交给IOC容器管理</p>
+<p>其中</p>
+<ul>
+<li><strong>preHandle()<strong>是目标资源方法执行前执行，</strong>返回true放行，返回false拦截</strong></li>
+<li>**postHandle()**目标资源方法执行后执行</li>
+<li>**afterCompletion()**视图渲染完毕后执行，最后执行</li>
+</ul>
+<img src="img\7.png" style="zoom:100%;" />
+
+<h4 id="4-2-2-注册拦截器"><a href="#4-2-2-注册拦截器" class="headerlink" title="4.2.2 注册拦截器"></a>4.2.2 注册拦截器</h4><p>创建一个配置类，<strong>重写addInterceptors()<strong>方法，注入刚才定义的拦截器，然后</strong>通过registry添加拦截器以及配置拦截路径</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sky.interceptor.DemoInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">extends</span> <span class="title class_">WebMvcConfigurationSupport</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DemoInterceptor demoInterceptor;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        registry.addInterceptor(demoInterceptor)<span class="comment">//添加拦截器</span></span><br><span class="line">                .addPathPatterns(<span class="string">&quot;/**&quot;</span>)<span class="comment">//拦截所有请求</span></span><br><span class="line">                .excludePathPatterns(<span class="string">&quot;/login&quot;</span>);<span class="comment">//排除 /login 的请求</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成定义和注册后，如以上配置，页面将只能访问 /login ，其他请求将会被拦截</p>
+<img src="img\8.png" style="zoom:100%;" />
+
+<h4 id="4-2-3-拦截器完成登录校验"><a href="#4-2-3-拦截器完成登录校验" class="headerlink" title="4.2.3 拦截器完成登录校验"></a>4.2.3 拦截器完成登录校验</h4><p>在拦截器的preHandle()方法中添加以下代码</p>
+<p>通过校验JWT令牌来选择是否放行请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>   <span class="comment">//目标资源方法执行前执行，返回true放行，返回false拦截</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, </span></span><br><span class="line"><span class="params">                             HttpServletResponse response,</span></span><br><span class="line"><span class="params">                             Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//1.获取请求的url</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> request.getRequestURL().toString();</span><br><span class="line">        <span class="comment">//2.通过url判断，如果是登录操作就放行</span></span><br><span class="line">        <span class="keyword">if</span>(url.contains(<span class="string">&quot;login&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//3.获取请求头中的令牌</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">jwt</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;token&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取的jwt:&quot;</span>+jwt);</span><br><span class="line">        <span class="comment">//4.校验jwt，如果通过就放行</span></span><br><span class="line">        <span class="keyword">if</span> ( JwtUtil.checkJwt(jwt) )&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/10/04/nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">precedente</div>
+      <div class="article-nav-title">Nginx-笔记</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">share</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=实现登录校验功能 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F07%2F%25E7%2599%25BB%25E5%25BD%2595%25E6%25A0%25A1%25E9%25AA%258C%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=实现登录校验功能 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F10%2F07%2F%25E7%2599%25BB%25E5%25BD%2595%25E6%25A0%25A1%25E9%25AA%258C%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=实现登录校验功能 - Z Blog&url=http://example.com/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/">实现登录校验功能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/04/nginx/">Nginx-笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/25/redis-2/">Redis-笔记2</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/17/redis/">Redis-笔记1</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/10/mybatis-plus/">MyBatis-Plus使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
