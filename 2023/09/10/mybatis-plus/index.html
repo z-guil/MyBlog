@@ -272,9 +272,18 @@
 <h4 id="type属性"><a href="#type属性" class="headerlink" title="type属性"></a>type属性</h4><p>type属性可以设置主键id的生成方式，<strong>默认使用雪花算法生成</strong>，如果需要使用自增长，则需要**在数据库中将主键设置为自增长并同时将type设置为 IdType.AUTO **</p>
 <img src="img\23.png" style="zoom:100%;" />
 
-<h3 id="TableField"><a href="#TableField" class="headerlink" title="@TableField"></a>@TableField</h3><p>假如数据库中字段名为<strong>user_name</strong>,而实体类属性名为<strong>userName</strong>,这种情况可以正常运行，因为MybatisPlus会将下划线改为驼峰命名。</p>
+<h3 id="TableField"><a href="#TableField" class="headerlink" title="@TableField"></a>@TableField</h3><h4 id="value属性-1"><a href="#value属性-1" class="headerlink" title="value属性"></a>value属性</h4><p>假如数据库中字段名为<strong>user_name</strong>,而实体类属性名为<strong>userName</strong>,这种情况可以正常运行，因为MybatisPlus会将下划线改为驼峰命名。</p>
 <p>但如果数据库中字段名为<strong>user_name</strong>,而实体类属性名为<strong>name</strong>,则需要使用**@TableField(“user_name”)**来指定属性所对应的字段名</p>
 <img src="img\24.png" style="zoom:100%;" />
+
+<h4 id="fill属性（自动填充公共字段）"><a href="#fill属性（自动填充公共字段）" class="headerlink" title="fill属性（自动填充公共字段）"></a>fill属性（自动填充公共字段）</h4><p>像下面这样添加fill属性，在插入和更新时，会自动填充该字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建时间</span></span><br><span class="line"><span class="meta">@JsonFormat(pattern = &quot;yyyy-MM-dd hh:mm:ss&quot;)</span></span><br><span class="line"><span class="meta">@TableField(fill = FieldFill.INSERT_UPDATE)</span></span><br><span class="line"><span class="keyword">private</span> LocalDateTime createTime;</span><br><span class="line"></span><br><span class="line"><span class="comment">//更新时间</span></span><br><span class="line"><span class="meta">@JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line"><span class="meta">@TableField(fill = FieldFill.INSERT_UPDATE)</span></span><br><span class="line"><span class="keyword">private</span> LocalDateTime updateTime;</span><br></pre></td></tr></table></figure>
+
+<img src="img\50.png" style="zoom:100%;" />
+
+<p>关于<strong>填充的内容</strong>和指定的<strong>字段名</strong>需要在<strong>处理器</strong>中配置</p>
+<p><strong>按照框架要求编写元数据对象处理器，在此类中统一为公共字段赋值，此类需要实现MetaObjectHandler接口。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;</span><br><span class="line">import org.apache.ibatis.reflection.MetaObject;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import java.time.LocalDateTime;</span><br><span class="line">@Component</span><br><span class="line">public class MyMetaObjecthandler implements MetaObjectHandler &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void insertFill(MetaObject metaObject) &#123;</span><br><span class="line">        metaObject.setValue(&quot;createTime&quot;, LocalDateTime.now());</span><br><span class="line">        metaObject.setValue(&quot;updateTime&quot;, LocalDateTime.now());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void updateFill(MetaObject metaObject) &#123;</span><br><span class="line">        metaObject.setValue(&quot;updateTime&quot;,LocalDateTime.now());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="TableLogic"><a href="#TableLogic" class="headerlink" title="@TableLogic"></a>@TableLogic</h3><p>@TableLogic可以实现数据的<strong>逻辑删除而不是物理删除</strong></p>
 <p>使用方法：</p>
@@ -378,7 +387,7 @@
 <nav class="article-nav">
   
     <a href="/2023/09/17/redis/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-caption">prossimo</div>
       <div class="article-nav-title">
         
           Redis-笔记1
@@ -388,7 +397,7 @@
   
   
     <a href="/2023/06/04/BOS/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-caption">precedente</div>
       <div class="article-nav-title">图片上传至百度智能云BOS</div>
     </a>
   
@@ -396,7 +405,7 @@
 
 
     <section class="share">
-        <div class="share-title">分享</div>
+        <div class="share-title">share</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=MyBatis-Plus使用 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F09%2F10%2Fmybatis-plus%2F">
             <ion-icon name="logo-twitter"></ion-icon>
