@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Spring Cache | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;学习Spring Cache的使用，结合Redis，完成对数据的缓存&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Spring Cache | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;学习Spring Cache的使用，结合Redis，完成对数据的缓存&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/10/23/SpringCache/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;学习Spring Cache的使用，结合Redis，完成对数据的缓存&lt;/p&gt;" />
+    <meta name="twitter:title" content="Spring Cache | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;学习Spring Cache的使用，结合Redis，完成对数据的缓存&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;学习Spring Cache的使用，结合Redis，完成对数据的缓存&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/10/23/SpringCache/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "Spring Cache | Z Blog",
+            "datePublished": "2023-10-23T00:52:26.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/10/23/SpringCache/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clo2afbw30000zgujasqx82jb" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Cache
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-10-23T00:52:26.000Z" itemprop="datePublished">2023-10-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>学习Spring Cache的使用，结合Redis，完成对数据的缓存</p>
+<span id="more"></span>
+
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-cache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，Spring Cache支持缓存品种多，常见缓存Redis、EhCache、Caffeine均支持。它们之间既能独立使用，也能组合使用。</p>
+<p>这里使用最常用的Redis作为缓存数据库</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>确保Redis配置正确，能正常连接后即可使用SpringCache</p>
+<h2 id="2-常用注解"><a href="#2-常用注解" class="headerlink" title="2.常用注解"></a>2.常用注解</h2><img src="img\2.png" style="zoom:100%;" />
+
+<h3 id="EnableCaching"><a href="#EnableCaching" class="headerlink" title="@EnableCaching"></a><strong>@EnableCaching</strong></h3><p><code>@EnableCaching</code>开启缓存注解功能，通常加在启动类上</p>
+<h3 id="Cacheable"><a href="#Cacheable" class="headerlink" title="@Cacheable"></a><strong>@Cacheable</strong></h3><p><code>@Cacheble</code>注解表示这个方法有了缓存的功能，方法的返回值会被缓存下来，下一次调用该方法前，会去检查是否缓存中已经有值，如果有就直接返回，不调用方法。如果没有，就调用方法，然后把结果缓存起来。这个注解<strong>一般用在查询方法上</strong>。</p>
+<h3 id="CachePut"><a href="#CachePut" class="headerlink" title="@CachePut"></a><strong>@CachePut</strong></h3><p>加了<code>@CachePut</code>注解的方法，会把方法的返回值put到缓存里面缓存起来，供其它地方使用。它<strong>通常用在新增方法上</strong>。</p>
+<h3 id="CacheEvict"><a href="#CacheEvict" class="headerlink" title="@CacheEvict"></a><strong>@CacheEvict</strong></h3><p>使用了<code>CacheEvict</code>注解的方法，会清空指定缓存。<strong>一般用在更新或者删除的方法上</strong>。</p>
+<h2 id="3-开启缓存"><a href="#3-开启缓存" class="headerlink" title="3.开启缓存"></a>3.开启缓存</h2><p>在启动类加上<code>@EnableCaching</code>注解即可开启使用缓存。</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<h2 id="4-加缓存注解"><a href="#4-加缓存注解" class="headerlink" title="4.加缓存注解"></a>4.加缓存注解</h2><p>根据情况为接口加上<code>@Cacheable</code>、<code>@CachePut</code>或<code>@CacheEvict</code> 注解</p>
+<p>注解内的参数<strong>cacheNames</strong>和<strong>key</strong>共同拼接为存入的缓存的名字，其中key以SpEL的方式调用传入的参数</p>
+<p>如下面这个<code>(cacheNames = &quot;userCache&quot;,key = &quot;#user.id&quot;)</code>，传入id=1,存入后缓存的key为<code>userCache::1</code></p>
+<h3 id="CachePut-1"><a href="#CachePut-1" class="headerlink" title="@CachePut"></a>@CachePut</h3><p>通常用在<strong>新增</strong>方法上</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<p>通过调试后，可以在mysql和redis中看到对应的数据，说明缓存成功</p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<img src="img\5.png" style="zoom:100%;" />
+
+<img src="img\6.png" style="zoom:100%;" />
+
+<h3 id="Cacheable-1"><a href="#Cacheable-1" class="headerlink" title="@Cacheable"></a>@Cacheable</h3><p>通常用在<strong>查询</strong>方法上</p>
+<img src="img\7.png" style="zoom:100%;" />
+
+<p>调用接口后，通过断点调试可以发现，当发送/user的GET请求时，若缓存已经存在，则不会调用到<code>userMapper.getById(id)</code></p>
+<h3 id="CacheEvict-1"><a href="#CacheEvict-1" class="headerlink" title="@CacheEvict"></a><strong>@CacheEvict</strong></h3><p>通常用在<strong>更新或者删除</strong>方法上</p>
+<img src="img\8.png" style="zoom:100%;" />
+
+<p>如第一个接口，当请求删除id为3的用户时，redis中相对应的<code>userCache::3</code>也会被删除</p>
+<p>第二个接口中，使用参数<code>allEntries=true</code>，那么当调用该接口时，所有的<code>userCache</code>都会被删除</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/10/10/Swagger/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Swagger接口文档</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Spring Cache - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F23%2FSpringCache%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Spring Cache - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F10%2F23%2FSpringCache%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Spring Cache - Z Blog&url=http://example.com/2023/10/23/SpringCache/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/23/SpringCache/">Spring Cache</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/Swagger/">Swagger接口文档</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/">实现登录校验功能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/04/nginx/">Nginx-笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/25/redis-2/">Redis-笔记2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
