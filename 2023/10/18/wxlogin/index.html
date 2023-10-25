@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>微信登录 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;学习使用微信登录接口完成用户登录操作&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "微信登录 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;学习使用微信登录接口完成用户登录操作&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/10/18/wxlogin/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;学习使用微信登录接口完成用户登录操作&lt;/p&gt;" />
+    <meta name="twitter:title" content="微信登录 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;学习使用微信登录接口完成用户登录操作&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;学习使用微信登录接口完成用户登录操作&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/10/18/wxlogin/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "微信登录 | Z Blog",
+            "datePublished": "2023-10-18T07:14:45.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/10/18/wxlogin/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clo5jfz0l0000kkuja8336j41" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      微信登录
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-10-18T07:14:45.000Z" itemprop="datePublished">2023-10-18</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>学习使用微信登录接口完成用户登录操作</p>
+<span id="more"></span>
+
+<h2 id="1-登录流程"><a href="#1-登录流程" class="headerlink" title="1.登录流程"></a>1.登录流程</h2><p>微信登录：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html">小程序登录 | 微信开放文档</a></p>
+<img src="img\1.jpg" style="zoom:100%;" />
+
+<p>以最近在做的一个项目为例，其中的微信用户登录流程为：</p>
+<ol>
+<li><p>小程序端，调用wx.login()获取code，就是授权码。</p>
+</li>
+<li><p>小程序端，调用wx.request()发送请求并携带code，请求后端服务。</p>
+</li>
+<li><p>服务端，通过HttpClient向微信接口服务的<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/user-login/code2Session.html">登录凭证校验接口</a>发送请求，并携带appid+secret+code+grant_type三个参数。</p>
+</li>
+<li><p>服务端，接收微信接口服务返回的数据，session_key+openid等。openid是微信用户的唯一标识。</p>
+</li>
+<li><p>服务端，根据openid在数据库查询用户，若不存在则注册用户，并查出userId</p>
+</li>
+<li><p>服务端，自定义登录态，将userId加入JWT令牌(token)中方便后绪请求身份校验。封装UserLoginVo对象返回给小程序，属性包括：userId、openid、token</p>
+</li>
+<li><p>小程序端，收到自定义登录态，存储storage。</p>
+</li>
+<li><p>小程序端，后绪通过wx.request()发起业务请求时，携带token。</p>
+</li>
+<li><p>服务端，收到请求后，通过携带的token，解析当前登录用户的id。</p>
+</li>
+<li><p>服务端，身份校验通过后，继续相关的业务逻辑处理，最终返回业务数据。</p>
+</li>
+</ol>
+<h2 id="2-小程序端获取临时凭证"><a href="#2-小程序端获取临时凭证" class="headerlink" title="2.小程序端获取临时凭证"></a>2.小程序端获取临时凭证</h2><p>调用 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/wx.login.html">wx.login()</a> 获取 <strong>临时登录凭证code(js_code)</strong></p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<img src="img\3.png" style="zoom:100%;" />
+
+<p>点击登录后，可以看到控制台输出了临时凭证，再用<code>wx.request()</code>方法将该凭证发送到后端服务器即可</p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<h2 id="3-后端处理临时凭证"><a href="#3-后端处理临时凭证" class="headerlink" title="3.后端处理临时凭证"></a>3.后端处理临时凭证</h2><p>小程序访问<code>/user/user/login</code>接口，后端将临时凭证封装在UserLoginDTO中交给UserService的wxlogin()处理</p>
+<p>根据微信服务接口：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/user-login/code2Session.html">小程序登录 / 小程序登录 (qq.com)</a> </p>
+<p>我们通过HttpClient需要发送GET请求到 <a target="_blank" rel="noopener" href="https://api.weixin.qq.com/sns/jscode2session">https://api.weixin.qq.com/sns/jscode2session</a> 并携带以下参数</p>
+<img src="img\5.png" style="zoom:100%;" />
+
+<p>从返回的参数中就可以得到openid，即每个微信用户的唯一标识号</p>
+<p>通过这个openid就可以查询userId</p>
+<p>将userId放入JWT并返回给小程序，小程序后续请求都带上JWT，即可通过解析JWT得到发送该请求的用户的userId</p>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user/user&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;C端用户相关接口&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    JwtProperties jwtProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;登录&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;UserLoginVO&gt; <span class="title function_">wxlogin</span><span class="params">(<span class="meta">@RequestBody</span> UserLoginDTO userLoginDTO)</span>&#123;</span><br><span class="line">        <span class="comment">//微信登录</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userService.wxlogin(userLoginDTO);</span><br><span class="line">        <span class="comment">//生成jwt令牌</span></span><br><span class="line">        Map&lt;String,Object&gt; claims = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        claims.put(JwtClaimsConstant.USER_ID,user.getId());</span><br><span class="line">        <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> JwtUtil.createJWT(jwtProperties.getUserSecretKey(),</span><br><span class="line">                                         jwtProperties.getUserTtl(),</span><br><span class="line">                                         claims);</span><br><span class="line">        <span class="comment">//返回对象</span></span><br><span class="line">        <span class="type">UserLoginVO</span> <span class="variable">vo</span> <span class="operator">=</span> UserLoginVO.builder()</span><br><span class="line">                .id(user.getId())</span><br><span class="line">                .openid(user.getOpenid())</span><br><span class="line">                .token(token)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> Result.success(vo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ServiceImpl"><a href="#ServiceImpl" class="headerlink" title="ServiceImpl"></a>ServiceImpl</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">    <span class="comment">//微信登录接口地址</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">WX_LOGIN</span> <span class="operator">=</span> <span class="string">&quot;https://api.weixin.qq.com/sns/jscode2session&quot;</span>;</span><br><span class="line">    <span class="comment">//注入封装微信相关属性的对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    WeChatProperties weChatProperties;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserMapper userMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">wxlogin</span><span class="params">(UserLoginDTO userLoginDTO)</span> &#123;</span><br><span class="line">        <span class="comment">//调用微信登录接口获取用户openid</span></span><br><span class="line">        Map&lt;String,String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;appid&quot;</span>,weChatProperties.getAppid());</span><br><span class="line">        map.put(<span class="string">&quot;secret&quot;</span>,weChatProperties.getSecret());</span><br><span class="line">        map.put(<span class="string">&quot;js_code&quot;</span>,userLoginDTO.getCode());</span><br><span class="line">        map.put(<span class="string">&quot;grant_type&quot;</span>,<span class="string">&quot;authorization_code&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">json</span> <span class="operator">=</span> HttpClientUtil.doGet(WX_LOGIN, map);</span><br><span class="line">        <span class="type">String</span> <span class="variable">openid</span> <span class="operator">=</span> JSON.parseObject(json).getString(<span class="string">&quot;openid&quot;</span>);</span><br><span class="line">        <span class="comment">//判断openid是否为空，为空则表示登录失败，抛出业务异常</span></span><br><span class="line">        <span class="keyword">if</span>(openid==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">LoginFailedException</span>(MessageConstant.LOGIN_FAILED);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断当前用户是否为新用户</span></span><br><span class="line">        LambdaQueryWrapper&lt;User&gt; wrapper = <span class="keyword">new</span> <span class="title class_">LambdaQueryWrapper</span>&lt;&gt;();</span><br><span class="line">        wrapper.eq(User::getOpenid,openid);</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userMapper.selectOne(wrapper);</span><br><span class="line">        <span class="comment">//如果是新用户则自动注册</span></span><br><span class="line">        <span class="keyword">if</span>(user==<span class="literal">null</span>)&#123;</span><br><span class="line">            user = User.builder().openid(openid).build();</span><br><span class="line">            userMapper.insert(user);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//返回这个用户对象</span></span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HttpClientUtil"><a href="#HttpClientUtil" class="headerlink" title="HttpClientUtil"></a>HttpClientUtil</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.NameValuePair;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.client.config.RequestConfig;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.client.entity.UrlEncodedFormEntity;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.client.methods.CloseableHttpResponse;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.client.methods.HttpGet;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.client.methods.HttpPost;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.client.utils.URIBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.entity.StringEntity;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.impl.client.CloseableHttpClient;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.impl.client.HttpClients;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.message.BasicNameValuePair;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.util.EntityUtils;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Http工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HttpClientUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span>  <span class="type">int</span> <span class="variable">TIMEOUT_MSEC</span> <span class="operator">=</span> <span class="number">5</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送GET方式请求</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> paramMap</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">doGet</span><span class="params">(String url,Map&lt;String,String&gt; paramMap)</span>&#123;</span><br><span class="line">        <span class="comment">// 创建Httpclient对象</span></span><br><span class="line">        <span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClients.createDefault();</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">CloseableHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="type">URIBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URIBuilder</span>(url);</span><br><span class="line">            <span class="keyword">if</span>(paramMap != <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">for</span> (String key : paramMap.keySet()) &#123;</span><br><span class="line">                    builder.addParameter(key,paramMap.get(key));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">URI</span> <span class="variable">uri</span> <span class="operator">=</span> builder.build();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建GET请求</span></span><br><span class="line">            <span class="type">HttpGet</span> <span class="variable">httpGet</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HttpGet</span>(uri);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//发送请求</span></span><br><span class="line">            response = httpClient.execute(httpGet);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断响应状态</span></span><br><span class="line">            <span class="keyword">if</span>(response.getStatusLine().getStatusCode() == <span class="number">200</span>)&#123;</span><br><span class="line">                result = EntityUtils.toString(response.getEntity(),<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">                httpClient.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送POST方式请求</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> paramMap</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">doPost</span><span class="params">(String url,</span></span><br><span class="line"><span class="params">                                Map&lt;String, String&gt; paramMap)</span></span><br><span class="line">        <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 创建Httpclient对象</span></span><br><span class="line">        <span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClients.createDefault();</span><br><span class="line">        <span class="type">CloseableHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">resultString</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建Http Post请求</span></span><br><span class="line">            <span class="type">HttpPost</span> <span class="variable">httpPost</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HttpPost</span>(url);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建参数列表</span></span><br><span class="line">            <span class="keyword">if</span> (paramMap != <span class="literal">null</span>) &#123;</span><br><span class="line">                List&lt;NameValuePair&gt; paramList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">                <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; param : paramMap.entrySet()) &#123;</span><br><span class="line">                    paramList.add(</span><br><span class="line">                        <span class="keyword">new</span> <span class="title class_">BasicNameValuePair</span>(param.getKey(), param.getValue())</span><br><span class="line">                    );</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 模拟表单</span></span><br><span class="line">                <span class="type">UrlEncodedFormEntity</span> <span class="variable">entity</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UrlEncodedFormEntity</span>(paramList);</span><br><span class="line">                httpPost.setEntity(entity);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            httpPost.setConfig(builderRequestConfig());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行http请求</span></span><br><span class="line">            response = httpClient.execute(httpPost);</span><br><span class="line"></span><br><span class="line">            resultString = EntityUtils.toString(response.getEntity(), <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> resultString;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送POST方式请求</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> paramMap</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">doPost4Json</span><span class="params">(String url,</span></span><br><span class="line"><span class="params">                                     Map&lt;String, String&gt; paramMap)</span></span><br><span class="line">        <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 创建Httpclient对象</span></span><br><span class="line">        <span class="type">CloseableHttpClient</span> <span class="variable">httpClient</span> <span class="operator">=</span> HttpClients.createDefault();</span><br><span class="line">        <span class="type">CloseableHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">resultString</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建Http Post请求</span></span><br><span class="line">            <span class="type">HttpPost</span> <span class="variable">httpPost</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HttpPost</span>(url);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (paramMap != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">//构造json格式数据</span></span><br><span class="line">                <span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>();</span><br><span class="line">                <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; param : paramMap.entrySet()) &#123;</span><br><span class="line">                    jsonObject.put(param.getKey(),param.getValue());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">StringEntity</span> <span class="variable">entity</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringEntity</span>(jsonObject.toString(),<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                <span class="comment">//设置请求编码</span></span><br><span class="line">                entity.setContentEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                <span class="comment">//设置数据类型</span></span><br><span class="line">                entity.setContentType(<span class="string">&quot;application/json&quot;</span>);</span><br><span class="line">                httpPost.setEntity(entity);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            httpPost.setConfig(builderRequestConfig());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行http请求</span></span><br><span class="line">            response = httpClient.execute(httpPost);</span><br><span class="line"></span><br><span class="line">            resultString = EntityUtils.toString(response.getEntity(), <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> resultString;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> RequestConfig <span class="title function_">builderRequestConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> RequestConfig.custom()</span><br><span class="line">                .setConnectTimeout(TIMEOUT_MSEC)</span><br><span class="line">                .setConnectionRequestTimeout(TIMEOUT_MSEC)</span><br><span class="line">                .setSocketTimeout(TIMEOUT_MSEC).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/10/23/SpringCache/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Spring Cache
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/10/Swagger/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Swagger接口文档</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=微信登录 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F18%2Fwxlogin%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=微信登录 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F10%2F18%2Fwxlogin%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=微信登录 - Z Blog&url=http://example.com/2023/10/18/wxlogin/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/23/SpringCache/">Spring Cache</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/18/wxlogin/">微信登录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/Swagger/">Swagger接口文档</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/">实现登录校验功能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/04/nginx/">Nginx-笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
