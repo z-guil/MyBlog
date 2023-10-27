@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>微信支付 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;学习使用微信的&lt;strong&gt;jsapi支付&lt;/strong&gt;，即微信内置浏览器或者小程序唤起微信支付&lt;/p&gt;
+&lt;p&gt;因为没有办法申请商户号，所以无法验证是否正确，只能先记录下代码&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "微信支付 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;学习使用微信的&lt;strong&gt;jsapi支付&lt;/strong&gt;，即微信内置浏览器或者小程序唤起微信支付&lt;/p&gt;
+&lt;p&gt;因为没有办法申请商户号，所以无法验证是否正确，只能先记录下代码&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/10/27/jsapi%E6%94%AF%E4%BB%98/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;学习使用微信的&lt;strong&gt;jsapi支付&lt;/strong&gt;，即微信内置浏览器或者小程序唤起微信支付&lt;/p&gt;
+&lt;p&gt;因为没有办法申请商户号，所以无法验证是否正确，只能先记录下代码&lt;/p&gt;" />
+    <meta name="twitter:title" content="微信支付 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;学习使用微信的&lt;strong&gt;jsapi支付&lt;/strong&gt;，即微信内置浏览器或者小程序唤起微信支付&lt;/p&gt;
+&lt;p&gt;因为没有办法申请商户号，所以无法验证是否正确，只能先记录下代码&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;学习使用微信的&lt;strong&gt;jsapi支付&lt;/strong&gt;，即微信内置浏览器或者小程序唤起微信支付&lt;/p&gt;
+&lt;p&gt;因为没有办法申请商户号，所以无法验证是否正确，只能先记录下代码&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/10/27/jsapi%E6%94%AF%E4%BB%98/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "微信支付 | Z Blog",
+            "datePublished": "2023-10-27T01:06:09.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/10/27/jsapi%E6%94%AF%E4%BB%98/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clo7wxuua0000bsujbl3z8r9q" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      微信支付
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-10-27T01:06:09.000Z" itemprop="datePublished">2023-10-27</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>学习使用微信的<strong>jsapi支付</strong>，即微信内置浏览器或者小程序唤起微信支付</p>
+<p>因为没有办法申请商户号，所以无法验证是否正确，只能先记录下代码</p>
+<span id="more"></span>
+
+<h2 id="1-注册绑定商户号"><a href="#1-注册绑定商户号" class="headerlink" title="1.注册绑定商户号"></a>1.注册绑定商户号</h2><p><a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/">微信支付 - 中国领先的第三方支付平台 ｜ 微信支付提供安全快捷的支付方式 (qq.com)</a></p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<p>商户号后台绑定小程序的AppID</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<h2 id="2-导入依赖"><a href="#2-导入依赖" class="headerlink" title="2.导入依赖"></a>2.导入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.wechatpay-apiv3<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>wechatpay-apache-httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.4.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-准备参数"><a href="#3-准备参数" class="headerlink" title="3.准备参数"></a>3.准备参数</h2><h3 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sky:</span></span><br><span class="line">  <span class="attr">wechat:</span></span><br><span class="line">    <span class="attr">appid:</span> <span class="string">$&#123;sky.wechat.appid&#125;</span></span><br><span class="line">    <span class="attr">secret:</span> <span class="string">$&#123;sky.wechat.secret&#125;</span></span><br><span class="line">    <span class="attr">mchid:</span> <span class="string">$&#123;sky.wechat.mchid&#125;</span></span><br><span class="line">    <span class="attr">mchSerialNo:</span> <span class="string">$&#123;sky.wechat.mchSerialNo&#125;</span></span><br><span class="line">    <span class="attr">privateKeyFilePath:</span> <span class="string">$&#123;sky.wechat.privateKeyFilePath&#125;</span></span><br><span class="line">    <span class="attr">apiV3Key:</span> <span class="string">$&#123;sky.wechat.apiV3Key&#125;</span></span><br><span class="line">    <span class="attr">weChatPayCertFilePath:</span> <span class="string">$&#123;sky.wechat.weChatPayCertFilePath&#125;</span></span><br><span class="line">    <span class="attr">notifyUrl:</span> <span class="string">$&#123;sky.wechat.notifyUrl&#125;</span></span><br><span class="line">    <span class="attr">refundNotifyUrl:</span> <span class="string">$&#123;sky.wechat.refundNotifyUrl&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="application-dev-yml"><a href="#application-dev-yml" class="headerlink" title="application-dev.yml"></a>application-dev.yml</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sky:</span></span><br><span class="line">  <span class="attr">wechat:</span></span><br><span class="line">    <span class="attr">appid:</span> <span class="string">小程序的appid</span></span><br><span class="line">    <span class="attr">secret:</span> <span class="string">小程序的秘钥</span></span><br><span class="line">    <span class="attr">mchid:</span> <span class="string">商户号</span></span><br><span class="line">    <span class="attr">mchSerialNo:</span> <span class="string">商户API证书的证书序列号</span></span><br><span class="line">    <span class="attr">privateKeyFilePath:</span> <span class="string">商户私钥文件绝对路径</span></span><br><span class="line">    <span class="attr">apiV3Key:</span> <span class="string">证书解密的密钥绝对路径</span></span><br><span class="line">    <span class="attr">weChatPayCertFilePath:</span> <span class="string">平台证书绝对路径</span></span><br><span class="line">    <span class="attr">notifyUrl:</span> <span class="string">支付成功的回调地址</span></span><br><span class="line">    <span class="attr">refundNotifyUrl:</span> <span class="string">退款成功的回调地址</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参数配置类-WeChatProperties"><a href="#参数配置类-WeChatProperties" class="headerlink" title="参数配置类 WeChatProperties"></a>参数配置类 WeChatProperties</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;sky.wechat&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WeChatProperties</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String appid; <span class="comment">//小程序的appid</span></span><br><span class="line">    <span class="keyword">private</span> String secret; <span class="comment">//小程序的秘钥</span></span><br><span class="line">    <span class="keyword">private</span> String mchid; <span class="comment">//商户号</span></span><br><span class="line">    <span class="keyword">private</span> String mchSerialNo; <span class="comment">//商户API证书的证书序列号</span></span><br><span class="line">    <span class="keyword">private</span> String privateKeyFilePath; <span class="comment">//商户私钥文件</span></span><br><span class="line">    <span class="keyword">private</span> String apiV3Key; <span class="comment">//证书解密的密钥</span></span><br><span class="line">    <span class="keyword">private</span> String weChatPayCertFilePath; <span class="comment">//平台证书</span></span><br><span class="line">    <span class="keyword">private</span> String notifyUrl; <span class="comment">//支付成功的回调地址</span></span><br><span class="line">    <span class="keyword">private</span> String refundNotifyUrl; <span class="comment">//退款成功的回调地址</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-小程序下单生成预支付交易单"><a href="#4-小程序下单生成预支付交易单" class="headerlink" title="4.小程序下单生成预支付交易单"></a>4.小程序下单生成预支付交易单</h2><p><a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/docs/merchant/apis/mini-program-payment/mini-prepay.html">小程序下单 - 小程序支付 | 微信支付商户文档中心 (qq.com)</a></p>
+<p>利用已经封装好的工具类来进行操作:<a href="resource/WeChatPayUtil.java"><strong>WeChatPayUtil.java</strong></a></p>
+<h3 id="OrdersPaymentDTO"><a href="#OrdersPaymentDTO" class="headerlink" title="OrdersPaymentDTO"></a>OrdersPaymentDTO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrdersPaymentDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="comment">//订单号</span></span><br><span class="line">    <span class="keyword">private</span> String orderNumber;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//付款方式</span></span><br><span class="line">    <span class="keyword">private</span> Integer payMethod;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 订单支付</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ordersPaymentDTO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PutMapping(&quot;/payment&quot;)</span></span><br><span class="line"><span class="meta">@ApiOperation(&quot;订单支付&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result&lt;OrderPaymentVO&gt; <span class="title function_">payment</span><span class="params">(<span class="meta">@RequestBody</span> OrdersPaymentDTO ordersPaymentDTO)</span></span><br><span class="line">    <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    log.info(<span class="string">&quot;订单支付：&#123;&#125;&quot;</span>, ordersPaymentDTO);</span><br><span class="line">    <span class="type">OrderPaymentVO</span> <span class="variable">orderPaymentVO</span> <span class="operator">=</span> orderService.payment(ordersPaymentDTO);</span><br><span class="line">    log.info(<span class="string">&quot;生成预支付交易单：&#123;&#125;&quot;</span>, orderPaymentVO);</span><br><span class="line">    <span class="keyword">return</span> Result.success(orderPaymentVO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    OrderSubmitVO <span class="title function_">submitOrder</span><span class="params">(OrdersSubmitDTO ordersSubmitDTO)</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单支付</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ordersPaymentDTO</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    OrderPaymentVO <span class="title function_">payment</span><span class="params">(OrdersPaymentDTO ordersPaymentDTO)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 支付成功，修改订单状态</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outTradeNo</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">paySuccess</span><span class="params">(String outTradeNo)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ServiceImpl"><a href="#ServiceImpl" class="headerlink" title="ServiceImpl"></a>ServiceImpl</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 订单支付</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ordersPaymentDTO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> OrderPaymentVO <span class="title function_">payment</span><span class="params">(OrdersPaymentDTO ordersPaymentDTO)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="comment">// 当前登录用户id</span></span><br><span class="line">    <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> BaseContext.getCurrentId();</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userMapper.selectById(userId);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用微信支付接口，生成预支付交易单</span></span><br><span class="line">    <span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> weChatPayUtil.pay(</span><br><span class="line">            ordersPaymentDTO.getOrderNumber(), <span class="comment">//商户订单号</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">BigDecimal</span>(<span class="number">0.01</span>), <span class="comment">//支付金额，单位 元</span></span><br><span class="line">            <span class="string">&quot;苍穹外卖订单&quot;</span>, <span class="comment">//商品描述</span></span><br><span class="line">            user.getOpenid() <span class="comment">//微信用户的openid</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (jsonObject.getString(<span class="string">&quot;code&quot;</span>) != <span class="literal">null</span> </span><br><span class="line">        &amp;&amp; jsonObject.getString(<span class="string">&quot;code&quot;</span>).equals(<span class="string">&quot;ORDERPAID&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">OrderBusinessException</span>(<span class="string">&quot;该订单已支付&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">OrderPaymentVO</span> <span class="variable">vo</span> <span class="operator">=</span> jsonObject.toJavaObject(OrderPaymentVO.class);</span><br><span class="line">    vo.setPackageStr(jsonObject.getString(<span class="string">&quot;package&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> vo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 支付成功，修改订单状态</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> outTradeNo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">paySuccess</span><span class="params">(String outTradeNo)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据订单号查询订单</span></span><br><span class="line">    LambdaQueryWrapper&lt;Orders&gt; wrapper = <span class="keyword">new</span> <span class="title class_">LambdaQueryWrapper</span>&lt;&gt;();</span><br><span class="line">    wrapper.eq(Orders::getNumber,outTradeNo);</span><br><span class="line">    <span class="type">Orders</span> <span class="variable">ordersDB</span> <span class="operator">=</span> orderMapper.selectOne(wrapper);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据订单id更新订单的状态、支付方式、支付状态、结账时间</span></span><br><span class="line">    <span class="type">Orders</span> <span class="variable">orders</span> <span class="operator">=</span> Orders.builder()</span><br><span class="line">            .id(ordersDB.getId())</span><br><span class="line">            .status(Orders.TO_BE_CONFIRMED)</span><br><span class="line">            .payStatus(Orders.PAID)</span><br><span class="line">            .checkoutTime(LocalDateTime.now())</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    orderMapper.updateById(orders);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="OrderPaymentVO"><a href="#OrderPaymentVO" class="headerlink" title="OrderPaymentVO"></a>OrderPaymentVO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderPaymentVO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String nonceStr; <span class="comment">//随机字符串</span></span><br><span class="line">    <span class="keyword">private</span> String paySign; <span class="comment">//签名</span></span><br><span class="line">    <span class="keyword">private</span> String timeStamp; <span class="comment">//时间戳</span></span><br><span class="line">    <span class="keyword">private</span> String signType; <span class="comment">//签名算法</span></span><br><span class="line">    <span class="keyword">private</span> String packageStr; <span class="comment">//统一下单接口返回的 prepay_id 参数值</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PayNotifyController"><a href="#PayNotifyController" class="headerlink" title="PayNotifyController"></a>PayNotifyController</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 支付回调相关接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/notify&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PayNotifyController</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> WeChatProperties weChatProperties;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 支付成功回调</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/paySuccess&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">paySuccessNotify</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span><br><span class="line">        <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">//读取数据</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">body</span> <span class="operator">=</span> readData(request);</span><br><span class="line">        log.info(<span class="string">&quot;支付成功回调：&#123;&#125;&quot;</span>, body);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//数据解密</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">plainText</span> <span class="operator">=</span> decryptData(body);</span><br><span class="line">        log.info(<span class="string">&quot;解密后的文本：&#123;&#125;&quot;</span>, plainText);</span><br><span class="line"></span><br><span class="line">        <span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> JSON.parseObject(plainText);</span><br><span class="line">        <span class="type">String</span> <span class="variable">outTradeNo</span> <span class="operator">=</span> jsonObject.getString(<span class="string">&quot;out_trade_no&quot;</span>);<span class="comment">//商户平台订单号</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">transactionId</span> <span class="operator">=</span> jsonObject.getString(<span class="string">&quot;transaction_id&quot;</span>);<span class="comment">//微信支付交易号</span></span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;商户平台订单号：&#123;&#125;&quot;</span>, outTradeNo);</span><br><span class="line">        log.info(<span class="string">&quot;微信支付交易号：&#123;&#125;&quot;</span>, transactionId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//业务处理，修改订单状态、来单提醒</span></span><br><span class="line">        orderService.paySuccess(outTradeNo);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//给微信响应</span></span><br><span class="line">        responseToWeixin(response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取数据</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">readData</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> request.getReader();</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line = reader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (result.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                result.append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            result.append(line);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据解密</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> body</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">decryptData</span><span class="params">(String body)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">JSONObject</span> <span class="variable">resultObject</span> <span class="operator">=</span> JSON.parseObject(body);</span><br><span class="line">        <span class="type">JSONObject</span> <span class="variable">resource</span> <span class="operator">=</span> resultObject.getJSONObject(<span class="string">&quot;resource&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">ciphertext</span> <span class="operator">=</span> resource.getString(<span class="string">&quot;ciphertext&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">nonce</span> <span class="operator">=</span> resource.getString(<span class="string">&quot;nonce&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">associatedData</span> <span class="operator">=</span> resource.getString(<span class="string">&quot;associated_data&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">AesUtil</span> <span class="variable">aesUtil</span> <span class="operator">=</span> <span class="keyword">new</span> </span><br><span class="line">            <span class="title class_">AesUtil</span>(weChatProperties.getApiV3Key().getBytes(StandardCharsets.UTF_8));</span><br><span class="line">        <span class="comment">//密文解密</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">plainText</span> <span class="operator">=</span> </span><br><span class="line">            	aesUtil.decryptToString(associatedData.getBytes(StandardCharsets.UTF_8),</span><br><span class="line">                nonce.getBytes(StandardCharsets.UTF_8),</span><br><span class="line">                ciphertext);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> plainText;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 给微信响应</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">responseToWeixin</span><span class="params">(HttpServletResponse response)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        response.setStatus(<span class="number">200</span>);</span><br><span class="line">        HashMap&lt;Object, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;code&quot;</span>, <span class="string">&quot;SUCCESS&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;SUCCESS&quot;</span>);</span><br><span class="line">        response.setHeader(<span class="string">&quot;Content-type&quot;</span>, ContentType.APPLICATION_JSON.toString());</span><br><span class="line">        response.getOutputStream()</span><br><span class="line">				.write(JSONUtils.toJSONString(map)</span><br><span class="line">				.getBytes(StandardCharsets.UTF_8));</span><br><span class="line">        response.flushBuffer();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-小程序调起支付"><a href="#5-小程序调起支付" class="headerlink" title="5.小程序调起支付"></a>5.小程序调起支付</h2><p><a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/docs/merchant/apis/mini-program-payment/mini-transfer-payment.html">小程序调起支付 - 小程序支付 | 微信支付商户文档中心 (qq.com)</a></p>
+<p>调用wx.requestPayment(OBJECT)发起微信支付</p>
+<p>请求示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wx.requestPayment</span><br><span class="line"><span class="number">2</span>(</span><br><span class="line"><span class="number">3</span>  <span class="punctuation">&#123;</span></span><br><span class="line"><span class="number">4</span>    <span class="attr">&quot;timeStamp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1414561699&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">5</span>    <span class="attr">&quot;nonceStr&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5K8264ILTKCH16CQ2502SI8ZNMTM67VS&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">6</span>    <span class="attr">&quot;package&quot;</span><span class="punctuation">:</span> <span class="string">&quot;prepay_id=wx201410272009395522657a690389285100&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">7</span>    <span class="attr">&quot;signType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;RSA&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">8</span>    <span class="attr">&quot;paySign&quot;</span><span class="punctuation">:</span> <span class="string">&quot;xxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">9</span>    <span class="attr">&quot;success&quot;</span><span class="punctuation">:</span>function(res)<span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">10</span>    <span class="attr">&quot;fail&quot;</span><span class="punctuation">:</span>function(res)<span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="number">11</span>    <span class="attr">&quot;complete&quot;</span><span class="punctuation">:</span>function(res)<span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="number">12</span>  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="number">13</span>)</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/10/23/SpringCache/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Spring Cache</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=微信支付 - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F27%2Fjsapi%25E6%2594%25AF%25E4%25BB%2598%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=微信支付 - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F10%2F27%2Fjsapi%25E6%2594%25AF%25E4%25BB%2598%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=微信支付 - Z Blog&url=http://example.com/2023/10/27/jsapi%E6%94%AF%E4%BB%98/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/27/jsapi%E6%94%AF%E4%BB%98/">微信支付</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/23/SpringCache/">Spring Cache</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/18/wxlogin/">微信登录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/Swagger/">Swagger接口文档</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/">实现登录校验功能</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
