@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>SpringTask | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;Spring Task用于执行一些定时任务，这里是一个基本的入门案例，使用注解配置的方式来完成定时执行。&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "SpringTask | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;Spring Task用于执行一些定时任务，这里是一个基本的入门案例，使用注解配置的方式来完成定时执行。&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/10/30/springTask/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;Spring Task用于执行一些定时任务，这里是一个基本的入门案例，使用注解配置的方式来完成定时执行。&lt;/p&gt;" />
+    <meta name="twitter:title" content="SpringTask | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;Spring Task用于执行一些定时任务，这里是一个基本的入门案例，使用注解配置的方式来完成定时执行。&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;Spring Task用于执行一些定时任务，这里是一个基本的入门案例，使用注解配置的方式来完成定时执行。&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/10/30/springTask/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "SpringTask | Z Blog",
+            "datePublished": "2023-10-30T08:29:57.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/10/30/springTask/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clocovd8a0000bwuj7jflbznj" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      SpringTask
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-10-30T08:29:57.000Z" itemprop="datePublished">2023-10-30</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>Spring Task用于执行一些定时任务，这里是一个基本的入门案例，使用注解配置的方式来完成定时执行。</p>
+<span id="more"></span>
+
+<h2 id="1-导入依赖"><a href="#1-导入依赖" class="headerlink" title="1.导入依赖"></a>1.导入依赖</h2><p>spring-boot-starter 中的 spring-context 中已包含了Spring Task，一般情况下无需额外导入依赖。</p>
+<img src="img/1.png"/>
+
+<h2 id="2-开启任务调度"><a href="#2-开启任务调度" class="headerlink" title="2.开启任务调度"></a>2.开启任务调度</h2><p>在SpringBoot的<strong>启动类上添加注解</strong> <strong><code>@EnableScheduling</code></strong>.</p>
+<img src="img/2.png"/>
+
+<h2 id="3-自定义定时任务类"><a href="#3-自定义定时任务类" class="headerlink" title="3.自定义定时任务类"></a>3.自定义定时任务类</h2><p>在项目中新建一个task包，专门放定时任务类</p>
+<img src="img/3.png"/>
+
+<p>类上加**@Component<strong>注解，方法上加</strong>@Scheduled**注解</p>
+<p>最常用的是@Scheduled中 <strong>cron</strong> 属性，为cron属性赋值 <strong>cron表达式</strong>以设置具体的<strong>定时时间</strong></p>
+<p>例如下面这条表达式代表着 <strong>每5秒执行一次任务</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Scheduled;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyTask</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled(cron = &quot;0/5 * * * * ?&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">perFiveSecond</span><span class="params">()</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;当前时间：&quot;</span>+ <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Cron表达式"><a href="#4-Cron表达式" class="headerlink" title="4.Cron表达式"></a>4.Cron表达式</h2><p>cron表达式是一个字符串，字符串以5或6个空格隔开，分开共6或7个域，每一个域代表一个含义。</p>
+<h3 id="cron表达式语法"><a href="#cron表达式语法" class="headerlink" title="cron表达式语法"></a><strong>cron表达式语法</strong></h3><blockquote>
+<p>[秒] [分] [小时] [日] [月] [周] [年]</p>
+</blockquote>
+<img src="img/4.png"/>
+
+<img src="img/5.png"/>
+
+<p><a target="_blank" rel="noopener" href="http://t.csdnimg.cn/wCx31">参考文章</a></p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a><strong>举例</strong></h3><ul>
+<li><p>0 0 2 1 * ? *   表示在每月的1日的凌晨2点调整任务</p>
+</li>
+<li><p>0 15 10 ? * MON-FRI   表示周一到周五每天上午10:15执行作业</p>
+</li>
+<li><p>0 15 10 ? 6L 2002-2006   表示2002-2006年的每个月的最后一个星期五上午10:15执行作</p>
+</li>
+<li><p>0 0 10,14,16 * * ?   每天上午10点，下午2点，4点 </p>
+</li>
+<li><p>0 0/30 9-17 * * ?   朝九晚五工作时间内每半小时 </p>
+</li>
+<li><p>0 0 12 ? * WED    表示每个星期三中午12点 </p>
+</li>
+<li><p>0 0 12 * * ?   每天中午12点触发 </p>
+</li>
+<li><p>0 15 10 ? * *    每天上午10:15触发 </p>
+</li>
+<li><p>0 15 10 * * ?     每天上午10:15触发 </p>
+</li>
+<li><p>0 15 10 * * ? *    每天上午10:15触发 </p>
+</li>
+<li><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p>
+</li>
+<li><p>0 * 14 * * ?     在每天下午2点到下午2:59期间的每1分钟触发 </p>
+</li>
+<li><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发 </p>
+</li>
+<li><p>0 0/5 14,18 * * ?     在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发 </p>
+</li>
+<li><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p>
+</li>
+<li><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p>
+</li>
+<li><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发 </p>
+</li>
+<li><p>0 15 10 15 * ?    每月15日上午10:15触发 </p>
+</li>
+<li><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p>
+</li>
+<li><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发 </p>
+</li>
+<li><p>0 15 10 ? * 6L 2002-2005   2002年至2005年的每月的最后一个星期五上午10:15触发 </p>
+</li>
+<li><p>0 15 10 ? * 6#3   每月的第三个星期五上午10:15触发</p>
+</li>
+<li><p>0 0 3 1 * ?   每月月初3点</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://t.csdnimg.cn/xj3vH">参考文章</a></p>
+<h3 id="在线生成工具"><a href="#在线生成工具" class="headerlink" title="在线生成工具"></a><strong>在线生成工具</strong></h3><p>一般不需要刻意去记住怎么写，利用在线生成工具可以提高效率：</p>
+<p><a target="_blank" rel="noopener" href="https://www.matools.com/app/cron">在线Cron表达式生成器 - 码工具 (matools.com)</a></p>
+<p><a target="_blank" rel="noopener" href="http://cron.ciding.cc/">Cron - 在线Cron表达式生成器 (ciding.cc)</a></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/10/27/jsapi%E6%94%AF%E4%BB%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">微信支付</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=SpringTask - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F30%2FspringTask%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=SpringTask - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F10%2F30%2FspringTask%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=SpringTask - Z Blog&url=http://example.com/2023/10/30/springTask/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/30/springTask/">SpringTask</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/27/jsapi%E6%94%AF%E4%BB%98/">微信支付</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/23/SpringCache/">Spring Cache</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/18/wxlogin/">微信登录</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/Swagger/">Swagger接口文档</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
