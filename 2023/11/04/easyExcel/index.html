@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>EasyExcel | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;EasyExcel是一个基于Java的简单、省内存的读写Excel的开源项目，在尽可能节约内存的情况下支持读写百M的Excel。&lt;/p&gt;
+&lt;p&gt;这里只是EasyExcel的简单导入和导出操作，更多复杂的场景可以参考&lt;a href=&#34;https://www.bilibili.com/video/BV1mG4y1f7jr/?spm_id_from=333.788&amp;vd_source=a41fc037ac55e1bf475e342d2220000e&#34;&gt;Easy Excel&lt;/a&gt;&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "EasyExcel | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;EasyExcel是一个基于Java的简单、省内存的读写Excel的开源项目，在尽可能节约内存的情况下支持读写百M的Excel。&lt;/p&gt;
+&lt;p&gt;这里只是EasyExcel的简单导入和导出操作，更多复杂的场景可以参考&lt;a href=&#34;https://www.bilibili.com/video/BV1mG4y1f7jr/?spm_id_from=333.788&amp;vd_source=a41fc037ac55e1bf475e342d2220000e&#34;&gt;Easy Excel&lt;/a&gt;&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/11/04/easyExcel/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;EasyExcel是一个基于Java的简单、省内存的读写Excel的开源项目，在尽可能节约内存的情况下支持读写百M的Excel。&lt;/p&gt;
+&lt;p&gt;这里只是EasyExcel的简单导入和导出操作，更多复杂的场景可以参考&lt;a href=&#34;https://www.bilibili.com/video/BV1mG4y1f7jr/?spm_id_from=333.788&amp;vd_source=a41fc037ac55e1bf475e342d2220000e&#34;&gt;Easy Excel&lt;/a&gt;&lt;/p&gt;" />
+    <meta name="twitter:title" content="EasyExcel | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;EasyExcel是一个基于Java的简单、省内存的读写Excel的开源项目，在尽可能节约内存的情况下支持读写百M的Excel。&lt;/p&gt;
+&lt;p&gt;这里只是EasyExcel的简单导入和导出操作，更多复杂的场景可以参考&lt;a href=&#34;https://www.bilibili.com/video/BV1mG4y1f7jr/?spm_id_from=333.788&amp;vd_source=a41fc037ac55e1bf475e342d2220000e&#34;&gt;Easy Excel&lt;/a&gt;&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;EasyExcel是一个基于Java的简单、省内存的读写Excel的开源项目，在尽可能节约内存的情况下支持读写百M的Excel。&lt;/p&gt;
+&lt;p&gt;这里只是EasyExcel的简单导入和导出操作，更多复杂的场景可以参考&lt;a href=&#34;https://www.bilibili.com/video/BV1mG4y1f7jr/?spm_id_from=333.788&amp;vd_source=a41fc037ac55e1bf475e342d2220000e&#34;&gt;Easy Excel&lt;/a&gt;&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/11/04/easyExcel/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "EasyExcel | Z Blog",
+            "datePublished": "2023-11-04T04:08:25.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/11/04/easyExcel/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clol0lvgt0000dkuj7mb32zfc" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      EasyExcel
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-11-04T04:08:25.000Z" itemprop="datePublished">2023-11-04</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>EasyExcel是一个基于Java的简单、省内存的读写Excel的开源项目，在尽可能节约内存的情况下支持读写百M的Excel。</p>
+<p>这里只是EasyExcel的简单导入和导出操作，更多复杂的场景可以参考<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mG4y1f7jr/?spm_id_from=333.788&vd_source=a41fc037ac55e1bf475e342d2220000e">Easy Excel</a></p>
+<span id="more"></span>
+
+<h2 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1.引入依赖"></a>1.引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>easyexcel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-文件导入"><a href="#2-文件导入" class="headerlink" title="2.文件导入"></a>2.文件导入</h2><h3 id="2-1-基本导入"><a href="#2-1-基本导入" class="headerlink" title="2.1 基本导入"></a>2.1 基本导入</h3><p>文件内容如下：</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例：从本地file文件导入</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取文件</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template/test.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//读取工作表 sheet(0)表示第一张表,可以省略,默认即为0</span></span><br><span class="line">    List&lt;Object&gt; sheet = EasyExcel.read(file).sheet(<span class="number">0</span>).doReadSync();</span><br><span class="line">    <span class="comment">//遍历首行除外的每一行</span></span><br><span class="line">    <span class="keyword">for</span> (Object row : sheet) &#123;</span><br><span class="line">       log.info(row.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//示例：InputStream输入流中导入</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取文件</span></span><br><span class="line">    <span class="comment">//xxx.class指当前类名</span></span><br><span class="line">    <span class="comment">//文件路径是项目resources下的路径</span></span><br><span class="line">    <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> </span><br><span class="line">        EasyExcelTest.class.getClassLoader().getResourceAsStream(<span class="string">&quot;template/test.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//读取工作表 sheet(0)表示第一张表,可以省略,默认即为0</span></span><br><span class="line">    List&lt;Object&gt; sheet = EasyExcel.read(inputStream).sheet(<span class="number">0</span>).doReadSync();</span><br><span class="line">    <span class="comment">//遍历首行除外的每一行</span></span><br><span class="line">    <span class="keyword">for</span> (Object row : sheet) &#123;</span><br><span class="line">        log.info(row.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：<img src="img\2.png" style="zoom:100%;" /></p>
+<p>可以看到读取结果的类型是一个**<code>List&lt;Map&lt;Integer,String&gt;&gt;</code><strong>，所以也可以直接用这个代替</strong><code>List&lt;Object&gt;</code><strong>。但需要注意的是，在Excel中，需要</strong>将格式设定为文本<strong>，否则在遇到比如</strong>日期格式**的单元格时无法接收会报错。</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例：从本地file文件导入</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//读取文件</span></span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template/test.xlsx&quot;</span>);</span><br><span class="line">        <span class="comment">//读取工作表 sheet(0)表示第一张表,可以省略,默认即为0</span></span><br><span class="line">        <span class="comment">//用List&lt;Map&lt;Integer,String&gt;&gt;接收返回对象</span></span><br><span class="line">        List&lt;Map&lt;Integer,String&gt;&gt; sheet = EasyExcel.read(file).sheet(<span class="number">0</span>).doReadSync();</span><br><span class="line">        <span class="comment">//遍历首行除外的每一行</span></span><br><span class="line">        <span class="keyword">for</span> (Map row : sheet) &#123;</span><br><span class="line">            log.info(<span class="string">&quot;昵称:&#123;&#125;\t性别:&#123;&#125;\t邮箱:&#123;&#125;\t生日:&#123;&#125;\t积分:&#123;&#125;&quot;</span>,</span><br><span class="line">                    row.get(<span class="number">0</span>),row.get(<span class="number">1</span>),row.get(<span class="number">2</span>),row.get(<span class="number">3</span>),row.get(<span class="number">4</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-模型映射导入"><a href="#2-2-模型映射导入" class="headerlink" title="2.2 模型映射导入"></a>2.2 模型映射导入</h3><h4 id="创建对应的模型"><a href="#创建对应的模型" class="headerlink" title="创建对应的模型"></a>创建对应的模型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.excel.annotation.ExcelProperty;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.excel.annotation.format.DateTimeFormat;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserInfoModel</span> &#123;</span><br><span class="line">    <span class="comment">//昵称</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">//性别</span></span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="comment">//邮箱</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="comment">//生日 //也可以使用String</span></span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="comment">//积分</span></span><br><span class="line">    <span class="keyword">private</span> Integer score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>和上面的方法区别在于多了一个<code>.head(UserInfoModel.clss)</code>,并且返回值用<code>List&lt;UserInfoModel&gt;</code>接收</p>
+<p>而在获取的单元格的时候就可以直接<code>row.getXxx();</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取文件</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template/test.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//读取工作表 sheet(0)表示第一张表,可以省略,默认即为0</span></span><br><span class="line">    List&lt;UserInfoModel&gt; sheet = </span><br><span class="line">        EasyExcel.read(file).head(UserInfoModel.class).sheet(<span class="number">0</span>).doReadSync();</span><br><span class="line">    <span class="comment">//遍历首行除外的每一行</span></span><br><span class="line">    <span class="keyword">for</span> (UserInfoModel row : sheet) &#123;</span><br><span class="line">        log.info(<span class="string">&quot;昵称:&#123;&#125;\t性别:&#123;&#125;\t邮箱:&#123;&#125;\t生日:&#123;&#125;\t积分:&#123;&#125;&quot;</span>,</span><br><span class="line">                 row.getName(),</span><br><span class="line">                 row.getGender(),</span><br><span class="line">                 row.getEmail(),</span><br><span class="line">                 row.getBirthday(),</span><br><span class="line">                 row.getScore());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用注释"><a href="#常用注释" class="headerlink" title="常用注释"></a>常用注释</h4><img src="img\4.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserInfoModel</span> &#123;</span><br><span class="line">    <span class="comment">//昵称</span></span><br><span class="line">    <span class="meta">@ExcelProperty(value = &quot;昵称&quot;,index = 0)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">//性别</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;性别&quot;)</span><span class="comment">//一般建议只使用value</span></span><br><span class="line">    <span class="keyword">private</span> String gender;</span><br><span class="line">    <span class="comment">//邮箱</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;邮箱&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="comment">//生日</span></span><br><span class="line">    <span class="comment">//注意在Excel中的生日应该是文本格式，否则导入会报错</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;生日&quot;)</span></span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd&quot;)</span><span class="comment">//这里的格式应该和文件中的格式一样</span></span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="comment">//积分</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;积分&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-文件导出"><a href="#3-文件导出" class="headerlink" title="3.文件导出"></a>3.文件导出</h2><h3 id="3-1-基本导出"><a href="#3-1-基本导出" class="headerlink" title="3.1 基本导出"></a>3.1 基本导出</h3><p>最基本的导出可以用<code>List&lt;List&lt;Object&gt;&gt;</code>、<code>List&lt;Map&lt;Integer,Object&gt;&gt;</code>或<code>List&lt;Object&gt;</code></p>
+<p>即每一行可以是<strong>List、Map 或 对象</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">PATH</span> <span class="operator">=</span> <span class="string">&quot;src/main/resources/template/test2.xlsx&quot;</span>;</span><br><span class="line"><span class="comment">//List&lt;List&lt;Object&gt;&gt; List导出</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">    List&lt;Object&gt; list1 = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">    List&lt;Object&gt; list2 = Arrays.asList(<span class="string">&quot;到拉萨机&quot;</span>,<span class="string">&quot;收集大量&quot;</span>,<span class="string">&quot;看到&quot;</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;List&lt;Object&gt;&gt; list = Arrays.asList(list1,list2);</span><br><span class="line">    EasyExcel.write(PATH)</span><br><span class="line">            .sheet(<span class="string">&quot;导出1&quot;</span>)</span><br><span class="line">            .doWrite(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//List&lt;Map&lt;Integer,Object&gt;&gt; Map导出</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test5</span><span class="params">()</span>&#123;</span><br><span class="line">    Map&lt;Integer,Object&gt; map1 = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    map1.put(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">    map1.put(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    map1.put(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">    Map&lt;Integer,Object&gt; map2 = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    map2.put(<span class="number">0</span>,<span class="string">&quot;郭德纲&quot;</span>);</span><br><span class="line">    map2.put(<span class="number">1</span>,<span class="string">&quot;郭德纲&quot;</span>);</span><br><span class="line">    map2.put(<span class="number">2</span>,<span class="string">&quot;郭德纲&quot;</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;Map&lt;Integer,Object&gt;&gt; list = Arrays.asList(map1,map2);</span><br><span class="line">    EasyExcel.write(PATH)</span><br><span class="line">            .sheet(<span class="string">&quot;导出2&quot;</span>)</span><br><span class="line">            .doWrite(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//List&lt;Object&gt; 对象导出</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test6</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//同一次导出只能识别一种对象</span></span><br><span class="line">    <span class="type">UserInfoModel</span> <span class="variable">user1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserInfoModel</span>();</span><br><span class="line">    user1.setName(<span class="string">&quot;郭德纲&quot;</span>);</span><br><span class="line">    user1.setGender(<span class="string">&quot;男&quot;</span>);</span><br><span class="line">    <span class="type">UserInfoModel</span> <span class="variable">user2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserInfoModel</span>();</span><br><span class="line">    user2.setName(<span class="string">&quot;玉泉山&quot;</span>);</span><br><span class="line">    user2.setGender(<span class="string">&quot;男&quot;</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;Object&gt; list = Arrays.asList(user1,user2);</span><br><span class="line">    EasyExcel.write(PATH)</span><br><span class="line">            .sheet(<span class="string">&quot;导出3&quot;</span>)</span><br><span class="line">            .doWrite(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-模型映射导出"><a href="#3-2-模型映射导出" class="headerlink" title="3.2 模型映射导出"></a>3.2 模型映射导出</h3><h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="comment">//注解的使用与导入时相类似</span></span><br><span class="line">    <span class="comment">//使用了注解，就会自动产生表头</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;名字&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;年龄&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;生日&quot;)</span></span><br><span class="line">    <span class="meta">@DateTimeFormat(&quot;yyyy年MM月dd日&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Date birthDay;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExcelTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">PATH</span> <span class="operator">=</span><span class="string">&quot;src/main/resources/test.xlsx&quot;</span>;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user1</span> <span class="operator">=</span> User.builder()</span><br><span class="line">                .name(<span class="string">&quot;刘国泰&quot;</span>)</span><br><span class="line">                .age(<span class="number">12</span>)</span><br><span class="line">                .birthDay(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">                .money(BigDecimal.valueOf(<span class="number">12.34</span>))</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        List&lt;Object&gt; list = Arrays.asList(user1);</span><br><span class="line">        EasyExcel.write(PATH)</span><br><span class="line">                .sheet(<span class="string">&quot;导出4&quot;</span>)</span><br><span class="line">                .head(User.class)<span class="comment">//与对象导出的区别在这</span></span><br><span class="line">                .doWrite(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><img src="img\5.png" style="zoom:100%;" />
+
+<h2 id="4-模板填充"><a href="#4-模板填充" class="headerlink" title="4.模板填充"></a>4.模板填充</h2><h3 id="4-1-填充对象"><a href="#4-1-填充对象" class="headerlink" title="4.1 填充对象"></a>4.1 填充对象</h3><p>首先需要准备一个<strong>模板</strong>，然后在需要填充的地方写上占位符，比如**<code>&#123;name&#125;</code>**，然后执行时就会根据name，将对应的值填充进去</p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">PATH</span> <span class="operator">=</span><span class="string">&quot;src/main/resources/test.xlsx&quot;</span>;</span><br><span class="line"><span class="comment">//使用Map填充</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取模板</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//封装数据</span></span><br><span class="line">    Map&lt;String,Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    map.put(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;王建国&quot;</span>);</span><br><span class="line">    map.put(<span class="string">&quot;age&quot;</span>,<span class="number">18</span>);</span><br><span class="line">    map.put(<span class="string">&quot;birthDay&quot;</span>,<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    map.put(<span class="string">&quot;money&quot;</span>,BigDecimal.valueOf(<span class="number">1888.88</span>));</span><br><span class="line">    <span class="comment">//填充</span></span><br><span class="line">    EasyExcel.write(PATH) <span class="comment">//输出路径</span></span><br><span class="line">            .withTemplate(template) <span class="comment">//输入模板</span></span><br><span class="line">            .sheet()</span><br><span class="line">            .doFill(map); <span class="comment">//执行填充</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用映射模型填充</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取模板</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//封装数据</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> User.builder()</span><br><span class="line">        .name(<span class="string">&quot;王建国&quot;</span>)</span><br><span class="line">        .age(<span class="number">55</span>)</span><br><span class="line">        .birthDay(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">        .money(BigDecimal.valueOf(<span class="number">2888.88</span>))</span><br><span class="line">        .build();</span><br><span class="line">    <span class="comment">//填充</span></span><br><span class="line">    EasyExcel.write(PATH) <span class="comment">//输出路径</span></span><br><span class="line">        .withTemplate(template) <span class="comment">//输入模板</span></span><br><span class="line">        .sheet()</span><br><span class="line">        .doFill(user); <span class="comment">//执行填充</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：<img src="img\7.png" style="zoom:100%;" /></p>
+<h3 id="4-2-填充列表"><a href="#4-2-填充列表" class="headerlink" title="4.2 填充列表"></a>4.2 填充列表</h3><p>批量填充的模板中，参数与填充单个对象的写法不同，需要在填充对应的键名前加一个点。比如**<code>&#123;.name&#125;</code>**</p>
+<img src="img\9.png" style="zoom:100%;" />
+
+<p>代码上和填充对象几乎没有区别，唯一的<strong>区别在于传入的填充参数是一个List</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取模板</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//封装数据</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user1</span> <span class="operator">=</span> User.builder()</span><br><span class="line">            .name(<span class="string">&quot;王建国&quot;</span>)</span><br><span class="line">            .age(<span class="number">55</span>)</span><br><span class="line">            .birthDay(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">            .money(BigDecimal.valueOf(<span class="number">2888.88</span>))</span><br><span class="line">            .build();</span><br><span class="line">    <span class="type">User</span> <span class="variable">user2</span> <span class="operator">=</span> User.builder()</span><br><span class="line">            .name(<span class="string">&quot;川建国&quot;</span>)</span><br><span class="line">            .age(<span class="number">65</span>)</span><br><span class="line">            .birthDay(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">            .money(BigDecimal.valueOf(<span class="number">888888.88</span>))</span><br><span class="line">            .build();</span><br><span class="line">    List&lt;User&gt; list = Arrays.asList(user1,user2);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//填充</span></span><br><span class="line">    EasyExcel.write(PATH) <span class="comment">//输出路径</span></span><br><span class="line">            .withTemplate(template) <span class="comment">//输入模板</span></span><br><span class="line">            .sheet()</span><br><span class="line">            .doFill(list); <span class="comment">//执行填充</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：<img src="img\8.png" style="zoom:100%;" /></p>
+<h3 id="4-3-组合填充"><a href="#4-3-组合填充" class="headerlink" title="4.3 组合填充"></a>4.3 组合填充</h3><p>在某些场景下，可能既需要填充单个的值，也需要一次性填充多条数据，这种情况下就需要使用组合填充</p>
+<p>在这种场景下，<strong>模板</strong>可以像下面这样写</p>
+<img src="img\10.png" style="zoom:100%;" />
+
+<p><strong>代码</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//组合填充</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出路径</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">PATH</span> <span class="operator">=</span><span class="string">&quot;src/main/resources/test.xlsx&quot;</span>;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test5</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//读取模板</span></span><br><span class="line">    <span class="type">File</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;src/main/resources/template2.xlsx&quot;</span>);</span><br><span class="line">    <span class="comment">//生成一个writer来进行多次的写入</span></span><br><span class="line">    <span class="keyword">try</span>( <span class="type">ExcelWriter</span> <span class="variable">writer</span> <span class="operator">=</span> EasyExcel.write(PATH).withTemplate(template).build() )&#123;</span><br><span class="line">        <span class="comment">//新建工作表</span></span><br><span class="line">        <span class="type">WriteSheet</span> <span class="variable">sheet</span> <span class="operator">=</span> EasyExcel.writerSheet().build();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//填充单个值</span></span><br><span class="line">        <span class="type">Map</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;newCount&quot;</span>,<span class="number">123</span>);</span><br><span class="line">        writer.fill(map,sheet);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//批量填充</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user1</span> <span class="operator">=</span> User.builder()</span><br><span class="line">                .name(<span class="string">&quot;王建国&quot;</span>)</span><br><span class="line">                .age(<span class="number">55</span>)</span><br><span class="line">                .birthDay(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">                .money(BigDecimal.valueOf(<span class="number">2888.88</span>))</span><br><span class="line">                .build();</span><br><span class="line">        <span class="type">User</span> <span class="variable">user2</span> <span class="operator">=</span> User.builder()</span><br><span class="line">                .name(<span class="string">&quot;川建国&quot;</span>)</span><br><span class="line">                .age(<span class="number">65</span>)</span><br><span class="line">                .birthDay(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">                .money(BigDecimal.valueOf(<span class="number">888881.88</span>))</span><br><span class="line">                .build();</span><br><span class="line">        <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> Arrays.asList(user1,user2);</span><br><span class="line">        writer.fill(list,sheet);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：<img src="img\11.png" style="zoom:100%;" /></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/10/31/websocket/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">WebSocket</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=EasyExcel - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F11%2F04%2FeasyExcel%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=EasyExcel - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F11%2F04%2FeasyExcel%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=EasyExcel - Z Blog&url=http://example.com/2023/11/04/easyExcel/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/04/easyExcel/">EasyExcel</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/31/websocket/">WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/30/springTask/">SpringTask</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/27/jsapi%E6%94%AF%E4%BB%98/">微信支付</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/23/SpringCache/">Spring Cache</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
