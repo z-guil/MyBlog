@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>SpringCloud | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;SpringCloud学习笔记，内容包括：认识微服务及SpringCloud、&lt;strong&gt;Eureka&lt;/strong&gt;注册中心、&lt;strong&gt;Nacos&lt;/strong&gt;注册和配置中心、&lt;strong&gt;Feign&lt;/strong&gt;远程调用服务和&lt;strong&gt;Gateway&lt;/strong&gt;网关&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "SpringCloud | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;SpringCloud学习笔记，内容包括：认识微服务及SpringCloud、&lt;strong&gt;Eureka&lt;/strong&gt;注册中心、&lt;strong&gt;Nacos&lt;/strong&gt;注册和配置中心、&lt;strong&gt;Feign&lt;/strong&gt;远程调用服务和&lt;strong&gt;Gateway&lt;/strong&gt;网关&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2023/11/11/springcloud/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;SpringCloud学习笔记，内容包括：认识微服务及SpringCloud、&lt;strong&gt;Eureka&lt;/strong&gt;注册中心、&lt;strong&gt;Nacos&lt;/strong&gt;注册和配置中心、&lt;strong&gt;Feign&lt;/strong&gt;远程调用服务和&lt;strong&gt;Gateway&lt;/strong&gt;网关&lt;/p&gt;" />
+    <meta name="twitter:title" content="SpringCloud | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;SpringCloud学习笔记，内容包括：认识微服务及SpringCloud、&lt;strong&gt;Eureka&lt;/strong&gt;注册中心、&lt;strong&gt;Nacos&lt;/strong&gt;注册和配置中心、&lt;strong&gt;Feign&lt;/strong&gt;远程调用服务和&lt;strong&gt;Gateway&lt;/strong&gt;网关&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;SpringCloud学习笔记，内容包括：认识微服务及SpringCloud、&lt;strong&gt;Eureka&lt;/strong&gt;注册中心、&lt;strong&gt;Nacos&lt;/strong&gt;注册和配置中心、&lt;strong&gt;Feign&lt;/strong&gt;远程调用服务和&lt;strong&gt;Gateway&lt;/strong&gt;网关&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/11/11/springcloud/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "SpringCloud | Z Blog",
+            "datePublished": "2023-11-11T09:04:46.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/11/11/springcloud/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clotum66800002cujg5y96qhp" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      SpringCloud
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-11-11T09:04:46.000Z" itemprop="datePublished">2023-11-11</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>SpringCloud学习笔记，内容包括：认识微服务及SpringCloud、<strong>Eureka</strong>注册中心、<strong>Nacos</strong>注册和配置中心、<strong>Feign</strong>远程调用服务和<strong>Gateway</strong>网关</p>
+<span id="more"></span>
+
+<h1 id="1-初识微服务"><a href="#1-初识微服务" class="headerlink" title="1.初识微服务"></a>1.初识微服务</h1><h2 id="1-1-单体架构-和-分布式架构"><a href="#1-1-单体架构-和-分布式架构" class="headerlink" title="1.1 单体架构 和 分布式架构"></a>1.1 单体架构 和 分布式架构</h2><p><strong>单体架构</strong>：将业务的所有功能集中在一个项目中开发，打成一个包部署。</p>
+<p><strong>分布式架构</strong>：根据业务功能对系统做拆分，每个业务功能模块作为独立项目开发，称为一个服务。</p>
+<h2 id="1-2-微服务"><a href="#1-2-微服务" class="headerlink" title="1.2 微服务"></a>1.2 微服务</h2><p>可以认为<strong>微服务</strong>是一种经过良好架构设计的<strong>分布式架构方案</strong>。</p>
+<p>微服务的架构特征：</p>
+<ul>
+<li>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责</li>
+<li>自治：团队独立、技术独立、数据独立，独立部署和交付</li>
+<li>面向服务：服务提供统一标准的接口，与语言和技术无关</li>
+<li>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题</li>
+</ul>
+<p>微服务拆分原则：</p>
+<ul>
+<li>不同微服务，不要重复开发相同业务</li>
+<li>微服务数据独立，不要访问其它微服务的数据库</li>
+<li>微服务可以将自己的业务暴露为接口，供其它微服务调用</li>
+</ul>
+<h2 id="1-3-SpringCloud"><a href="#1-3-SpringCloud" class="headerlink" title="1.3 SpringCloud"></a>1.3 SpringCloud</h2><p>SpringCloud是目前国内使用最广泛的微服务框架。官网地址：<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-cloud%E3%80%82">https://spring.io/projects/spring-cloud。</a></p>
+<p>SpringCloud集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验。</p>
+<p>另外，<strong>SpringCloud底层是依赖于SpringBoot的，并且有版本的兼容关系</strong>，具体可以查看官方文档，截至2023年11月，兼容关系如下：</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<h2 id="1-4-入门案例"><a href="#1-4-入门案例" class="headerlink" title="1.4 入门案例"></a>1.4 入门案例</h2><p>项目结构如下：</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<p>在微服务架构中整个项目由多个实现不同业务的模块组成，比如上图管理订单的是order-service模块，管理用户的是user-service。</p>
+<p>每个模块间相互独立，所在的运行端口也不同，仅通过其对外暴露的接口互相调用</p>
+<h2 id="1-5-远程调用案例"><a href="#1-5-远程调用案例" class="headerlink" title="1.5 远程调用案例"></a>1.5 远程调用案例</h2><p>在order-service服务中，有一个根据id查询订单的接口：</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<p>根据id查询订单，返回值是Order对象，如图：</p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<p>其中的user为null</p>
+<p>在user-service中有一个根据id查询用户的接口：</p>
+<img src="img\5.png" style="zoom:100%;" />
+
+<p>查询的结果如图：</p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<h3 id="1-5-1-案例需求"><a href="#1-5-1-案例需求" class="headerlink" title="1.5.1 案例需求"></a>1.5.1 案例需求</h3><p>要求在查询订单的同时，根据订单中包含的userId查询出用户信息，一起返回</p>
+<h3 id="1-5-2-实现步骤"><a href="#1-5-2-实现步骤" class="headerlink" title="1.5.2 实现步骤"></a>1.5.2 实现步骤</h3><p>首先，我们在order-service服务中的OrderApplication启动类中，<strong>注册RestTemplate实例</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MapperScan(&quot;cn.itcast.order.mapper&quot;)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(OrderApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//注册RestTemplate实例</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后需要修改OrderService类中的queryOrderById方法</p>
+<p><strong>注入restTemplate</strong>用于发送Http请求，使用**<code>getForObject()</code>**通过restTemplate调用userService的接口来获取User对象</p>
+<img src="img\7.png" style="zoom:100%;" />
+
+<h1 id="2-Eureka注册中心"><a href="#2-Eureka注册中心" class="headerlink" title="2.Eureka注册中心"></a>2.Eureka注册中心</h1><p>在上面的案例中，url直接用 ip+端口号 写死了</p>
+<ul>
+<li>假如有多个user-service实例地址，此时url应该怎么写，怎样才能均衡地请求不同地址</li>
+<li>假如其中一个地址宕机了，固定的 url 必然导致程序无法运行下去</li>
+</ul>
+<p>因此我们需要使用 <strong>注册中心</strong> 来解决这些问题，最广为人知的注册中心就是Eureka，其结构如下：</p>
+<img src="img\8.png" style="zoom:100%;" />
+
+<h2 id="2-1-搭建eureka-server"><a href="#2-1-搭建eureka-server" class="headerlink" title="2.1 搭建eureka-server"></a>2.1 搭建eureka-server</h2><h3 id="2-1-1-创建eureka-server服务"><a href="#2-1-1-创建eureka-server服务" class="headerlink" title="2.1.1 创建eureka-server服务"></a>2.1.1 创建eureka-server服务</h3><p>在工程目录下创建一个新模块，使用maven模块即可，这里名字设为<strong>eureka-service</strong></p>
+<img src="img\9.png" style="zoom:100%;" />
+
+<img src="img\10.png" style="zoom:100%;" />
+
+<h3 id="2-1-2-引入eureka-server依赖"><a href="#2-1-2-引入eureka-server依赖" class="headerlink" title="2.1.2 引入eureka-server依赖"></a>2.1.2 引入eureka-server依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-编写启动类"><a href="#2-1-3-编写启动类" class="headerlink" title="2.1.3 编写启动类"></a>2.1.3 编写启动类</h3><p>给eureka-server服务编写一个启动类，一定要添加一个@EnableEurekaServer注解，开启eureka的注册中心功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EurekaApplication</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(EurekaApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-4-编写配置文件"><a href="#3-2-4-编写配置文件" class="headerlink" title="3.2.4.编写配置文件"></a>3.2.4.编写配置文件</h3><p>编写一个application.yml文件，内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10086</span> <span class="comment">#运行端口</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span> <span class="comment">#微服务名称</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span> </span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span> <span class="comment">#eureka注册地址</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-5-启动服务"><a href="#3-2-5-启动服务" class="headerlink" title="3.2.5.启动服务"></a>3.2.5.启动服务</h3><p>启动微服务，然后在浏览器访问：<a target="_blank" rel="noopener" href="http://127.0.0.1:10086/">http://127.0.0.1:10086</a> . 红框中的是已注册的服务，这里是eureka-server将自己注册进来了，以后可能eureka-server不止一个。</p>
+<img src="img\11.png" style="zoom:100%;" />
+
+<h2 id="2-2-服务注册"><a href="#2-2-服务注册" class="headerlink" title="2.2 服务注册"></a>2.2 服务注册</h2><p>接下来将user-service和order-service注册到eureka-server中去。</p>
+<h3 id="2-2-1-引入依赖"><a href="#2-2-1-引入依赖" class="headerlink" title="2.2.1 引入依赖"></a>2.2.1 引入依赖</h3><p>在user-service和order-service的pom文件中，引入下面的eureka-client依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-配置文件"><a href="#2-2-2-配置文件" class="headerlink" title="2.2.2 配置文件"></a>2.2.2 配置文件</h3><p>在user-service和order-service中，修改application.yml文件，添加服务名称、eureka地址：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">userservice</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">orderservice</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-实现负载均衡"><a href="#2-2-3-实现负载均衡" class="headerlink" title="2.2.3 实现负载均衡"></a>2.2.3 实现负载均衡</h3><p>给RestTemplate这个Bean添加一个**@LoadBalanced**注解</p>
+<img src="img\12.png" style="zoom:100%;" />
+
+<h3 id="2-2-4-拓展：服务多开"><a href="#2-2-4-拓展：服务多开" class="headerlink" title="2.2.4 拓展：服务多开"></a>2.2.4 拓展：服务多开</h3><h3 id="启动多个user-service实例"><a href="#启动多个user-service实例" class="headerlink" title="启动多个user-service实例"></a>启动多个user-service实例</h3><p>为了演示一个服务有多个实例的场景，我们添加一个SpringBoot的启动配置，再启动一个user-service。</p>
+<p>首先，复制原来的user-service启动配置：</p>
+<img src="img\14.png" style="zoom:100%;" />
+
+<p>然后，在弹出的窗口中，填写信息：</p>
+<img src="img\15.png" style="zoom:100%;" />
+
+
+
+<p>现在，SpringBoot窗口会出现两个user-service启动配置：</p>
+<img src="img\16.png" style="zoom:100%;" />
+
+<p>不过，第一个是8081端口，第二个是8082端口。</p>
+<p>启动两个user-service实例：</p>
+<img src="img\17.png" style="zoom:100%;" />
+
+<p>查看eureka-server管理页面：</p>
+<img src="img\18.png" style="zoom:100%;" />
+
+<h2 id="2-3-服务发现"><a href="#2-3-服务发现" class="headerlink" title="2.3 服务发现"></a>2.3 服务发现</h2><p>在服务拉取过程中，用 <strong>服务名</strong> 代替 <strong>IP+端口</strong></p>
+<p>spring会自动帮助我们从eureka-server端，根据userservice这个服务名称，获取实例列表，而后完成负载均衡。</p>
+<img src="img\13.png" style="zoom:100%;" />
+
+<h1 id="3-Nacos注册中心"><a href="#3-Nacos注册中心" class="headerlink" title="3.Nacos注册中心"></a>3.Nacos注册中心</h1><h2 id="3-1-安装、启动和配置Nacos"><a href="#3-1-安装、启动和配置Nacos" class="headerlink" title="3.1 安装、启动和配置Nacos"></a>3.1 安装、启动和配置Nacos</h2><h3 id="3-1-1-安装"><a href="#3-1-1-安装" class="headerlink" title="3.1.1 安装"></a>3.1.1 安装</h3><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos">Nacos | GitHubz主页 </a></p>
+<p>在官网下载压缩包解压到任意非中文目录下</p>
+<img src="img\19.png" style="zoom:100%;" />
+
+<img src="img\20.png" style="zoom:100%;" />
+
+<h3 id="3-1-2-启动和配置"><a href="#3-1-2-启动和配置" class="headerlink" title="3.1.2 启动和配置"></a>3.1.2 启动和配置</h3><ul>
+<li><strong>bin</strong> 目录下有启动命令，双击<strong>startup.cmd</strong> 或者 进入cmd窗口输入以下命令即可<strong>启动Nacos</strong></li>
+</ul>
+<blockquote>
+<p>startup.cmd -m standalone</p>
+</blockquote>
+<ul>
+<li><strong>conf</strong> 目录下的application.properties是Nacos的配置信息，可以在这里面<strong>设置运行端口</strong>，默认为8848</li>
+</ul>
+<p>然后在浏览器输入地址：<a target="_blank" rel="noopener" href="http://127.0.0.1:8848/nacos%E5%8D%B3%E5%8F%AF%E8%AE%BF%E9%97%AE%EF%BC%8C**%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E9%83%BD%E6%98%AFnacos">http://127.0.0.1:8848/nacos即可访问，**默认的账号密码都是nacos</a>**</p>
+<h2 id="3-2-服务注册"><a href="#3-2-服务注册" class="headerlink" title="3.2 服务注册"></a>3.2 服务注册</h2><h3 id="3-2-1-引入依赖"><a href="#3-2-1-引入依赖" class="headerlink" title="3.2.1 引入依赖"></a>3.2.1 引入依赖</h3><p>在cloud-demo<strong>父工程的pom文件</strong>中的<code>&lt;dependencyManagement&gt;</code>中引入SpringCloudAlibaba的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在user-service和order-service中的pom文件中引入nacos-discovery依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-2-配置nacos地址"><a href="#3-2-2-配置nacos地址" class="headerlink" title="3.2.2 配置nacos地址"></a>3.2.2 配置nacos地址</h3><p>在user-service和order-service的application.yml中添加nacos地址：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意配置完成后，仍然需要注意是否有给RestTemplate这个Bean添加一个**@LoadBalanced**注解，否则拉取服务时会报错</p>
+</blockquote>
+<h3 id="3-2-3-启动微服务"><a href="#3-2-3-启动微服务" class="headerlink" title="3.2.3 启动微服务"></a>3.2.3 启动微服务</h3><p>启动微服务后可以看到管理面板中服务列表已更新，成功识别到了几个服务</p>
+<img src="img\21.png" style="zoom:100%;" />
+
+<p>通过访问接口可以发现，前面Eureka完成的服务拉取和负载均衡，现在也能正常完成</p>
+<h2 id="3-3-服务分级存储模型"><a href="#3-3-服务分级存储模型" class="headerlink" title="3.3 服务分级存储模型"></a>3.3 服务分级存储模型</h2><p>一个<strong>服务</strong>可以有多个<strong>实例</strong>，例如我们的user-service，可以有:</p>
+<ul>
+<li>127.0.0.1:8081</li>
+<li>127.0.0.1:8082</li>
+<li>127.0.0.1:8083</li>
+</ul>
+<p>假如这些实例分布于全国各地的不同机房，例如：</p>
+<ul>
+<li>127.0.0.1:8081，在上海机房</li>
+<li>127.0.0.1:8082，在上海机房</li>
+<li>127.0.0.1:8083，在杭州机房</li>
+</ul>
+<p>Nacos就将同一机房内的实例 划分为一个<strong>集群</strong>。</p>
+<p>也就是说，user-service是服务，一个服务可以包含多个集群，如杭州、上海，每个集群下可以有多个实例，形成分级模型，如图：</p>
+<img src="img\22.png" style="zoom:100%;" />
+
+<p>微服务互相访问时，应该<strong>尽可能访问同集群实例</strong>，因为本地访问速度更快。<strong>当本集群内不可用时，才访问其它集群</strong>。</p>
+<h3 id="3-3-1-配置集群属性"><a href="#3-3-1-配置集群属性" class="headerlink" title="3.3.1 配置集群属性"></a>3.3.1 配置集群属性</h3><p>修改user-service的application.yml文件，添加集群配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HangZhou</span> <span class="comment"># 集群名称</span></span><br></pre></td></tr></table></figure>
+
+<p>重启一个user-service实例后，我们可以在nacos控制台看到下面结果：</p>
+<img src="img\23.png" style="zoom:100%;" />
+
+<p>重启的那个userservice所在集群已经从DEFAULT变成HangZhou</p>
+<h3 id="3-3-2-同集群优先的负载均衡"><a href="#3-3-2-同集群优先的负载均衡" class="headerlink" title="3.3.2 同集群优先的负载均衡"></a>3.3.2 同集群优先的负载均衡</h3><p>@LoadBalanced默认使用的<code>ZoneAvoidanceRule</code>并不能实现根据同集群优先来实现负载均衡。</p>
+<p>因此Nacos中提供了一个<code>NacosRule</code>的实现，可以优先从同集群中挑选实例。</p>
+<p>（1）给order-service配置集群信息</p>
+<p>修改order-service的application.yml文件，添加集群配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span> <span class="comment"># 集群名称</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）修改负载均衡规则</p>
+<p>修改order-service的application.yml文件，修改负载均衡规则：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">userservice:</span>  <span class="comment">#要做配置的微服务名称</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="comment"># 负载均衡规则 </span></span><br></pre></td></tr></table></figure>
+
+<p>这样配置完成后，orderservice在调用userservice时就会首先从同集群中调用，其次才会调用其他集群的服务</p>
+<h3 id="3-3-3-对比Nacos和Eureka"><a href="#3-3-3-对比Nacos和Eureka" class="headerlink" title="3.3.3 对比Nacos和Eureka"></a>3.3.3 对比Nacos和Eureka</h3><ul>
+<li><strong>Nacos与eureka的共同点</strong><ol>
+<li>都支持服务<strong>注册</strong>和服务<strong>拉取</strong></li>
+<li>都支持服务提供者心跳方式做健康检测</li>
+</ol>
+</li>
+<li><strong>Nacos与Eureka的区别</strong><ol>
+<li>Nacos支持服务端<strong>主动检测</strong>提供者状态：临时实例采用心跳模式，非临时实例采用主动检测模式。临时实例心跳不正常会被剔除，非临时实例则不会被剔除</li>
+<li>Nacos支持服务列表变更的消息<strong>推送</strong>模式，服务列表更新更及时</li>
+<li>Nacos集群默认采用AP方式，当集群中存在非临时实例时，采用CP模式；Eureka采用AP方式</li>
+<li>Nacos除了可以是注册中心，也可以是<strong>配置中心</strong></li>
+</ol>
+</li>
+</ul>
+<img src="img\24.png" style="zoom:100%;" />
+
+<h1 id="4-Nacos配置中心"><a href="#4-Nacos配置中心" class="headerlink" title="4.Nacos配置中心"></a>4.Nacos配置中心</h1><h2 id="4-1-统一配置管理"><a href="#4-1-统一配置管理" class="headerlink" title="4.1 统一配置管理"></a>4.1 统一配置管理</h2><h3 id="4-1-1-在面板中添加配置"><a href="#4-1-1-在面板中添加配置" class="headerlink" title="4.1.1 在面板中添加配置"></a>4.1.1 在面板中添加配置</h3><img src="img\25.png" style="zoom:100%;" />
+
+<p><strong>注意命名规则必须严格按照以下方式命名，否则拉取不到配置内容。如果不写 -[profile] ，那么这个配置文件就会是 多环境共享 的配置文件</strong></p>
+<img src="img\26.png" style="zoom:100%;" />
+
+<blockquote>
+<p>注意：项目的核心配置，<strong>需要热更新的配置</strong>才有放到nacos管理的必要。基本不会变更的一些配置还是保存在微服务本地比较好。</p>
+</blockquote>
+<h3 id="4-1-2-微服务拉取配置"><a href="#4-1-2-微服务拉取配置" class="headerlink" title="4.1.2 微服务拉取配置"></a>4.1.2 微服务拉取配置</h3><h4 id="引入nacos-config依赖"><a href="#引入nacos-config依赖" class="headerlink" title="引入nacos-config依赖"></a>引入nacos-config依赖</h4><p>首先，在user-service服务中，引入nacos-config的客户端依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--nacos配置管理依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="添加bootstrap-yaml"><a href="#添加bootstrap-yaml" class="headerlink" title="添加bootstrap.yaml"></a>添加bootstrap.yaml</h4><p>然后，在user-service中添加一个bootstrap.yaml文件，内容如下(application.yaml中重复的内容可以删除)：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">userservice</span> <span class="comment"># 服务名称</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line">    <span class="attr">active:</span> <span class="string">dev</span> <span class="comment">#开发环境，这里是dev </span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment"># Nacos地址</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">file-extension:</span> <span class="string">yaml</span> <span class="comment"># 文件后缀名</span></span><br></pre></td></tr></table></figure>
+
+<p>在读取配置时，会根据 <strong>“ <code>服务名称-开发环境.文件后缀名</code> ”</strong>拼接而成的文件名来寻找配置</p>
+<p>比如本例中，就是去读取<code>userservice-dev.yaml</code></p>
+<h4 id="读取nacos配置"><a href="#读取nacos配置" class="headerlink" title="读取nacos配置"></a>读取nacos配置</h4><p>使用**<code>@Value(&quot;$&#123;&#125;&quot;)</code>**可以读取配置项，试着引用刚才在面板中配置的<code>pattern.dateformat</code></p>
+<img src="img\27.png" style="zoom:100%;" />
+
+<p>启动服务后访问接口，可以看到配置内容已经<strong>成功被拉取到</strong>了</p>
+<img src="img\28.png" style="zoom:100%;" />
+
+
+
+<h3 id="4-1-3-实现热更新"><a href="#4-1-3-实现热更新" class="headerlink" title="4.1.3 实现热更新"></a>4.1.3 实现热更新</h3><p>按以上操作完成发现，如果在nacos面板中修改的配置内容，而服务仍在运行中，此时刷新页面，会发现新的配置内容还是没有被读取到，仍然是老的配置内容。</p>
+<p>这是因为服务没有实现热更新，我们只需要在**@Value<strong>注入的变量所在类上添加注解</strong>@RefreshScope**</p>
+<img src="img\29.png" style="zoom:100%;" />
+
+<p>这样，无需重启服务也可以<strong>读取到新的配置内容</strong>了</p>
+<h1 id="5-Feign远程调用"><a href="#5-Feign远程调用" class="headerlink" title="5.Feign远程调用"></a>5.Feign远程调用</h1><h2 id="5-1-Feign替代RestTemplate"><a href="#5-1-Feign替代RestTemplate" class="headerlink" title="5.1 Feign替代RestTemplate"></a>5.1 Feign替代RestTemplate</h2><h3 id="5-1-1-导入依赖"><a href="#5-1-1-导入依赖" class="headerlink" title="5.1.1 导入依赖"></a>5.1.1 导入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Feign--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-1-2-添加注解"><a href="#5-1-2-添加注解" class="headerlink" title="5.1.2 添加注解"></a>5.1.2 添加注解</h3><p>给需要远程调用的服务添加注解**@EnableFeignClients**</p>
+<img src="img\30.png" style="zoom:100%;" />
+
+<h3 id="5-1-3-编写Client接口"><a href="#5-1-3-编写Client接口" class="headerlink" title="5.1.3 编写Client接口"></a>5.1.3 编写Client接口</h3><p>新建一个包clients专门存放client，编写UserClient，内容与RestFul风格的接口类似，如下：</p>
+<p>当调用<code>userClient.getById(id)</code>时，Feign就会自动向<code>http://userservice/user/id</code>发送get请求</p>
+<img src="img\31.png" style="zoom:100%;" />
+
+<p>调用方式：</p>
+<img src="img\32.png" style="zoom:100%;" />
+
+<h2 id="5-2-Feign性能优化"><a href="#5-2-Feign性能优化" class="headerlink" title="5.2 Feign性能优化"></a>5.2 Feign性能优化</h2><p>Feign底层发起http请求，依赖于其它的框架。其底层客户端实现包括：</p>
+<ul>
+<li><p>URLConnection：默认实现，不支持连接池</p>
+</li>
+<li><p>Apache HttpClient ：支持连接池</p>
+</li>
+<li><p>OKHttp：支持连接池</p>
+</li>
+</ul>
+<p>因此提高Feign的性能主要手段就是使用<strong>连接池</strong>代替默认的URLConnection。</p>
+<p>此外还可以通过配置较低的<strong>日志级别</strong>等手段来优化性能</p>
+<h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--httpClient的依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.openfeign<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>feign-httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置连接池"><a href="#配置连接池" class="headerlink" title="配置连接池"></a>配置连接池</h3><p>在order-service的application.yml中添加配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">default:</span> <span class="comment"># default全局的配置</span></span><br><span class="line">        <span class="attr">loggerLevel:</span> <span class="string">BASIC</span> <span class="comment"># 日志级别，BASIC就是基本的请求和响应信息，更低级别的是NONE</span></span><br><span class="line">  <span class="attr">httpclient:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启feign对HttpClient的支持</span></span><br><span class="line">    <span class="attr">max-connections:</span> <span class="number">200</span> <span class="comment"># 最大的连接数</span></span><br><span class="line">    <span class="attr">max-connections-per-route:</span> <span class="number">50</span> <span class="comment"># 每个路径的最大连接数</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3-最佳实践-抽取"><a href="#5-3-最佳实践-抽取" class="headerlink" title="5.3 最佳实践-抽取"></a>5.3 最佳实践-抽取</h2><p>由于项目中的每一个模块都在调用远程服务时，都需要编写Client、POJO，而且这些内容在每个模块中都一模一样，当模块数量增多时，每次都要复制相同的内容到新模块中，不仅麻烦而且浪费。</p>
+<p>因此，可以把这些共同需要的Client、POJO等专门放在一个新模块中，而其他模块只需要导入依赖即可使用</p>
+<h3 id="抽取"><a href="#抽取" class="headerlink" title="抽取"></a>抽取</h3><p>首先创建一个名为<strong>feign-api</strong>的新模块</p>
+<img src="img\33.png" style="zoom:100%;" />
+
+<p>在feign-api中然后引入feign的starter依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，order-service中编写的UserClient、User都复制到feign-api项目中，其他项目中的相同内容可以删除</p>
+<img src="img\34.png" style="zoom:100%;" />
+
+<h3 id="其他模块导入feign-api"><a href="#其他模块导入feign-api" class="headerlink" title="其他模块导入feign-api"></a>其他模块导入feign-api</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.itcast.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>feign-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>修改order-service中的所有与上述三个组件有关的导包部分，改成导入feign-api中的包</p>
+<h3 id="解决包扫描问题"><a href="#解决包扫描问题" class="headerlink" title="解决包扫描问题"></a>解决包扫描问题</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private UserClient userClient;</span><br></pre></td></tr></table></figure>
+
+<p>由于@Autowired只会在扫描启动类所在的包，所以处于另一个包中的UserClient无法被扫描到并创建对象存入IOC容器，所以会报错找不到UserClient。以下是两种解决方法，在启动类上配置Feign需要的包或接口。方式一火力覆盖、方式二精准打击。</p>
+<p>方式一：</p>
+<p>指定Feign应该扫描的包：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableFeignClients(basePackages = &quot;cn.itcast.feign.clients&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>方式二：</p>
+<p>指定需要加载的Client接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableFeignClients(clients = &#123;UserClient.class&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="6-Gateway网关"><a href="#6-Gateway网关" class="headerlink" title="6.Gateway网关"></a>6.Gateway网关</h1><h2 id="6-1-搭建网关"><a href="#6-1-搭建网关" class="headerlink" title="6.1 搭建网关"></a>6.1 搭建网关</h2><h3 id="6-1-1-新建网关模块"><a href="#6-1-1-新建网关模块" class="headerlink" title="6.1.1 新建网关模块"></a>6.1.1 新建网关模块</h3><img src="img\35.png" style="zoom:100%;" />
+
+<h3 id="6-1-2-导入依赖，编写启动类"><a href="#6-1-2-导入依赖，编写启动类" class="headerlink" title="6.1.2 导入依赖，编写启动类"></a>6.1.2 导入依赖，编写启动类</h3><p>引入网关和nacos服务发现依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--网关--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--nacos服务发现依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GatewayApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		SpringApplication.run(GatewayApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-3-配置文件"><a href="#6-1-3-配置文件" class="headerlink" title="6.1.3 配置文件"></a>6.1.3 配置文件</h3><p>创建application.yml文件，内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10010</span> <span class="comment"># 网关端口</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">gateway</span> <span class="comment"># 服务名称</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment"># nacos地址</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span> <span class="comment"># 网关路由配置</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span> <span class="comment"># 路由id，自定义，只要唯一即可</span></span><br><span class="line">          <span class="comment"># uri: http://127.0.0.1:8081 # 路由的目标地址 http就是固定地址</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://userservice</span> <span class="comment"># 路由的目标地址 lb就是负载均衡，后面跟服务名称</span></span><br><span class="line">          <span class="attr">predicates:</span> <span class="comment"># 路由断言，也就是判断请求是否符合路由规则的条件</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/**</span> <span class="comment"># 这个是按照路径匹配，只要以/user/开头就符合要求</span></span><br></pre></td></tr></table></figure>
+
+<p>我们将符合<code>Path</code> 规则的一切请求，都代理到 <code>uri</code>参数指定的地址。</p>
+<p>本例中，我们将 <code>/user/**</code>开头的请求，代理到<code>lb://userservice</code>，lb是负载均衡，根据服务名拉取服务列表，实现负载均衡。</p>
+<h3 id="6-1-4-测试"><a href="#6-1-4-测试" class="headerlink" title="6.1.4 测试"></a>6.1.4 测试</h3><p>访问10010端口，成功访问到了服务</p>
+<img src="img\36.png" style="zoom:100%;" />
+
+<h2 id="6-2-过滤器工厂"><a href="#6-2-过滤器工厂" class="headerlink" title="6.2 过滤器工厂"></a>6.2 过滤器工厂</h2><h3 id="6-2-1-路由过滤器的种类"><a href="#6-2-1-路由过滤器的种类" class="headerlink" title="6.2.1.路由过滤器的种类"></a>6.2.1.路由过滤器的种类</h3><p>Spring提供了31种不同的路由过滤器工厂。例如：</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AddRequestHeader</td>
+<td>给当前请求添加一个请求头</td>
+</tr>
+<tr>
+<td>RemoveRequestHeader</td>
+<td>移除请求中的一个请求头</td>
+</tr>
+<tr>
+<td>AddResponseHeader</td>
+<td>给响应结果中添加一个响应头</td>
+</tr>
+<tr>
+<td>RemoveResponseHeader</td>
+<td>从响应结果中移除有一个响应头</td>
+</tr>
+<tr>
+<td>RequestRateLimiter</td>
+<td>限制请求的流量</td>
+</tr>
+</tbody></table>
+<p>更多过滤器参考官网文档：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/3.1.8/reference/html/#gatewayfilter-factories">Spring Cloud Gateway</a></p>
+<h3 id="6-2-2-添加过滤器"><a href="#6-2-2-添加过滤器" class="headerlink" title="6.2.2  添加过滤器"></a>6.2.2  添加过滤器</h3><p>以AddRequestHeader为例</p>
+<p>只需要修改gateway服务的application.yml文件，添加<strong>路由过滤器</strong>即可：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span> </span><br><span class="line">        <span class="attr">uri:</span> <span class="string">lb://userservice</span> </span><br><span class="line">        <span class="attr">predicates:</span> </span><br><span class="line">        <span class="bullet">-</span> <span class="string">Path=/user/**</span> </span><br><span class="line">        <span class="attr">filters:</span> <span class="comment"># 过滤器</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">AddRequestHeader=Message,This</span> <span class="string">is</span> <span class="string">a</span> <span class="string">message!</span> <span class="comment"># 添加请求头</span></span><br></pre></td></tr></table></figure>
+
+<p>当前过滤器写在userservice路由下，因此<strong>仅仅对访问userservice</strong>的请求有效。如果需要对所有微服务都起作用，可以用<strong>默认过滤器default-filters</strong>，使用方式如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span> </span><br><span class="line">        <span class="attr">uri:</span> <span class="string">lb://userservice</span> </span><br><span class="line">        <span class="attr">predicates:</span> </span><br><span class="line">        <span class="bullet">-</span> <span class="string">Path=/user/**</span></span><br><span class="line">      <span class="attr">default-filters:</span> <span class="comment"># 默认过滤项</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">AddRequestHeader=Message,This</span> <span class="string">is</span> <span class="string">a</span> <span class="string">message!</span></span><br></pre></td></tr></table></figure>
+
+<p>这样配置好之后，就可以在接口处调用这个参数测试一下能否拿到 Message:</p>
+<p>可以看到使用@RequestHeader成功拿到了Message</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/message&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">testFilter</span><span class="params">(<span class="meta">@RequestHeader(&quot;Message&quot;)</span> String message)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="img\37.png" style="zoom:100%;" />
+
+<h3 id="6-2-3-全局过滤器"><a href="#6-2-3-全局过滤器" class="headerlink" title="6.2.3 全局过滤器"></a>6.2.3 全局过滤器</h3><p><strong>GatewayFilter</strong>，网关提供了31种，但每一种过滤器的作用都是固定的。如果我们希望拦截请求，做<strong>自己的业务逻辑</strong>则没办法实现。</p>
+<p><strong>GlobalFilter</strong>与<strong>GatewayFilter</strong>的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而<strong>GlobalFilter的逻辑需要自己写代码实现</strong>。</p>
+<h4 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h4><p>假如需要拦截请求并判断用户身份，放行条件为请求中带有参数authorization，值为admin</p>
+<p>实现：</p>
+<p>在gateway中定义一个类，实现GlobalFilter接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> exchange 请求上下文，里面可以获取Request、Response等信息</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> chain 用来把请求委托给下一个过滤器 </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> Mono&lt;Void&gt;&#125; 返回标示当前过滤器业务结束</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Order(-1)</span> <span class="comment">//过滤器优先级，越小优先级越高</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthorizeFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="comment">// 1.获取请求参数</span></span><br><span class="line">        MultiValueMap&lt;String, String&gt; params = exchange.getRequest().getQueryParams();</span><br><span class="line">        <span class="comment">// 2.获取authorization参数</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">auth</span> <span class="operator">=</span> params.getFirst(<span class="string">&quot;authorization&quot;</span>);</span><br><span class="line">        <span class="comment">// 3.校验</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;admin&quot;</span>.equals(auth)) &#123;</span><br><span class="line">            <span class="comment">// 放行，把请求委托给下一个过滤器</span></span><br><span class="line">            <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 4.拦截</span></span><br><span class="line">        <span class="comment">// 4.1.禁止访问，设置状态码</span></span><br><span class="line">        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);</span><br><span class="line">        <span class="comment">// 4.2.结束处理</span></span><br><span class="line">        <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="img\38.png" style="zoom:100%;" />
+
+<p>可以看到传递了authorization=admin才能访问</p>
+<h2 id="6-3-解决跨域问题"><a href="#6-3-解决跨域问题" class="headerlink" title="6.3 解决跨域问题"></a>6.3 解决跨域问题</h2><p>在gateway服务的application.yml文件中，添加下面的配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="comment"># 。。。</span></span><br><span class="line">      <span class="attr">globalcors:</span> <span class="comment"># 全局的跨域处理</span></span><br><span class="line">        <span class="attr">add-to-simple-url-handler-mapping:</span> <span class="literal">true</span> <span class="comment"># 解决options请求被拦截问题</span></span><br><span class="line">        <span class="attr">corsConfigurations:</span></span><br><span class="line">          <span class="string">&#x27;[/**]&#x27;</span><span class="string">:</span></span><br><span class="line">            <span class="attr">allowedOrigins:</span> <span class="comment"># 允许哪些网站的跨域请求 </span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">&quot;http://localhost:8090&quot;</span></span><br><span class="line">            <span class="attr">allowedMethods:</span> <span class="comment"># 允许的跨域ajax的请求方式</span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">&quot;GET&quot;</span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">&quot;POST&quot;</span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">&quot;DELETE&quot;</span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">&quot;PUT&quot;</span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">&quot;OPTIONS&quot;</span></span><br><span class="line">            <span class="attr">allowedHeaders:</span> <span class="string">&quot;*&quot;</span> <span class="comment"># 允许在请求中携带的头信息</span></span><br><span class="line">            <span class="attr">allowCredentials:</span> <span class="literal">true</span> <span class="comment"># 是否允许携带cookie</span></span><br><span class="line">            <span class="attr">maxAge:</span> <span class="number">360000</span> <span class="comment"># 这次跨域检测的有效期</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/11/05/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">苍穹外卖</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=SpringCloud - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F11%2F11%2Fspringcloud%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=SpringCloud - Z Blog&u=http%3A%2F%2Fexample.com%2F2023%2F11%2F11%2Fspringcloud%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=SpringCloud - Z Blog&url=http://example.com/2023/11/11/springcloud/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/11/springcloud/">SpringCloud</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/05/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/">苍穹外卖</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/04/easyExcel/">EasyExcel</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/31/websocket/">WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/30/springTask/">SpringTask</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
