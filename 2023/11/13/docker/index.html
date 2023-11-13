@@ -202,7 +202,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils \</span><br><span class="line">           device-mapper-persistent-data \</span><br><span class="line">           lvm2 --skip-broken</span><br></pre></td></tr></table></figure>
 
 <p>然后更新本地镜像源：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置docker镜像源</span></span><br><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">    </span><br><span class="line">sed -i &#x27;s/download.docker.com/mirrors.aliyun.com\/docker-ce/g&#x27; /etc/yum.repos.d/docker-ce.repo</span><br><span class="line"></span><br><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置docker镜像源</span></span><br><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">    </span><br><span class="line">sed -i &#x27;s/download.docker.com/mirrors.aliyun.com\/docker-ce/g&#x27; \</span><br><span class="line">	/etc/yum.repos.d/docker-ce.repo</span><br><span class="line"></span><br><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
 
 <p>然后输入命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce</span><br></pre></td></tr></table></figure>
@@ -374,11 +374,11 @@
 <li>mysql：一个基于<code>mysql:5.7.25</code>镜像构建的容器，并且挂载了两个目录</li>
 <li>web：一个基于<code>docker build</code>临时构建的镜像容器，映射端口时8090</li>
 </ul>
-<h2 id="4-2-安装DockerCompose"><a href="#4-2-安装DockerCompose" class="headerlink" title="4.2.安装DockerCompose"></a>4.2.安装DockerCompose</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`<span class="built_in">uname</span> -s`-`<span class="built_in">uname</span> -m` &gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-安装DockerCompose"><a href="#4-2-安装DockerCompose" class="headerlink" title="4.2.安装DockerCompose"></a>4.2.安装DockerCompose</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">curl \</span><br><span class="line">-L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`<span class="built_in">uname</span> -s`-`<span class="built_in">uname</span> -m` \</span><br><span class="line">&gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
 
 <h3 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
 
-<h3 id="Base自动补全命令"><a href="#Base自动补全命令" class="headerlink" title="Base自动补全命令"></a>Base自动补全命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 补全命令</span></span><br><span class="line">curl -L https://raw.githubusercontent.com/docker/compose/1.29.1/contrib/completion/bash/docker-compose &gt; /etc/bash_completion.d/docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="Base自动补全命令"><a href="#Base自动补全命令" class="headerlink" title="Base自动补全命令"></a>Base自动补全命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 补全命令</span></span><br><span class="line">curl \</span><br><span class="line">-L https://raw.githubusercontent.com/docker/compose/1.29.1/contrib/completion/bash/docker-compose \</span><br><span class="line">&gt; /etc/bash_completion.d/docker-compose</span><br></pre></td></tr></table></figure>
 
 <p>如果这里出现错误，需要修改自己的hosts文件：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;199.232.68.133 raw.githubusercontent.com&quot;</span> &gt;&gt; /etc/hosts</span><br></pre></td></tr></table></figure>
@@ -431,7 +431,7 @@
   
   
     <a href="/2023/11/11/springcloud/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-caption">precedente</div>
       <div class="article-nav-title">SpringCloud</div>
     </a>
   
@@ -439,7 +439,7 @@
 
 
     <section class="share">
-        <div class="share-title">分享</div>
+        <div class="share-title">share</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=Docker - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F11%2F13%2Fdocker%2F">
             <ion-icon name="logo-twitter"></ion-icon>
