@@ -233,7 +233,7 @@
 
 <p>如第一个接口，当请求删除id为3的用户时，redis中相对应的<code>userCache::3</code>也会被删除</p>
 <p>第二个接口中，使用参数<code>allEntries=true</code>，那么当调用该接口时，所有的<code>userCache</code>都会被删除</p>
-<h2 id="5-后续报错解决"><a href="#5-后续报错解决" class="headerlink" title="5.后续报错解决"></a>5.后续报错解决</h2><h3 id="对象无法序列化"><a href="#对象无法序列化" class="headerlink" title="对象无法序列化"></a>对象无法序列化</h3><p>在新项目中发现，当使用Redis作为缓存时，执行以下方法会报错：</p>
+<h2 id="5-后续问题解决"><a href="#5-后续问题解决" class="headerlink" title="5.后续问题解决"></a>5.后续问题解决</h2><h3 id="报错：对象无法序列化"><a href="#报错：对象无法序列化" class="headerlink" title="报错：对象无法序列化"></a>报错：对象无法序列化</h3><p>在新项目中发现，当使用Redis作为缓存时，执行以下方法会报错：</p>
 <blockquote>
 <p>2023-11-30 10:25:08.043 ERROR 14556 — [nio-8081-exec-1] com.hmdp.config.WebExceptionAdvice       : org.springframework.data.redis.serializer.SerializationException: Cannot serialize; nested exception is org.springframework.core.serializer.support.SerializationFailedException: Failed to serialize object using DefaultSerializer; nested exception is java.lang.IllegalArgumentException: DefaultSerializer requires a Serializable payload but received an object of type [com.hmdp.dto.Result]</p>
 </blockquote>
@@ -243,6 +243,13 @@
 <p>查看Result类，发现是由于没有实现序列化的接口</p>
 <p>只要添加上 <strong><code>implements Serializable</code></strong> 即可解决这个问题</p>
 <img src="img\10.png" style="zoom:100%;" />
+
+<h3 id="查看存储对象为乱码"><a href="#查看存储对象为乱码" class="headerlink" title="查看存储对象为乱码"></a>查看存储对象为乱码</h3><p>当存储一个自定义的对象时，进入redis查看，发现他的数据保存格式是Hex，导致内容不可见。</p>
+<img src="img\11.png" style="zoom:100%;" />
+
+<p>这个问题可以通过在配置类中添加以下配置解决：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;rawtypes&quot;)</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> CacheManager <span class="title function_">cacheManager</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">    RedisSerializer&lt;String&gt; redisSerializer = <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">    <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> </span><br><span class="line">        <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解决查询缓存转换异常的问题</span></span><br><span class="line">    <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">    om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">    om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">    jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置序列化（解决乱码的问题）</span></span><br><span class="line">        <span class="type">RedisCacheConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> RedisCacheConfiguration</span><br><span class="line">                .defaultCacheConfig()</span><br><span class="line">                .serializeKeysWith(RedisSerializationContext</span><br><span class="line">                        .SerializationPair</span><br><span class="line">                        .fromSerializer(redisSerializer))</span><br><span class="line">                .serializeValuesWith(RedisSerializationContext</span><br><span class="line">                        .SerializationPair</span><br><span class="line">                        .fromSerializer(jackson2JsonRedisSerializer))</span><br><span class="line">                .disableCachingNullValues();</span><br><span class="line"></span><br><span class="line">        <span class="type">RedisCacheManager</span> <span class="variable">cacheManager</span> <span class="operator">=</span> RedisCacheManager.builder(factory)</span><br><span class="line">                .cacheDefaults(config)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> cacheManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -262,7 +269,7 @@
 <nav class="article-nav">
   
     <a href="/2023/10/27/jsapi%E6%94%AF%E4%BB%98/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">prossimo</div>
+      <div class="article-nav-caption">次の記事</div>
       <div class="article-nav-title">
         
           微信支付
@@ -272,7 +279,7 @@
   
   
     <a href="/2023/10/18/wxlogin/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">precedente</div>
+      <div class="article-nav-caption">前の記事</div>
       <div class="article-nav-title">微信登录</div>
     </a>
   
@@ -280,7 +287,7 @@
 
 
     <section class="share">
-        <div class="share-title">share</div>
+        <div class="share-title">シェア</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=Spring Cache - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F23%2FSpringCache%2F">
             <ion-icon name="logo-twitter"></ion-icon>
