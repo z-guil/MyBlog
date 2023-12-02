@@ -233,7 +233,33 @@
 
 <p>如第一个接口，当请求删除id为3的用户时，redis中相对应的<code>userCache::3</code>也会被删除</p>
 <p>第二个接口中，使用参数<code>allEntries=true</code>，那么当调用该接口时，所有的<code>userCache</code>都会被删除</p>
-<h2 id="5-后续问题解决"><a href="#5-后续问题解决" class="headerlink" title="5.后续问题解决"></a>5.后续问题解决</h2><h3 id="报错：对象无法序列化"><a href="#报错：对象无法序列化" class="headerlink" title="报错：对象无法序列化"></a>报错：对象无法序列化</h3><p>在新项目中发现，当使用Redis作为缓存时，执行以下方法会报错：</p>
+<h2 id="5-常用配置项"><a href="#5-常用配置项" class="headerlink" title="5.常用配置项"></a>5.常用配置项</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cache:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">redis</span> <span class="comment">#指定使用redis</span></span><br><span class="line">    <span class="attr">redis:</span></span><br><span class="line">      <span class="attr">time-to-live:</span> <span class="number">3600000</span> <span class="comment">#单位ms,3600000是一小时</span></span><br><span class="line">      <span class="attr">cache-null-values:</span> <span class="literal">true</span> <span class="comment">#是否缓存空值，缓存空值可以解决缓存穿透问题</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-概念补充"><a href="#6-概念补充" class="headerlink" title="6.概念补充"></a>6.概念补充</h2><h3 id="6-1缓存穿透"><a href="#6-1缓存穿透" class="headerlink" title="6.1缓存穿透"></a>6.1缓存穿透</h3><p>缓存穿透简单来说是一种<strong>恶意攻击</strong>，当客户端通过访问接口，故意大量地去查询一个不存在的数据时，会经过以下步骤：</p>
+<p>​    ①访问缓存，发现没有该数据</p>
+<p>​    ②访问数据库进行查询，查询不到数据，自然也不会缓存数据</p>
+<p>由于这种不存在的数据没有缓存，所以<strong>每一次访问接口都会去数据库查询，当客户端恶意地多次访问该接口就会对数据库造成压力</strong></p>
+<img src="img\12.png" style="zoom:100%;" />
+
+<p><strong>解决方案</strong>：</p>
+<p><strong>①缓存空值：springcache中默认会实现这种方式</strong></p>
+<p><strong>②使用布隆过滤器</strong></p>
+<p>….</p>
+<h3 id="6-2缓存击穿"><a href="#6-2缓存击穿" class="headerlink" title="6.2缓存击穿"></a>6.2缓存击穿</h3><p>而且缓存击穿是一个<strong>热点的Key</strong>，有大并发集中对其进行访问，突然间这个Key<strong>失效</strong>了，导致大并发全部打在数据库上，导致数据库压力剧增。这种现象就叫做缓存击穿。</p>
+<p><strong>解决方案</strong>：</p>
+<p><strong>①如果业务允许的话，对于热点的key可以设置永不过期的key。</strong></p>
+<p><strong>②使用互斥锁。</strong>如果缓存失效的情况，只有拿到锁才可以查询数据库，降低了在同一时刻打在数据库上的请求。当然这样会导致系统的性能变差。<strong>在SpringCache中的实现方法为 加一个属性“sync=true”,如下</strong></p>
+<blockquote>
+<p>@Cacheable(cacheNames = “shop”,key = “#id”,sync = true)</p>
+</blockquote>
+<p>区别：<strong>缓存穿透</strong>是请求<strong>缓存和数据库都没有的数据</strong>，而<strong>缓存击穿</strong>是请求<strong>缓存中没有，而数据库中有的数据</strong>。</p>
+<h3 id="6-3缓存雪崩"><a href="#6-3缓存雪崩" class="headerlink" title="6.3缓存雪崩"></a>6.3缓存雪崩</h3><p>缓存雪崩是，当某一个时刻出现大规模的缓存失效的情况，那么就会导致大量的请求直接打在数据库上面，导致数据库压力巨大，如果在高并发的情况下，可能瞬间就会导致数据库宕机。这时候如果运维马上又重启数据库，马上又会有新的流量把数据库打死。</p>
+<p><strong>解决方案</strong>：</p>
+<p><strong>①在设置key的时候，使用随机的TTL，避免大量key同时失效。</strong></p>
+<p><strong>②可以搭建Redis集群，提高Redis的容灾性</strong></p>
+<p><strong>③给业务添加多级缓存</strong></p>
+<p>…</p>
+<h2 id="7-后续问题解决"><a href="#7-后续问题解决" class="headerlink" title="7.后续问题解决"></a>7.后续问题解决</h2><h3 id="报错：对象无法序列化"><a href="#报错：对象无法序列化" class="headerlink" title="报错：对象无法序列化"></a>报错：对象无法序列化</h3><p>在新项目中发现，当使用Redis作为缓存时，执行以下方法会报错：</p>
 <blockquote>
 <p>2023-11-30 10:25:08.043 ERROR 14556 — [nio-8081-exec-1] com.hmdp.config.WebExceptionAdvice       : org.springframework.data.redis.serializer.SerializationException: Cannot serialize; nested exception is org.springframework.core.serializer.support.SerializationFailedException: Failed to serialize object using DefaultSerializer; nested exception is java.lang.IllegalArgumentException: DefaultSerializer requires a Serializable payload but received an object of type [com.hmdp.dto.Result]</p>
 </blockquote>
@@ -247,10 +273,14 @@
 <h3 id="查看存储对象为乱码"><a href="#查看存储对象为乱码" class="headerlink" title="查看存储对象为乱码"></a>查看存储对象为乱码</h3><p>当存储一个自定义的对象时，进入redis查看，发现他的数据保存格式是Hex，导致内容不可见。</p>
 <img src="img\11.png" style="zoom:100%;" />
 
-<p>这个问题可以通过在配置类中添加以下配置解决：</p>
+<p>这个问题可以通过在配置类中添加以下配置解决，<strong>将value存入时的JDK序列化改为json格式</strong>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;rawtypes&quot;)</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> CacheManager <span class="title function_">cacheManager</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">    RedisSerializer&lt;String&gt; redisSerializer = <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">    <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> </span><br><span class="line">        <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解决查询缓存转换异常的问题</span></span><br><span class="line">    <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">    om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">    om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">    jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置序列化（解决乱码的问题）</span></span><br><span class="line">        <span class="type">RedisCacheConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> RedisCacheConfiguration</span><br><span class="line">                .defaultCacheConfig()</span><br><span class="line">                .serializeKeysWith(RedisSerializationContext</span><br><span class="line">                        .SerializationPair</span><br><span class="line">                        .fromSerializer(redisSerializer))</span><br><span class="line">                .serializeValuesWith(RedisSerializationContext</span><br><span class="line">                        .SerializationPair</span><br><span class="line">                        .fromSerializer(jackson2JsonRedisSerializer))</span><br><span class="line">                .disableCachingNullValues();</span><br><span class="line"></span><br><span class="line">        <span class="type">RedisCacheManager</span> <span class="variable">cacheManager</span> <span class="operator">=</span> RedisCacheManager.builder(factory)</span><br><span class="line">                .cacheDefaults(config)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> cacheManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="time-to-live不生效"><a href="#time-to-live不生效" class="headerlink" title="time-to-live不生效"></a>time-to-live不生效</h3><p>可能是由于在部分Springboot的版本中不支持通过配置文件设置Redis缓存的TTL。</p>
+<p>可以通过代码的形式配置，类似上面的 “查看存储对象为乱码” 中的配置，直接在上面代码中添加即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings(&quot;rawtypes&quot;)</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> CacheManager <span class="title function_">cacheManager</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">    RedisSerializer&lt;String&gt; redisSerializer = <span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>();</span><br><span class="line">    <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jackson2JsonRedisSerializer</span> <span class="operator">=</span> <span class="keyword">new</span> </span><br><span class="line">        <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解决查询缓存转换异常的问题</span></span><br><span class="line">    <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">    om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">    om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">    jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置序列化（解决乱码的问题）</span></span><br><span class="line">        <span class="type">RedisCacheConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> RedisCacheConfiguration</span><br><span class="line">                .defaultCacheConfig()</span><br><span class="line">                .serializeKeysWith(RedisSerializationContext</span><br><span class="line">                        .SerializationPair</span><br><span class="line">                        .fromSerializer(redisSerializer))</span><br><span class="line">                .serializeValuesWith(RedisSerializationContext</span><br><span class="line">                        .SerializationPair</span><br><span class="line">                        .fromSerializer(jackson2JsonRedisSerializer))</span><br><span class="line">                .disableCachingNullValues()</span><br><span class="line">            	<span class="comment">//只需要在这里添加一句</span></span><br><span class="line">            	<span class="comment">//下面这一句是设置ttl为1个小时</span></span><br><span class="line">            	.entryTtl(Duration.ofHours(<span class="number">1L</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">RedisCacheManager</span> <span class="variable">cacheManager</span> <span class="operator">=</span> RedisCacheManager.builder(factory)</span><br><span class="line">                .cacheDefaults(config)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> cacheManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
         </div>
 
     </div>
@@ -269,7 +299,7 @@
 <nav class="article-nav">
   
     <a href="/2023/10/27/jsapi%E6%94%AF%E4%BB%98/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">次の記事</div>
+      <div class="article-nav-caption">prossimo</div>
       <div class="article-nav-title">
         
           微信支付
@@ -279,7 +309,7 @@
   
   
     <a href="/2023/10/18/wxlogin/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-caption">precedente</div>
       <div class="article-nav-title">微信登录</div>
     </a>
   
@@ -287,7 +317,7 @@
 
 
     <section class="share">
-        <div class="share-title">シェア</div>
+        <div class="share-title">share</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=Spring Cache - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F10%2F23%2FSpringCache%2F">
             <ion-icon name="logo-twitter"></ion-icon>
