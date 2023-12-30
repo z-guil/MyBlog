@@ -365,6 +365,10 @@
 <p>浏览器打开访问该项目的<code>/hello/count</code>，可以看到项目已经正常运行，可以正常访问了</p>
 <img src="img\10.png" style="zoom:100%;" />
 
+<h2 id="案例2"><a href="#案例2" class="headerlink" title="案例2"></a>案例2</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> maven:<span class="number">3.8</span>.<span class="number">1</span>-jdk-<span class="number">8</span>-slim as builder</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> pom.xml .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> src ./src</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> mvn package -DskipTests</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/app/target/sql-father-backend-0.0.1-SNAPSHOT.jar&quot;</span>,<span class="string">&quot;--spring.profiles.active=prod&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="4-DockerCompose"><a href="#4-DockerCompose" class="headerlink" title="4.DockerCompose"></a>4.DockerCompose</h1><h2 id="4-1-认识DockerCompose"><a href="#4-1-认识DockerCompose" class="headerlink" title="4.1.认识DockerCompose"></a>4.1.认识DockerCompose</h2><p>其实DockerCompose文件可以看做是将多个docker run命令写到一个文件，通过<code>docker-compose up -d</code>一键启动，只是语法稍有差异</p>
 <p>Compose文件是一个文本文件，通过指令定义集群中的每个容器如何运行。格式如下：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version<span class="punctuation">:</span> <span class="string">&quot;3.8&quot;</span></span><br><span class="line"> services<span class="punctuation">:</span></span><br><span class="line">  mysql<span class="punctuation">:</span></span><br><span class="line">    image<span class="punctuation">:</span> mysql<span class="punctuation">:</span><span class="number">5.7</span><span class="number">.25</span></span><br><span class="line">    environment<span class="punctuation">:</span></span><br><span class="line">     MYSQL_ROOT_PASSWORD<span class="punctuation">:</span> <span class="number">123</span> </span><br><span class="line">    volumes<span class="punctuation">:</span></span><br><span class="line">     - <span class="string">&quot;/tmp/mysql/data:/var/lib/mysql&quot;</span></span><br><span class="line">     - <span class="string">&quot;/tmp/mysql/conf/hmy.cnf:/etc/mysql/conf.d/hmy.cnf&quot;</span></span><br><span class="line">  web<span class="punctuation">:</span></span><br><span class="line">    build<span class="punctuation">:</span> .</span><br><span class="line">    ports<span class="punctuation">:</span></span><br><span class="line">     - <span class="string">&quot;8090:8090&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -430,7 +434,7 @@
 <nav class="article-nav">
   
     <a href="/2023/11/18/mq/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">次の記事</div>
+      <div class="article-nav-caption">prossimo</div>
       <div class="article-nav-title">
         
           RabbitMQ
@@ -440,7 +444,7 @@
   
   
     <a href="/2023/11/11/springcloud/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-caption">precedente</div>
       <div class="article-nav-title">SpringCloud</div>
     </a>
   
@@ -448,7 +452,7 @@
 
 
     <section class="share">
-        <div class="share-title">シェア</div>
+        <div class="share-title">share</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=Docker - Z Blog&url=http%3A%2F%2Fexample.com%2F2023%2F11%2F13%2Fdocker%2F">
             <ion-icon name="logo-twitter"></ion-icon>
