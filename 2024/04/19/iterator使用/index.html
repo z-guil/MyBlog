@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>for、foreach、iterator小坑 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;在使用for、foreach和iterator时，三者存在一些区别，当我们在遍历中对遍历对象进行修改时，会出现问题。&lt;/p&gt;
+&lt;p&gt;在开发中要避免在遍历中队遍历对象进行修改，如果需要，应该&lt;strong&gt;使用iterator安全地对对象进行删除操作&lt;/strong&gt;&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "for、foreach、iterator小坑 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;在使用for、foreach和iterator时，三者存在一些区别，当我们在遍历中对遍历对象进行修改时，会出现问题。&lt;/p&gt;
+&lt;p&gt;在开发中要避免在遍历中队遍历对象进行修改，如果需要，应该&lt;strong&gt;使用iterator安全地对对象进行删除操作&lt;/strong&gt;&lt;/p&gt;" />
+    <meta property="og:url" content="http://example.com/2024/04/19/iterator%E4%BD%BF%E7%94%A8/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;在使用for、foreach和iterator时，三者存在一些区别，当我们在遍历中对遍历对象进行修改时，会出现问题。&lt;/p&gt;
+&lt;p&gt;在开发中要避免在遍历中队遍历对象进行修改，如果需要，应该&lt;strong&gt;使用iterator安全地对对象进行删除操作&lt;/strong&gt;&lt;/p&gt;" />
+    <meta name="twitter:title" content="for、foreach、iterator小坑 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;在使用for、foreach和iterator时，三者存在一些区别，当我们在遍历中对遍历对象进行修改时，会出现问题。&lt;/p&gt;
+&lt;p&gt;在开发中要避免在遍历中队遍历对象进行修改，如果需要，应该&lt;strong&gt;使用iterator安全地对对象进行删除操作&lt;/strong&gt;&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;在使用for、foreach和iterator时，三者存在一些区别，当我们在遍历中对遍历对象进行修改时，会出现问题。&lt;/p&gt;
+&lt;p&gt;在开发中要避免在遍历中队遍历对象进行修改，如果需要，应该&lt;strong&gt;使用iterator安全地对对象进行删除操作&lt;/strong&gt;&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2024/04/19/iterator%E4%BD%BF%E7%94%A8/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "for、foreach、iterator小坑 | Z Blog",
+            "datePublished": "2024-04-19T02:24:28.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2024/04/19/iterator%E4%BD%BF%E7%94%A8/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">首页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">首页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clv63cf5l0000s8ujb9db81lr" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      for、foreach、iterator小坑
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2024-04-19T02:24:28.000Z" itemprop="datePublished">2024-04-19</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>在使用for、foreach和iterator时，三者存在一些区别，当我们在遍历中对遍历对象进行修改时，会出现问题。</p>
+<p>在开发中要避免在遍历中队遍历对象进行修改，如果需要，应该<strong>使用iterator安全地对对象进行删除操作</strong></p>
+<span id="more"></span>
+
+<h1 id="1-三者对比"><a href="#1-三者对比" class="headerlink" title="1. 三者对比"></a>1. 三者对比</h1><h2 id="1-1-for"><a href="#1-1-for" class="headerlink" title="1.1.for"></a>1.1.for</h2><p>当我们使用for循环对list进行遍历时，如果途中删除了某个元素，那么会导致遍历次数减少</p>
+<p>比如下面本应遍历1~5，但由于在2时，list.size减少了1，所以在遍历到4时便结束了，5没有被遍历到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        list.add(<span class="number">1</span>);</span><br><span class="line">        list.add(<span class="number">2</span>);</span><br><span class="line">        list.add(<span class="number">3</span>);</span><br><span class="line">        list.add(<span class="number">4</span>);</span><br><span class="line">        list.add(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>;i&lt;list.size();i++)&#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">if</span>(list.get(i)==<span class="number">2</span>)&#123;</span><br><span class="line">                list.remove(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;循环次数：&quot;</span>+count);</span><br><span class="line">        <span class="comment">//遍历次数为 4</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-foreach"><a href="#1-2-foreach" class="headerlink" title="1.2.foreach"></a>1.2.foreach</h2><p>foreach底层实际是利用了iterator来完成的，所以当我们在遍历时修改了遍历的list，就会抛出<strong>ConcurrentModificationException异常</strong>。</p>
+<p>这是因为在迭代器遍历执行<code>next()</code>方法时会验证<strong>modCount</strong>和<strong>expectedModCount</strong>是否相同</p>
+<p>当我们调用<code>list.remove()</code>时，<strong>modeCount</strong>会+1，而<strong>expectedModCount</strong>不变，这就导致了报错。</p>
+<p>所以当我们需要移除时，应该使用迭代器中的<code>iterator.remove()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        list.add(<span class="number">1</span>);</span><br><span class="line">        list.add(<span class="number">2</span>);</span><br><span class="line">        list.add(<span class="number">3</span>);</span><br><span class="line">        list.add(<span class="number">4</span>);</span><br><span class="line">        list.add(<span class="number">5</span>);</span><br><span class="line">        <span class="comment">//foreach遍历</span></span><br><span class="line">        <span class="keyword">for</span>(Integer i:list)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">2</span>)&#123;</span><br><span class="line">                list.remove(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//报错 ConcurrentModificationException</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-iterator"><a href="#1-3-iterator" class="headerlink" title="1.3.iterator"></a>1.3.iterator</h2><p>使用<code>iterator.remove()</code>移除元素时<strong>modCount</strong>和<strong>expectedModCount</strong>都会+1，这样就可以保证两者相同。</p>
+<p>但<strong>需要注意，在迭代过程中对元素进行修改会导致modCount+1，此时同样会抛出异常！</strong></p>
+<p><strong>所以，如果需要修改元素，可以先删除，在迭代完成后再统一添加</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        list.add(<span class="number">1</span>);</span><br><span class="line">        list.add(<span class="number">2</span>);</span><br><span class="line">        list.add(<span class="number">3</span>);</span><br><span class="line">        list.add(<span class="number">4</span>);</span><br><span class="line">        list.add(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//迭代器遍历</span></span><br><span class="line">        Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">        <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">next</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">            <span class="keyword">if</span>(next==<span class="number">2</span>)&#123;</span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//循环次数 5</span></span><br><span class="line">        <span class="comment">//正常执行无报错</span></span><br><span class="line">        System.out.println(<span class="string">&quot;循环次数：&quot;</span>+count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-实际使用"><a href="#2-实际使用" class="headerlink" title="2.实际使用"></a>2.实际使用</h1><p>下面是一段在开发过程中对一个jsonObject处理的操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//清理空格 -- 为了清理掉key中多余的空格,转为JsonObject再转回json字符串,</span></span><br><span class="line"><span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> JSONObject.parseObject(genChart);</span><br><span class="line"></span><br><span class="line"><span class="comment">//由于需要改变key，所以需要用迭代器来完成安全的遍历，使用iterator.remove来安全地移除key</span></span><br><span class="line"><span class="comment">//迭代器</span></span><br><span class="line">Iterator&lt;String&gt; iterator = jsonObject.keySet().iterator();</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是在迭代遍历中修改key，会抛出ConcurrentModificationException异常</span></span><br><span class="line"><span class="comment">//所以需要暂存需要替换的key和value,在迭代遍历结束后，再统一修改。</span></span><br><span class="line"><span class="type">HashMap</span> <span class="variable">replaceMap</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历</span></span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">    <span class="type">String</span> <span class="variable">newKey</span> <span class="operator">=</span> key.trim();</span><br><span class="line">    <span class="keyword">if</span> (!newKey.equals(key)) &#123;</span><br><span class="line">        <span class="comment">//如果key有修改，将新key暂存在replaceMap里</span></span><br><span class="line">        replaceMap.put(newKey,jsonObject.get(key));</span><br><span class="line">        <span class="comment">//删除旧的key</span></span><br><span class="line">        iterator.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除老key后，将新的key和value添加到jsonObject中</span></span><br><span class="line">jsonObject.putAll(replaceMap);</span><br><span class="line"><span class="comment">//转回json字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">newGenChart</span> <span class="operator">=</span> JSON.toJSONString(jsonObject);</span><br><span class="line"><span class="comment">//返回结果</span></span><br><span class="line">result.put(<span class="string">&quot;genChart&quot;</span>,newGenChart);</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2024/04/18/aop%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">使用AOP切面实现日志记录功能</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=for、foreach、iterator小坑 - Z Blog&url=http%3A%2F%2Fexample.com%2F2024%2F04%2F19%2Fiterator%25E4%25BD%25BF%25E7%2594%25A8%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=for、foreach、iterator小坑 - Z Blog&u=http%3A%2F%2Fexample.com%2F2024%2F04%2F19%2Fiterator%25E4%25BD%25BF%25E7%2594%25A8%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=for、foreach、iterator小坑 - Z Blog&url=http://example.com/2024/04/19/iterator%E4%BD%BF%E7%94%A8/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/19/iterator%E4%BD%BF%E7%94%A8/">for、foreach、iterator小坑</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/aop%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/">使用AOP切面实现日志记录功能</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/minio/">MinIO对象存储服务</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/27/%E5%89%8D%E7%AB%AF%E6%8E%A5%E5%8F%A3%E7%94%9F%E6%88%90%E5%88%A9%E5%99%A8OpenApi/">前端接口生成利器--OpenApi</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/26/%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">项目部署踩坑记录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
