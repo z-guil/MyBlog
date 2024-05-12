@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Redisson实现分布式限流 | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;通过使用Redisson的&lt;strong&gt;RRateLimiter&lt;/strong&gt;实现对接口的访问限流，这种限流方式属于业务端限流，更加方便，更加灵活，可根据不同的业务进行调整。&lt;/p&gt;
+&lt;p&gt;Redisson的限流是基于&lt;strong&gt;令牌桶算法&lt;/strong&gt;实现的，除了能够起到限流的作用外，还允许一定程度的流量突发。&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Redisson实现分布式限流 | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;通过使用Redisson的&lt;strong&gt;RRateLimiter&lt;/strong&gt;实现对接口的访问限流，这种限流方式属于业务端限流，更加方便，更加灵活，可根据不同的业务进行调整。&lt;/p&gt;
+&lt;p&gt;Redisson的限流是基于&lt;strong&gt;令牌桶算法&lt;/strong&gt;实现的，除了能够起到限流的作用外，还允许一定程度的流量突发。&lt;/p&gt;" />
+    <meta property="og:url" content="https://z-guil.github.io/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;通过使用Redisson的&lt;strong&gt;RRateLimiter&lt;/strong&gt;实现对接口的访问限流，这种限流方式属于业务端限流，更加方便，更加灵活，可根据不同的业务进行调整。&lt;/p&gt;
+&lt;p&gt;Redisson的限流是基于&lt;strong&gt;令牌桶算法&lt;/strong&gt;实现的，除了能够起到限流的作用外，还允许一定程度的流量突发。&lt;/p&gt;" />
+    <meta name="twitter:title" content="Redisson实现分布式限流 | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;通过使用Redisson的&lt;strong&gt;RRateLimiter&lt;/strong&gt;实现对接口的访问限流，这种限流方式属于业务端限流，更加方便，更加灵活，可根据不同的业务进行调整。&lt;/p&gt;
+&lt;p&gt;Redisson的限流是基于&lt;strong&gt;令牌桶算法&lt;/strong&gt;实现的，除了能够起到限流的作用外，还允许一定程度的流量突发。&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;通过使用Redisson的&lt;strong&gt;RRateLimiter&lt;/strong&gt;实现对接口的访问限流，这种限流方式属于业务端限流，更加方便，更加灵活，可根据不同的业务进行调整。&lt;/p&gt;
+&lt;p&gt;Redisson的限流是基于&lt;strong&gt;令牌桶算法&lt;/strong&gt;实现的，除了能够起到限流的作用外，还允许一定程度的流量突发。&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "https://z-guil.github.io/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://z-guil.github.io/MyBlog/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "Redisson实现分布式限流 | Z Blog",
+            "datePublished": "2024-05-12T11:44:28.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://z-guil.github.io/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/MyBlog/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/MyBlog/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/MyBlog/">首页</a>
+                
+                <a href="/MyBlog/archives">归档</a>
+                
+                <a href="/MyBlog/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/MyBlog/">首页</a>
+                    
+                    <a href="/MyBlog/archives">归档</a>
+                    
+                    <a href="/MyBlog/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clw3gvhzo000068uj2r0y5xk1" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Redisson实现分布式限流
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2024-05-12T11:44:28.000Z" itemprop="datePublished">2024-05-12</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>通过使用Redisson的<strong>RRateLimiter</strong>实现对接口的访问限流，这种限流方式属于业务端限流，更加方便，更加灵活，可根据不同的业务进行调整。</p>
+<p>Redisson的限流是基于<strong>令牌桶算法</strong>实现的，除了能够起到限流的作用外，还允许一定程度的流量突发。</p>
+<span id="more"></span>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="1-导入依赖"><a href="#1-导入依赖" class="headerlink" title="1.导入依赖"></a>1.导入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.redisson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>redisson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.17.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-配置Redisson"><a href="#2-配置Redisson" class="headerlink" title="2.配置Redisson"></a>2.配置Redisson</h2><p><strong>RedissonConfig.class</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> org.redisson.Redisson;</span><br><span class="line"><span class="keyword">import</span> org.redisson.api.RedissonClient;</span><br><span class="line"><span class="keyword">import</span> org.redisson.config.Config;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Redisson配置类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;spring.redis&quot;)</span><span class="comment">//引用application配置文件</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonConfig</span> &#123;</span><br><span class="line">    <span class="comment">//来自配置文件</span></span><br><span class="line">    <span class="keyword">private</span> String host;</span><br><span class="line">    <span class="keyword">private</span> Integer port;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> Integer database;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 1. 创建配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">redisAddress</span> <span class="operator">=</span> <span class="string">&quot;redis://&quot;</span>+host+<span class="string">&quot;:&quot;</span>+port;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//config.useClusterServers() //userClusterServers()是集群模式</span></span><br><span class="line">        config.useSingleServer()</span><br><span class="line">                .setAddress(redisAddress)</span><br><span class="line">                .setPassword(password)</span><br><span class="line">                .setDatabase(database);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 创建实例</span></span><br><span class="line">        <span class="type">RedissonClient</span> <span class="variable">redisson</span> <span class="operator">=</span> Redisson.create(config);</span><br><span class="line">        <span class="keyword">return</span> redisson;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-测试Redisson"><a href="#3-测试Redisson" class="headerlink" title="3.测试Redisson"></a>3.测试Redisson</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisTestClass</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedisson</span><span class="params">()</span> &#123;</span><br><span class="line">        RList&lt;Object&gt; list = redissonClient.getList(<span class="string">&quot;test-list&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;abcd&quot;</span>);</span><br><span class="line">        list.add(<span class="string">&quot;甲乙丙丁&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;rlist:&quot;</span>+list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-封装RedisLimiterManager"><a href="#4-封装RedisLimiterManager" class="headerlink" title="4.封装RedisLimiterManager"></a>4.封装RedisLimiterManager</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.redisson.api.RRateLimiter;</span><br><span class="line"><span class="keyword">import</span> org.redisson.api.RateIntervalUnit;</span><br><span class="line"><span class="keyword">import</span> org.redisson.api.RateType;</span><br><span class="line"><span class="keyword">import</span> org.redisson.api.RedissonClient;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisLimiterManager</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    RedissonClient redissonClient;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据key进行限流</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * key可以是用户id，或者接口名称等，根据需求来自定义</span></span><br><span class="line"><span class="comment">     * 比如：</span></span><br><span class="line"><span class="comment">     * 1. 用户id，限制用户每秒访问多少次接口</span></span><br><span class="line"><span class="comment">     * 2. 用户id+接口名称，限制用户每秒访问某个接口的次数</span></span><br><span class="line"><span class="comment">     * 3. 接口名称，限制接口每秒最多被访问多少次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doRateLimit</span><span class="params">(String key)</span>&#123;</span><br><span class="line">        <span class="comment">// 根据key创建限流器</span></span><br><span class="line">        <span class="type">RRateLimiter</span> <span class="variable">rateLimiter</span> <span class="operator">=</span> redissonClient.getRateLimiter(key);</span><br><span class="line">        <span class="comment">// 设置限流器每秒放多少个请求</span></span><br><span class="line">        <span class="comment">// 这里是允许1s内最多请求10次</span></span><br><span class="line">        <span class="comment">// 参数：</span></span><br><span class="line">        <span class="comment">// 1.在集群情况下</span></span><br><span class="line">        <span class="comment">// RateType.OVERALL表示限流器是针对整个系统生效</span></span><br><span class="line">        <span class="comment">// RateType.PER_CLIENT表示限流器是针对每个客户端生效</span></span><br><span class="line">        <span class="comment">// 2.令牌桶容量</span></span><br><span class="line">        <span class="comment">// 3.生成令牌间隔时间</span></span><br><span class="line">        <span class="comment">// 4.生成令牌时间单位</span></span><br><span class="line">        rateLimiter.trySetRate(RateType.OVERALL, <span class="number">3</span>, <span class="number">1</span>, RateIntervalUnit.SECONDS);</span><br><span class="line">        <span class="comment">// 尝试获取一个令牌，如果获取失败，则抛出异常</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> rateLimiter.tryAcquire(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (!flag)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;请求过于频繁&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-使用"><a href="#5-使用" class="headerlink" title="5.使用"></a>5.使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.me.bibackend.manager.RedisLimiterManager;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.redisson.api.RList;</span><br><span class="line"><span class="keyword">import</span> org.redisson.api.RedissonClient;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisTestClass</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    RedisLimiterManager redisLimiterManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testLimiter</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">                redisLimiterManager.doRateLimit(<span class="string">&quot;userId+InterfaceName&quot;</span>);</span><br><span class="line">                <span class="comment">//模拟访问接口</span></span><br><span class="line">                System.out.println(<span class="string">&quot;成功访问接口&quot;</span>);</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//1s后再次访问</span></span><br><span class="line">        Thread.sleep(<span class="number">1100</span>);</span><br><span class="line">        redisLimiterManager.doRateLimit(<span class="string">&quot;userId+InterfaceName&quot;</span>);</span><br><span class="line">        <span class="comment">//模拟访问接口</span></span><br><span class="line">        System.out.println(<span class="string">&quot;成功访问接口&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>可以看到目前的设定是<strong>1秒内对于同一个用户访问某接口只允许访问3次</strong></p>
+<p>在第一秒内的5次请求只有前3次成功，而1秒后又重新可以成功访问</p>
+<img src="img/1.jpg" style="zoom:65%;" />
+
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/MyBlog/2024/04/22/StreamAPI%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">StreamAPI用法</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Redisson实现分布式限流 - Z Blog&url=https%3A%2F%2Fz-guil.github.io%2FMyBlog%2F2024%2F05%2F12%2Fredisson%25E9%2599%2590%25E6%25B5%2581%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Redisson实现分布式限流 - Z Blog&u=https%3A%2F%2Fz-guil.github.io%2FMyBlog%2F2024%2F05%2F12%2Fredisson%25E9%2599%2590%25E6%25B5%2581%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Redisson实现分布式限流 - Z Blog&url=https://z-guil.github.io/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/">Redisson实现分布式限流</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/22/StreamAPI%E7%94%A8%E6%B3%95/">StreamAPI用法</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/19/iterator%E4%BD%BF%E7%94%A8/">for、foreach、iterator小坑</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/18/aop%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/">使用AOP切面实现日志记录功能</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/06/minio/">MinIO对象存储服务</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/MyBlog/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/MyBlog/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/MyBlog/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/MyBlog/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
