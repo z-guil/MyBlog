@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>分布式事务解决方案-Seata | Z Blog</title>
+
+    <meta name="description" content="&lt;p&gt;使用阿里的分布式事务框架&lt;strong&gt;Seata&lt;/strong&gt;来解决分布式事务&lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "分布式事务解决方案-Seata | Z Blog"  />
+    <meta property="og:description" content= "&lt;p&gt;使用阿里的分布式事务框架&lt;strong&gt;Seata&lt;/strong&gt;来解决分布式事务&lt;/p&gt;" />
+    <meta property="og:url" content="https://z-guil.github.io/MyBlog/2024/05/20/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;使用阿里的分布式事务框架&lt;strong&gt;Seata&lt;/strong&gt;来解决分布式事务&lt;/p&gt;" />
+    <meta name="twitter:title" content="分布式事务解决方案-Seata | Z Blog"/>
+    <meta name="twitter:description" content="&lt;p&gt;使用阿里的分布式事务框架&lt;strong&gt;Seata&lt;/strong&gt;来解决分布式事务&lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;使用阿里的分布式事务框架&lt;strong&gt;Seata&lt;/strong&gt;来解决分布式事务&lt;/p&gt;",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "https://z-guil.github.io/MyBlog/2024/05/20/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://z-guil.github.io/MyBlog/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "分布式事务解决方案-Seata | Z Blog",
+            "datePublished": "2024-05-20T02:28:28.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://z-guil.github.io/MyBlog/2024/05/20/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/MyBlog/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/MyBlog/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">Z Blog</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/MyBlog/">首页</a>
+                
+                <a href="/MyBlog/archives">归档</a>
+                
+                <a href="/MyBlog/myself">个人页</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/MyBlog/">首页</a>
+                    
+                    <a href="/MyBlog/archives">归档</a>
+                    
+                    <a href="/MyBlog/myself">个人页</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clwr7oer20000ugujfk1jbzpa" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      分布式事务解决方案-Seata
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2024-05-20T02:28:28.000Z" itemprop="datePublished">2024-05-20</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>使用阿里的分布式事务框架<strong>Seata</strong>来解决分布式事务</p>
+<span id="more"></span>
+
+<h1 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h1><h2 id="1-Seata安装和部署"><a href="#1-Seata安装和部署" class="headerlink" title="1.Seata安装和部署"></a>1.Seata安装和部署</h2><h3 id="1-1下载"><a href="#1-1下载" class="headerlink" title="1.1下载"></a>1.1下载</h3><p>在官网下载压缩包：<a target="_blank" rel="noopener" href="https://seata.apache.org/zh-cn/unversioned/download/seata-server">Seata-Server下载 | Apache Seata</a></p>
+<p>这里因为我跟着教程，所以使用1.4.2</p>
+<h3 id="1-2修改配置"><a href="#1-2修改配置" class="headerlink" title="1.2修改配置"></a>1.2修改配置</h3><p>修改conf下的<code>refistry.conf</code>配置文件</p>
+<img src="img\1.png" style="zoom:100%;" />
+
+<p>改为：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">registry</span> <span class="string">&#123;</span></span><br><span class="line"><span class="comment">  # tc服务的注册中心类，这里选择nacos，也可以是eureka、zookeeper等</span></span><br><span class="line">  <span class="attr">type</span> = <span class="string">&quot;nacos&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">nacos</span> <span class="string">&#123;</span></span><br><span class="line"><span class="comment">    # seata tc 服务注册到 nacos的服务名称，可以自定义</span></span><br><span class="line">    <span class="attr">application</span> = <span class="string">&quot;seata-tc-server&quot;</span></span><br><span class="line">    <span class="attr">serverAddr</span> = <span class="string">&quot;127.0.0.1:8848&quot;</span></span><br><span class="line">    <span class="attr">group</span> = <span class="string">&quot;DEFAULT_GROUP&quot;</span></span><br><span class="line">    <span class="attr">namespace</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">cluster</span> = <span class="string">&quot;SH&quot;</span></span><br><span class="line">    <span class="attr">username</span> = <span class="string">&quot;nacos&quot;</span></span><br><span class="line">    <span class="attr">password</span> = <span class="string">&quot;nacos&quot;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">config</span> <span class="string">&#123;</span></span><br><span class="line"><span class="comment">  # 读取tc服务端的配置文件的方式，这里是从nacos配置中心读取，这样如果tc是集群，可以共享配置</span></span><br><span class="line">  <span class="attr">type</span> = <span class="string">&quot;nacos&quot;</span></span><br><span class="line"><span class="comment">  # 配置nacos地址等信息</span></span><br><span class="line">  <span class="attr">nacos</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="attr">serverAddr</span> = <span class="string">&quot;127.0.0.1:8848&quot;</span></span><br><span class="line">    <span class="attr">namespace</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">group</span> = <span class="string">&quot;SEATA_GROUP&quot;</span></span><br><span class="line">    <span class="attr">username</span> = <span class="string">&quot;nacos&quot;</span></span><br><span class="line">    <span class="attr">password</span> = <span class="string">&quot;nacos&quot;</span></span><br><span class="line">    <span class="attr">dataId</span> = <span class="string">&quot;seataServer.properties&quot;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3在nacos中添加配置"><a href="#1-3在nacos中添加配置" class="headerlink" title="1.3在nacos中添加配置"></a>1.3在nacos中添加配置</h3><p>特别注意，为了让tc服务的集群可以共享配置，我们选择了nacos作为统一配置中心。因此服务端配置文件seataServer.properties文件需要在nacos中配好。</p>
+<p>格式如下：</p>
+<img src="img\2.png" style="zoom:100%;" />
+
+<p>内容：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据存储方式，db代表数据库</span></span><br><span class="line"><span class="comment"># 数据库配置需要根据自己的数据库修改，在url中可能需要设置连接的时区等配置，否则seata启动后会报错</span></span><br><span class="line"><span class="attr">store.mode</span>=<span class="string">db</span></span><br><span class="line"><span class="attr">store.db.datasource</span>=<span class="string">druid</span></span><br><span class="line"><span class="attr">store.db.dbType</span>=<span class="string">mysql</span></span><br><span class="line"><span class="attr">store.db.driverClassName</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">store.db.url</span>=<span class="string">jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true</span></span><br><span class="line"><span class="attr">&amp;rewriteBatchedStatements</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">&amp;characterEncoding</span>=<span class="string">utf-8</span></span><br><span class="line"><span class="attr">&amp;zeroDateTimeBehavior</span>=<span class="string">convertToNull&amp;serverTimezone=Asia/Shanghai</span></span><br><span class="line"><span class="attr">store.db.user</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">store.db.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="attr">store.db.minConn</span>=<span class="string">5</span></span><br><span class="line"><span class="attr">store.db.maxConn</span>=<span class="string">30</span></span><br><span class="line"><span class="attr">store.db.globalTable</span>=<span class="string">global_table</span></span><br><span class="line"><span class="attr">store.db.branchTable</span>=<span class="string">branch_table</span></span><br><span class="line"><span class="attr">store.db.queryLimit</span>=<span class="string">100</span></span><br><span class="line"><span class="attr">store.db.lockTable</span>=<span class="string">lock_table</span></span><br><span class="line"><span class="attr">store.db.maxWait</span>=<span class="string">5000</span></span><br><span class="line"><span class="comment"># 事务、日志等配置</span></span><br><span class="line"><span class="attr">server.recovery.committingRetryPeriod</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">server.recovery.asynCommittingRetryPeriod</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">server.recovery.rollbackingRetryPeriod</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">server.recovery.timeoutRetryPeriod</span>=<span class="string">1000</span></span><br><span class="line"><span class="attr">server.maxCommitRetryTimeout</span>=<span class="string">-1</span></span><br><span class="line"><span class="attr">server.maxRollbackRetryTimeout</span>=<span class="string">-1</span></span><br><span class="line"><span class="attr">server.rollbackRetryTimeoutUnlockEnable</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">server.undo.logSaveDays</span>=<span class="string">7</span></span><br><span class="line"><span class="attr">server.undo.logDeletePeriod</span>=<span class="string">86400000</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 客户端与服务端传输方式</span></span><br><span class="line"><span class="attr">transport.serialization</span>=<span class="string">seata</span></span><br><span class="line"><span class="attr">transport.compressor</span>=<span class="string">none</span></span><br><span class="line"><span class="comment"># 关闭metrics功能，提高性能</span></span><br><span class="line"><span class="attr">metrics.enabled</span>=<span class="string">false</span></span><br><span class="line"><span class="attr">metrics.registryType</span>=<span class="string">compact</span></span><br><span class="line"><span class="attr">metrics.exporterList</span>=<span class="string">prometheus</span></span><br><span class="line"><span class="attr">metrics.exporterPrometheusPort</span>=<span class="string">9898</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4创建数据库表"><a href="#1-4创建数据库表" class="headerlink" title="1.4创建数据库表"></a>1.4创建数据库表</h3><p>首先需要<strong>创建一个数据库</strong>来作为seata的数据库，数据库名要和配置中url设置的一样，我这里是叫seata</p>
+<p>然后需要在这个数据库中<strong>创建seata所需要的表</strong>，这些表主要记录全局事务、分支事务、全局锁信息：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> Navicat Premium Data Transfer</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> Source Server         : local</span></span><br><span class="line"><span class="comment"> Source Server Type    : MySQL</span></span><br><span class="line"><span class="comment"> Source Server Version : 50622</span></span><br><span class="line"><span class="comment"> Source Host           : localhost:3306</span></span><br><span class="line"><span class="comment"> Source Schema         : seata_demo</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> Target Server Type    : MySQL</span></span><br><span class="line"><span class="comment"> Target Server Version : 50622</span></span><br><span class="line"><span class="comment"> File Encoding         : 65001</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> Date: 20/06/2021 12:38:37</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> NAMES utf8mb4;</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for branch_table</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `branch_table`;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `branch_table`  (</span><br><span class="line">  `branch_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `xid` <span class="type">varchar</span>(<span class="number">128</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `transaction_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `resource_group_id` <span class="type">varchar</span>(<span class="number">32</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `resource_id` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `branch_type` <span class="type">varchar</span>(<span class="number">8</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `status` tinyint(<span class="number">4</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `client_id` <span class="type">varchar</span>(<span class="number">64</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `application_data` <span class="type">varchar</span>(<span class="number">2000</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `gmt_create` datetime(<span class="number">6</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `gmt_modified` datetime(<span class="number">6</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`branch_id`) <span class="keyword">USING</span> BTREE,</span><br><span class="line">  INDEX `idx_xid`(`xid`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> Compact;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Records of branch_table</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for global_table</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `global_table`;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `global_table`  (</span><br><span class="line">  `xid` <span class="type">varchar</span>(<span class="number">128</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `transaction_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `status` tinyint(<span class="number">4</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `application_id` <span class="type">varchar</span>(<span class="number">32</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `transaction_service_group` <span class="type">varchar</span>(<span class="number">32</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `transaction_name` <span class="type">varchar</span>(<span class="number">128</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `timeout` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `begin_time` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `application_data` <span class="type">varchar</span>(<span class="number">2000</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `gmt_create` datetime <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `gmt_modified` datetime <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`xid`) <span class="keyword">USING</span> BTREE,</span><br><span class="line">  INDEX `idx_gmt_modified_status`(`gmt_modified`, `status`) <span class="keyword">USING</span> BTREE,</span><br><span class="line">  INDEX `idx_transaction_id`(`transaction_id`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> Compact;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Records of global_table</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Records of lock_table</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5启动TC服务"><a href="#1-5启动TC服务" class="headerlink" title="1.5启动TC服务"></a>1.5启动TC服务</h3><p>进入bin目录，运行其中的seata-server.bat即可：</p>
+<img src="img\3.png" style="zoom:100%;" />
+
+<p>启动成功后，seata-server应该已经注册到nacos注册中心了。</p>
+<p>打开浏览器，访问nacos地址：<a href="http://localhost:8848，然后进入服务列表页面，可以看到seata-tc-server的信息：">http://localhost:8848，然后进入服务列表页面，可以看到seata-tc-server的信息：</a></p>
+<img src="img\4.png" style="zoom:100%;" />
+
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>如果启动后，<strong>控制台无限报错</strong>可能是之前使用seata时事务回滚失败导致的。</p>
+<p>可以<strong>删除bin目录下的sessionStore\root.data</strong>,并<strong>清空数据库的branch_table和global_table</strong></p>
+<h2 id="2-微服务集成seata"><a href="#2-微服务集成seata" class="headerlink" title="2.微服务集成seata"></a>2.微服务集成seata</h2><h3 id="2-1引入依赖"><a href="#2-1引入依赖" class="headerlink" title="2.1引入依赖"></a>2.1引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--seata--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-seata<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2修改配置文件"><a href="#2-2修改配置文件" class="headerlink" title="2.2修改配置文件"></a>2.2修改配置文件</h3><p>对需要使用seata的微服务，需要修改<code>application.yml</code>文件，添加一些配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">seata:</span></span><br><span class="line">  <span class="attr">registry:</span> <span class="comment"># TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址</span></span><br><span class="line">    <span class="comment"># 参考tc服务自己的registry.conf中的配置</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">nacos:</span> <span class="comment"># tc</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">namespace:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">group:</span> <span class="string">DEFAULT_GROUP</span></span><br><span class="line">      <span class="attr">application:</span> <span class="string">seata-tc-server</span> <span class="comment"># tc服务在nacos中的服务名称</span></span><br><span class="line">      <span class="attr">cluster:</span> <span class="string">SH</span></span><br><span class="line">  <span class="attr">tx-service-group:</span> <span class="string">seata-demo</span> <span class="comment"># 事务组，根据这个获取tc服务的cluster名称</span></span><br><span class="line">  <span class="attr">service:</span></span><br><span class="line">    <span class="attr">vgroup-mapping:</span> <span class="comment"># 事务组与TC服务cluster的映射关系</span></span><br><span class="line">      <span class="attr">seata-demo:</span> <span class="string">SH</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3启动微服务"><a href="#2-3启动微服务" class="headerlink" title="2.3启动微服务"></a>2.3启动微服务</h3><p>启动后nacos可以看到，服务已经正常启动了</p>
+<img src="img\5.png" style="zoom:100%;" />
+
+<p>查看seata控制台，每一个微服务都完成了注册RM、TM，那么就是正常集成了seata</p>
+<img src="img\6.png" style="zoom:100%;" />
+
+<h2 id="3-XA模式"><a href="#3-XA模式" class="headerlink" title="3.XA模式"></a>3.XA模式</h2><h3 id="3-1基本架构"><a href="#3-1基本架构" class="headerlink" title="3.1基本架构"></a>3.1基本架构</h3><p>如图：</p>
+<img src="img\9.png" style="zoom:100%;" />
+
+<p>RM一阶段的工作：</p>
+<p>​    ① 注册分支事务到TC</p>
+<p>​    ② 执行分支业务sql但不提交</p>
+<p>​    ③ 报告执行状态到TC</p>
+<p>TC二阶段的工作：</p>
+<ul>
+<li><p>TC检测各分支事务执行状态</p>
+<p>a.如果都成功，通知所有RM提交事务</p>
+<p>b.如果有失败，通知所有RM回滚事务</p>
+</li>
+</ul>
+<p>RM二阶段的工作：</p>
+<ul>
+<li>接收TC指令，提交或回滚事务</li>
+</ul>
+<h3 id="3-2优缺点"><a href="#3-2优缺点" class="headerlink" title="3.2优缺点"></a>3.2优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>事务的强一致性，满足ACID原则。</li>
+<li>常用数据库都支持，实现简单，并且没有代码侵入</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>因为一阶段需要锁定数据库资源，等待二阶段结束才释放，性能较差</li>
+<li>依赖关系型数据库实现事务</li>
+</ul>
+<h3 id="3-3使用"><a href="#3-3使用" class="headerlink" title="3.3使用"></a>3.3使用</h3><p>Seata的starter已经完成了XA模式的自动装配，实现非常简单，步骤如下：</p>
+<p>1）修改<code>application.yml</code>文件（每个参与事务的微服务），开启XA模式：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">seata:</span></span><br><span class="line">  <span class="attr">data-source-proxy-mode:</span> <span class="string">XA</span></span><br></pre></td></tr></table></figure>
+
+<p>2）给发起全局事务的入口方法添加**<code>@GlobalTransactional</code>**注解:</p>
+<p>本例中是OrderServiceImpl中的create方法.</p>
+<img src="img\7.png" style="zoom:100%;" />
+
+<p>3）重启服务并测试</p>
+<p>在没有开启全局事务前，如果库存不足，会导致余额减少但库存不变，也就是无法正常回滚</p>
+<p>重启order-service，再次测试，发现无论怎样，三个微服务都能成功回滚。</p>
+<img src="img\8.png" style="zoom:100%;" />
+
+<h2 id="4-AT模式"><a href="#4-AT模式" class="headerlink" title="4.AT模式"></a>4.AT模式</h2><h3 id="4-1基本架构"><a href="#4-1基本架构" class="headerlink" title="4.1基本架构"></a>4.1基本架构</h3><p>基本流程图：</p>
+<img src="img\10.png" style="zoom:100%;" />
+
+<p>阶段一RM的工作：</p>
+<ul>
+<li>注册分支事务</li>
+<li>记录undo-log（数据快照）</li>
+<li>执行业务sql并提交</li>
+<li>报告事务状态</li>
+</ul>
+<p>阶段二提交时RM的工作：</p>
+<ul>
+<li>删除undo-log即可</li>
+</ul>
+<p>阶段二回滚时RM的工作：</p>
+<ul>
+<li>根据undo-log恢复数据到更新前</li>
+</ul>
+<h3 id="4-2AT与XA的区别"><a href="#4-2AT与XA的区别" class="headerlink" title="4.2AT与XA的区别"></a>4.2AT与XA的区别</h3><p>简述AT模式与XA模式最大的区别是什么？</p>
+<ul>
+<li>XA模式一阶段不提交事务，锁定资源；AT模式一阶段直接提交，不锁定资源。</li>
+<li>XA模式依赖数据库机制实现回滚；AT模式利用数据快照实现数据回滚。</li>
+<li>XA模式强一致；AT模式最终一致</li>
+</ul>
+<h3 id="4-3优缺点"><a href="#4-3优缺点" class="headerlink" title="4.3优缺点"></a>4.3优缺点</h3><h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><ul>
+<li>一阶段完成直接提交事务，释放数据库资源，性能比较好</li>
+<li>利用全局锁实现读写隔离</li>
+<li>没有代码侵入，框架自动完成回滚和提交</li>
+</ul>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><ul>
+<li>两阶段之间属于软状态，属于最终一致</li>
+<li>框架的快照功能会影响性能，但比XA模式要好很多</li>
+<li></li>
+</ul>
+<h3 id="4-4使用"><a href="#4-4使用" class="headerlink" title="4.4使用"></a>4.4使用</h3><p>AT模式中的快照生成、回滚等动作都是由框架自动完成，没有任何代码侵入，因此实现非常简单。</p>
+<p>只不过，AT模式<strong>需要一个表来记录全局锁</strong>、<strong>另一张表来记录数据快照undo_log</strong>。</p>
+<p>1）导入数据库表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> NAMES utf8mb4;</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- undo_log 需要导入到微服务的数据库中</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `undo_log`;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `undo_log`  (</span><br><span class="line">  `branch_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;branch transaction id&#x27;</span>,</span><br><span class="line">  `xid` <span class="type">varchar</span>(<span class="number">100</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;global transaction id&#x27;</span>,</span><br><span class="line">  `context` <span class="type">varchar</span>(<span class="number">128</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;undo_log context,such as serialization&#x27;</span>,</span><br><span class="line">  `rollback_info` longblob <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;rollback info&#x27;</span>,</span><br><span class="line">  `log_status` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;0:normal status,1:defense status&#x27;</span>,</span><br><span class="line">  `log_created` datetime(<span class="number">6</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;create datetime&#x27;</span>,</span><br><span class="line">  `log_modified` datetime(<span class="number">6</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;modify datetime&#x27;</span>,</span><br><span class="line">  <span class="keyword">UNIQUE</span> INDEX `ux_undo_log`(`xid`, `branch_id`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci COMMENT <span class="operator">=</span> <span class="string">&#x27;AT transaction mode undo table&#x27;</span> ROW_FORMAT <span class="operator">=</span> Compact;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Records of undo_log</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- 全局锁 需要导入到seata数据库中</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `lock_table`;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `lock_table`  (</span><br><span class="line">  `row_key` <span class="type">varchar</span>(<span class="number">128</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `xid` <span class="type">varchar</span>(<span class="number">96</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `transaction_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `branch_id` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `resource_id` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `table_name` <span class="type">varchar</span>(<span class="number">32</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `pk` <span class="type">varchar</span>(<span class="number">36</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `gmt_create` datetime <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `gmt_modified` datetime <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`row_key`) <span class="keyword">USING</span> BTREE,</span><br><span class="line">  INDEX `idx_branch_id`(`branch_id`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> Compact;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2）修改application.yml文件，将事务模式修改为AT模式即可：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">seata:</span></span><br><span class="line">  <span class="attr">data-source-proxy-mode:</span> <span class="string">AT</span> <span class="comment"># 默认就是AT</span></span><br></pre></td></tr></table></figure>
+
+<p>3）重启服务并测试</p>
+<h2 id="5-TCC模式"><a href="#5-TCC模式" class="headerlink" title="5.TCC模式"></a>5.TCC模式</h2><h3 id="5-1基本架构"><a href="#5-1基本架构" class="headerlink" title="5.1基本架构"></a>5.1基本架构</h3><p>Seata中的TCC模型依然延续之前的事务架构，如图：</p>
+<img src="img\11.png" style="zoom:100%;" />
+
+
+
+<h3 id="5-2优缺点"><a href="#5-2优缺点" class="headerlink" title="5.2优缺点"></a>5.2优缺点</h3><p>TCC模式的每个阶段是做什么的？</p>
+<ul>
+<li>Try：资源检查和预留</li>
+<li>Confirm：业务执行和提交</li>
+<li>Cancel：预留资源的释放</li>
+</ul>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>一阶段完成直接提交事务，释放数据库资源，性能好</li>
+<li>相比AT模型，无需生成快照，无需使用全局锁，性能最强</li>
+<li>不依赖数据库事务，而是依赖补偿操作，可以用于非事务型数据库</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>有代码侵入，需要人为编写try、Confirm和Cancel接口，太麻烦</li>
+<li>软状态，事务是最终一致</li>
+<li>需要考虑Confirm和Cancel的失败情况，做好幂等处理</li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-title">Redisson实现分布式限流</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">シェア</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=分布式事务解决方案-Seata - Z Blog&url=https%3A%2F%2Fz-guil.github.io%2FMyBlog%2F2024%2F05%2F20%2F%25E5%2588%2586%25E5%25B8%2583%25E5%25BC%258F%25E4%25BA%258B%25E5%258A%25A1%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=分布式事务解决方案-Seata - Z Blog&u=https%3A%2F%2Fz-guil.github.io%2FMyBlog%2F2024%2F05%2F20%2F%25E5%2588%2586%25E5%25B8%2583%25E5%25BC%258F%25E4%25BA%258B%25E5%258A%25A1%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=分布式事务解决方案-Seata - Z Blog&url=https://z-guil.github.io/MyBlog/2024/05/20/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/MyBlog/2024/05/20/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务解决方案-Seata</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/05/12/redisson%E9%99%90%E6%B5%81/">Redisson实现分布式限流</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/22/StreamAPI%E7%94%A8%E6%B3%95/">StreamAPI用法</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/19/iterator%E4%BD%BF%E7%94%A8/">for、foreach、iterator小坑</a>
+          </li>
+        
+          <li>
+            <a href="/MyBlog/2024/04/18/aop%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/">使用AOP切面实现日志记录功能</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/MyBlog/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/MyBlog/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Z Blog &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/MyBlog/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/MyBlog/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
